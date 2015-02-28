@@ -1,0 +1,30 @@
+<html>
+
+	<head>
+		<title>pimpMyProse - register</title>
+	</head>
+	
+	<body>
+		<h1>Register with pimpMyProse</h1>
+		
+		{% if registered %}
+		pimpMyProse says: <strong>Thank you for registering!</strong>
+		<a href="{% url 'prose:index' %}">Return to the homepage.</a><br />
+		
+		{% else %}
+		pimpMyProse says: <strong>Register here!</strong><br />
+		
+		<form id="user_form" method="post" action="{% url 'prose:register' %}">
+			{% csrf_token %}
+			
+			{{ user_form.as_p }}
+			{{ profile_form.as_p }}
+			
+			<input type="submit" name="submit" value="Register" />
+		</form>
+		
+		{% endif %}
+		
+	</body>
+	
+</html>

@@ -1,0 +1,6 @@
+<h1>{{ prose.prose_text }}</h1>
+<ul>
+	{% for pimp in prose.pimp_set.all %}
+		<li>{{ pimp.pimp_text }} | up: {{ pimp.upvotes }} | down: {{ pimp.downvotes }}</li>
+	{% endfor %}
+</ul>
