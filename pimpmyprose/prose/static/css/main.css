@@ -1,0 +1,5 @@
+/* CSS class to center the main column */
+.col-centered {
+	float: none;
+	margin: 0 auto;
+}
