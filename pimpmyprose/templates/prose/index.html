@@ -15,3 +15,18 @@
 {% else %}
 	<p>No prose are available.</p>
 {% endif %}
+
+{% if user.is_authenticated %}
+<!-- Form to post a new Prose -->
+<form id="prose_form" method="post" action="{% url 'prose:index' %}">
+	{% csrf_token %}
+	
+	{{ prose_form.as_p }}
+	
+	<input type="submit" name="submit" value="Prose it" />
+</form>
+
+{% else %}
+Must be logged in to prose!
+
+{% endif %}

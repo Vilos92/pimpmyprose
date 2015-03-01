@@ -4,3 +4,18 @@
 		<li>{{ pimp.pimp_text }} | up: {{ pimp.upvotes }} | down: {{ pimp.downvotes }}</li>
 	{% endfor %}
 </ul>
+
+{% if user.is_authenticated %}
+<!-- Form to post a new Pimp -->
+<form id="pimp_form" method="post" action="{% url 'prose:detail' prose.id %}">
+	{% csrf_token %}
+	
+	{{ pimp_form.as_p }}
+	
+	<input type="submit" name="submit" value="Pimp it" />
+</form>
+
+{% else %}
+Must be logged in to pimp this prose!
+
+{% endif %}

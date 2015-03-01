@@ -1,4 +1,4 @@
-from prose.models import UserProfile
+from prose.models import UserProfile, Prose, Pimp
 from django.contrib.auth.models import User
 from django import forms
 
@@ -14,3 +14,15 @@ class UserProfileForm( forms.ModelForm ):
 	class Meta:
 		model = UserProfile
 		fields = ( 'website', )
+
+# Form for submitting a prose
+class ProseForm( forms.ModelForm ):
+	class Meta:
+		model = Prose
+		fields = ( 'prose_text', )
+
+# Form for submitting a pimp
+class PimpForm( forms.ModelForm ):
+	class Meta:
+		model = Pimp
+		fields = ( 'pimp_text', )

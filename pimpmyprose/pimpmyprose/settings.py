@@ -77,7 +77,7 @@ LANGUAGE_CODE = 'en-us'
 
 LOGIN_URL = '/prose/login/'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'US/Pacific'
 
 USE_I18N = True
 

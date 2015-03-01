@@ -1,0 +1,11 @@
+<h1>{{ userProfile.user.username }}</h1>
+<h1>{{ userProfile.website }}</h1>
+<ul>
+	{% for prose in latest_prose_list %}
+		<li>{{ prose.prose_text }}</li>
+	{% endfor %}
+<ul>
+	{% for pimp in latest_pimp_list %}
+		<li>{{ pimp.pimp_text }} | up: {{ pimp.upvotes }} | down: {{ pimp.downvotes }}</li>
+	{% endfor %}
+</ul>

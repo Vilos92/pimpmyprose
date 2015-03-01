@@ -4,10 +4,12 @@ from django.template import RequestContext
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
+from django.utils import timezone
 
-from prose.models import Prose
-from prose.forms import UserForm, UserProfileForm
+from prose.models import Prose, Pimp, UserProfile
+from prose.forms import UserForm, UserProfileForm, ProseForm, PimpForm
 
 def register(request):
 	context = RequestContext(request)
@@ -28,6 +30,8 @@ def register(request):
 			
 			profile = profile_form.save( commit = False )
 			profile.user = user
+			
+			profile.save()
 			
 			registered = True
 		
@@ -73,13 +77,59 @@ def user_logout(request):
 	return HttpResponseRedirect('/prose/')
 		
 def index(request):
+	context = RequestContext(request)
+	
+	if request.user.is_authenticated() and request.method == 'POST':
+		prose_form = ProseForm( data = request.POST )
+		
+		if prose_form.is_valid():
+			# Save prose data from form into prose
+			prose = prose_form.save( commit = False )
+			prose.user = request.user
+			prose.pub_date = timezone.now()
+			
+			prose.save()
+		
+		else:
+			print prose_form.errors
+		
+	else:
+		prose_form = ProseForm()
+
 	latest_prose_list = Prose.objects.order_by('-pub_date')[:5]
-	context = { 'latest_prose_list' : latest_prose_list }
-	return render( request, 'prose/index.html', context )
+			
+	return render_to_response(
+			'prose/index.html',
+			{ 'prose_form' : prose_form, 'latest_prose_list' : latest_prose_list  },
+			context )
 	
 def detail( request, prose_id ):
+	context = RequestContext(request)
+	
 	prose = get_object_or_404( Prose, pk = prose_id )
-	return render( request, 'prose/detail.html', { 'prose' : prose } )
+	
+	if request.user.is_authenticated() and request.method == 'POST':
+		pimp_form = PimpForm( data = request.POST )
+		
+		if pimp_form.is_valid():
+			# Save prose data from form into prose
+			pimp = pimp_form.save( commit = False )
+			pimp.user = request.user
+			pimp.pub_date = timezone.now()
+			pimp.prose = prose
+			
+			pimp.save()
+		
+		else:
+			print pimp_form.errors
+		
+	else:
+		pimp_form = PimpForm()
+		
+	return render_to_response(
+			'prose/detail.html',
+			{ 'pimp_form' : pimp_form, 'prose' : prose },
+			context )
 	
 def results( request, prose_id ):
 	respose = "You're looking at the results of prose %s."
@@ -88,3 +138,20 @@ def results( request, prose_id ):
 @login_required
 def vote( request, prose_id ):
 	return HttpResponse( "You're voting on prose %s." % prose_id )
+	
+def profile( request, user_id ):
+	context = RequestContext(request)
+
+	user = get_object_or_404( User, pk = user_id )
+	userProfile = user.userProfile
+	
+	# Need to get all proses for user
+	latest_prose_list = Prose.objects.filter( user_id = user_id )[:5]
+	
+	# Need to get all pimps for user
+	latest_pimp_list = Pimp.objects.filter( user_id = user_id )[:5]
+	
+	return render_to_response(
+			'prose/profile.html',
+			{ 'userProfile' : userProfile, 'latest_prose_list' : latest_prose_list, 'latest_pimp_list' : latest_pimp_list },
+			context )

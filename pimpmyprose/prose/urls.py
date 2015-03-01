@@ -24,4 +24,7 @@ urlpatterns = patterns( '',
 	
 	# ex: /prose/logout/
 	url( r'^logout/$', views.user_logout, name = 'logout' ),
+	
+	# ex: /prose/profile/1/
+	url( r'^profile/(?P<user_id>\d+)/$', views.profile, name = 'profile' ),
 )

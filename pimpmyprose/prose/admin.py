@@ -6,6 +6,7 @@ class PimpInline( admin.TabularInline ):
 	extra = 3
 
 class ProseAdmin( admin.ModelAdmin ):
+	exclude = ( 'user', )
 	fieldsets = [
 		( None,					{ 'fields' : ['prose_text'] } ),
 		( 'Date information',	{ 'fields' : ['pub_date'], 'classes' : ['collapse'] } ),
@@ -16,6 +17,7 @@ class ProseAdmin( admin.ModelAdmin ):
 	search_fields = ['prose_text']
 	
 class PimpAdmin( admin.ModelAdmin ):
+	exclude = ( 'user', )
 	fieldsets = [
 		( None, { 'fields' : [ 'prose', 'pimp_text' ] } ),
 		( 'Vote information',	{ 'fields' : [ 'upvotes', 'downvotes' ], 'classes' : ['collapse'] } ),
