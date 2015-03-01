@@ -39,6 +39,14 @@ class Prose( models.Model ):
 	def rankedPimps(self):
 		return sorted( list( self.pimp_set.all() ), key = lambda x : x.score, reverse = True )
 	
+	# Return culmative pimp score for this prose
+	@property
+	def pimpScoreSum(self):
+		totScore = 0
+		for pimp in self.pimp_set.all():
+			totScore += pimp.score
+		return totScore
+	
 class Pimp( models.Model ):
 	user = models.ForeignKey(User)
  	prose = models.ForeignKey(Prose)

@@ -1,18 +1,10 @@
 {% extends "prose/base.html" %}
 {% block content %}
 
-{% if user.is_authenticated %}
-<h1>pimpMyProse says... hello <a href="{% url 'prose:profile' user.id %}">{{ user.username }}</a>!</h1>
-<a href="{% url 'prose:logout' %}">Logout</a>
-{% else %}
-<a href="{% url 'prose:register' %}">Register Here</a>
-<a href="{% url 'prose:login' %}">Login</a>
-{% endif %}
-
 {% if latest_prose_list %}
 	<ul>
 	{% for prose in latest_prose_list %}
-		<li><a href="{% url 'prose:detail' prose.id %}">{{ prose.prose_text }}</a></li>
+		<li><a href="{% url 'prose:detail' prose.id %}">{{ prose.prose_text }}</a> | {{ prose.pimpScoreSum }} | {{ prose.user.username }}</li>
 	{% endfor %}
 	</ul>
 {% else %}
