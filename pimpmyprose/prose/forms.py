@@ -17,12 +17,16 @@ class UserProfileForm( forms.ModelForm ):
 
 # Form for submitting a prose
 class ProseForm( forms.ModelForm ):
+	prose_text = forms.CharField( widget = forms.Textarea )
+
 	class Meta:
 		model = Prose
 		fields = ( 'prose_text', )
 
 # Form for submitting a pimp
 class PimpForm( forms.ModelForm ):
+	pimp_text = forms.CharField( widget = forms.Textarea )
+
 	class Meta:
 		model = Pimp
 		fields = ( 'pimp_text', )

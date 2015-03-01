@@ -22,7 +22,7 @@ class PimpAdmin( admin.ModelAdmin ):
 		( None, { 'fields' : [ 'prose', 'pimp_text' ] } ),
 		( 'Vote information',	{ 'fields' : [ 'upvotes', 'downvotes' ], 'classes' : ['collapse'] } ),
 	]
-	list_display = ( 'pimp_text', 'upvotes', 'downvotes' )
+	list_display = ( 'pimp_text', )
 
 admin.site.register( Prose, ProseAdmin )
 admin.site.register( Pimp, PimpAdmin )

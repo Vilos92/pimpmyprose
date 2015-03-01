@@ -12,6 +12,14 @@ class UserProfile( models.Model ):
 	
 	def __unicode__(self):
 		return self.user.username
+		
+	# Return all of this user's proses
+	def getProses(self):
+		return Prose.objects.filter( user = self.user )
+	
+	# Return all of this user's pimps
+	def getPimps(self):
+		return Pimp.objects.filter( user = self.user )
 
 class Prose( models.Model ):
 	user = models.ForeignKey(User)
@@ -27,13 +35,24 @@ class Prose( models.Model ):
 	was_published_recently.boolean = True
 	was_published_recently.short_description = 'Published recently?'
 	
+	# Return all pimps ranked by their pimp score
+	def rankedPimps(self):
+		return sorted( list( self.pimp_set.all() ), key = lambda x : x.score, reverse = True )
+	
 class Pimp( models.Model ):
 	user = models.ForeignKey(User)
  	prose = models.ForeignKey(Prose)
 	pimp_text = models.CharField( max_length = 250 )
 	pub_date = models.DateTimeField( 'date published' )
-	upvotes = models.IntegerField( default = 0 )
-	downvotes = models.IntegerField ( default = 0 )
+	
+	# Upvotes and Downvotes many to many, must only let user
+	# either upvote or downvote
+	upvotes = models.ManyToManyField( User, null = True, blank = True, related_name = 'upvotedPimps' )
+	downvotes = models.ManyToManyField( User, null  = True, blank = True, related_name = 'downvotedPimps' )
 	
 	def __str__(self):
 		return self.pimp_text
+	
+	@property
+	def score(self):
+		return self.upvotes.count() - self.downvotes.count()

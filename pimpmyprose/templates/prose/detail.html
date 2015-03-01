@@ -1,7 +1,10 @@
+{% extends "prose/base.html" %}
+{% block content %}
+
 <h1>{{ prose.prose_text }}</h1>
 <ul>
-	{% for pimp in prose.pimp_set.all %}
-		<li>{{ pimp.pimp_text }} | up: {{ pimp.upvotes }} | down: {{ pimp.downvotes }}</li>
+	{% for pimp in rankedPimps %}
+		<li>{{ pimp.pimp_text }} | <a href="{% url 'prose:upvote' pimp.id %}">up:</a> {{ pimp.upvotes.count }} | <a href="{% url 'prose:downvote' pimp.id %}">down:</a> {{ pimp.downvotes.count }} | <a href="{% url 'prose:profile' pimp.user.id %}">{{ pimp.user.username }}</a> | SCORE: {{ pimp.score }}</li>
 	{% endfor %}
 </ul>
 
@@ -12,10 +15,12 @@
 	
 	{{ pimp_form.as_p }}
 	
-	<input type="submit" name="submit" value="Pimp it" />
+	<button type="submit" class="btn btn-primary" name="submit">Pimp It!</button>
 </form>
 
 {% else %}
 Must be logged in to pimp this prose!
 
 {% endif %}
+
+{% endblock %}

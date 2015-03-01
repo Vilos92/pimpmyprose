@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = patterns('',
     # Examples:
@@ -9,3 +10,7 @@ urlpatterns = patterns('',
 	url( r'^prose/', include( 'prose.urls', namespace = "prose" ) ),
     url( r'^admin/', include(admin.site.urls) ),
 )
+
+# Include urls for static files. Offline deployment
+# Only works of DEBUG is True
+urlpatterns += staticfiles_urlpatterns()
