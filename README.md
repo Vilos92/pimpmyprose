@@ -9,6 +9,7 @@ Repository for pimpMyProse
 + Added the base template
 
 # To-Do
++ Update admin for models
 + Correct title on each page. Further use templates for redundancies.
 + Ability to edit profile, finish organizing profile page in general
 + Update register.html and login.html to use base.html
