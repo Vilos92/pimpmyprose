@@ -1,15 +1,7 @@
 {% extends "prose/base.html" %}
 {% block content %}
 
-{% if latest_prose_list %}
-	<ul>
-	{% for prose in latest_prose_list %}
-		<li><a href="{% url 'prose:detail' prose.id %}">{{ prose.prose_text }}</a> | {{ prose.pimpScoreSum }} | {{ prose.user.username }}</li>
-	{% endfor %}
-	</ul>
-{% else %}
-	<p>No prose are available.</p>
-{% endif %}
+{% include "prose/latest_prose_list.html" %}
 
 {% if user.is_authenticated %}
 <!-- Form to post a new Prose -->
