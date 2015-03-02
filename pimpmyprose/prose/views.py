@@ -15,6 +15,12 @@ from prose.forms import UserForm, UserProfileForm, ProseForm, PimpForm
 def register(request):
 	context = RequestContext(request)
 	
+	if ( request.user.is_authenticated() ):
+		return render_to_response(
+				'prose/register.html',
+				{},
+				context )
+				
 	registered = False
 	
 	if request.method == 'POST':
@@ -51,12 +57,17 @@ def register(request):
 def user_login(request):
 	context = RequestContext(request)
 	
+	# No need to do anything else if user is already authenticated
+	# Maybe just redirect to index
+	if ( request.user.is_authenticated() ):
+		return render_to_response( 'prose/login.html', {}, context )
+	
 	if request.method == 'POST':
 	
 		username = request.POST['username']
 		password = request.POST['password']
 		
-		user= authenticate( username = username, password = password )
+		user = authenticate( username = username, password = password )
 		
 		if user:
 			if user.is_active:

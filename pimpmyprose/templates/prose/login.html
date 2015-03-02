@@ -1,23 +1,26 @@
-<html>
+{% extends "prose/base.html" %}
+{% block title %}pimpMyProse - Login{% endblock %}
 
-	<head>
-		<title>pimpMyProse - Login</title>
-	</head>
-	
-	<body>
-		<h1>Login to pimpMyProse</h1>
-		
-		<form id="login_form" method="post" action="{% url 'prose:login' %}">
-			{% csrf_token %}
-			Username: <input type="text" name="username" value="" size="50" />
-			<br />
-			Password: <input type="password" name="password" value="" size="50" />
-			<br />
-			
-			<input type="submit" value="submit" />
-		
-		</form>
-	
-	</body>
+{% block content %}
 
-</html>
+<h1>Login to pimpMyProse</h1>
+
+{% if user.is_authenticated %}
+pimpMyProse says: <strong>You are already logged in!</strong>
+<a href="{% url 'prose:index' %}">Return to the homepage.</a><br />
+
+{% else %}
+<form id="login_form" method="post" action="{% url 'prose:login' %}">
+	{% csrf_token %}
+	Username: <input type="text" name="username" value="" size="50" />
+	<br />
+	Password: <input type="password" name="password" value="" size="50" />
+	<br />
+	
+	<button type="submit" class="btn btn-primary" name="submit" />Submit</button>
+
+</form>
+
+{% endif %}
+
+{% endblock %}

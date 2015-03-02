@@ -1,30 +1,30 @@
-<html>
+{% extends "prose/base.html" %}
+{% block title %}pimpMyProse - Register{% endblock %}
 
-	<head>
-		<title>pimpMyProse - register</title>
-	</head>
+{% block content %}
+
+<h1>Register with pimpMyProse</h1>
+
+{% if user.is_authenticated %}
+pimpMyProse says: <strong>You are already registered!</strong>
+<a href="{% url 'prose:index' %}">Return to the homepage.</a><br />
+
+{% elif registered %}
+pimpMyProse says: <strong>Thank you for registering!</strong>
+<a href="{% url 'prose:index' %}">Return to the homepage.</a><br />
+
+{% else %}
+pimpMyProse says: <strong>Register here!</strong><br />
+
+<form id="user_form" method="post" action="{% url 'prose:register' %}">
+	{% csrf_token %}
 	
-	<body>
-		<h1>Register with pimpMyProse</h1>
-		
-		{% if registered %}
-		pimpMyProse says: <strong>Thank you for registering!</strong>
-		<a href="{% url 'prose:index' %}">Return to the homepage.</a><br />
-		
-		{% else %}
-		pimpMyProse says: <strong>Register here!</strong><br />
-		
-		<form id="user_form" method="post" action="{% url 'prose:register' %}">
-			{% csrf_token %}
-			
-			{{ user_form.as_p }}
-			{{ profile_form.as_p }}
-			
-			<input type="submit" name="submit" value="Register" />
-		</form>
-		
-		{% endif %}
-		
-	</body>
+	{{ user_form.as_p }}
+	{{ profile_form.as_p }}
 	
-</html>
+	<button type="submit" class="btn btn-primary" name="submit" />Register</button>
+</form>
+
+{% endif %}
+
+{% endblock %}

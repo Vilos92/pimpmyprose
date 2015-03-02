@@ -1,4 +1,6 @@
 {% extends "prose/base.html" %}
+{% block title %}Profile for {{ userProfile.user.username }}{% endblock %}
+
 {% block content %}
 
 <h1>{{ userProfile.user.username }}</h1>
