@@ -4,6 +4,11 @@
 	margin: 0 auto;
 }
 
+/* CSS Class to add margin to the status text ('You are signed in as .... ') */
+.statusText {
+	margin-right: 3px;
+}
+
 /* Class for the submission text area, it is assigned in forms.py */
 .pimpProseSubmit {
 	width: 100%;
@@ -12,7 +17,6 @@
 }
 
 /* Table CSS for both pimps and proses */
-
 /* Header rows */
 .pimpProseTableHeader {
 	font-size: 0.9em;
@@ -24,20 +28,21 @@
 }
 
 /* Voting Arrows */
-.arrow-up {
+.voteArrow {
 	width: 0;
 	height: 0;
-	border-left: 5px solid transparent;
-	border-right: 5px solid transparent;
+	border-left: 9px solid transparent;
+	border-right: 9px solid transparent;
 	
-	border-bottom: 5px solid black;
+	cursor: pointer;
 }
 
-.arrow-down }	
-	width: 0;
-	height: 0;
-	border-left: 5px solid transparent;
-	border-right: 5px solid transparent;
+.voteArrowUp {
+	border-bottom: 9px solid black;
 	
-	border-bottom: 5px solid black;
+	margin: 0 0 4px 0;
+}
+
+.voteArrowDown {	
+	border-top: 9px solid #286090;
 }
