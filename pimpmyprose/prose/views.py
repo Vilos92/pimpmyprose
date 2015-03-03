@@ -150,7 +150,7 @@ def detail( request, prose_id ):
 		
 	return render_to_response(
 			'prose/detail.html',
-			{ 'pimp_form' : pimp_form, 'prose' : prose, 'rankedPimps' : rankedPimps },
+			{ 'pimp_form' : pimp_form, 'prose' : prose, 'pimp_list' : rankedPimps },
 			context )
 	
 def results( request, prose_id ):
@@ -195,5 +195,5 @@ def profile( request, user_id ):
 	
 	return render_to_response(
 			'prose/profile.html',
-			{ 'userProfile' : userProfile, 'latest_prose_list' : latest_prose_list, 'latest_pimp_list' : latest_pimp_list },
+			{ 'userProfile' : userProfile, 'latest_prose_list' : latest_prose_list, 'pimp_list' : latest_pimp_list },
 			context )

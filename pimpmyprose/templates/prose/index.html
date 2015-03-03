@@ -1,8 +1,6 @@
 {% extends "prose/base.html" %}
 {% block content %}
 
-{% include "prose/latest_prose_list.html" %}
-
 {% if user.is_authenticated %}
 <!-- Form to post a new Prose -->
 <form id="prose_form" method="post" action="{% url 'prose:index' %}">
@@ -17,5 +15,9 @@
 Must be logged in to prose!
 
 {% endif %}
+
+<br>
+
+{% include "prose/latest_prose_list.html" %}
 
 {% endblock %}

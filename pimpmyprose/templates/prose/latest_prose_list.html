@@ -1,9 +1,21 @@
 {% if latest_prose_list %}
-	<ul>
-	{% for prose in latest_prose_list %}
-		<li><a href="{% url 'prose:detail' prose.id %}">{{ prose.prose_text }}</a> | {{ prose.pimpScoreSum }} | {{ prose.user.username }}</li>
-	{% endfor %}
-	</ul>
+<div class="table-responsive">
+	<table class="table">
+		<tr>
+			<th><center>Full Score</center></th>
+			<th>Prose</th>
+			<th><center>User</center></th>
+		</tr>
+		{% for prose in latest_prose_list %}
+		<tr class="pimpProseTableOtherRows">
+			<th><center>{{ prose.pimpScoreSum }}</center></th>
+			<th><a href="{% url 'prose:detail' prose.id %}">{{ prose.prose_text }}</a></th>
+			<th><center><a href="{% url 'prose:profile' prose.user.id %}">{{ prose.user.username }}</a></center></th>
+		</tr>
+		{% endfor %}
+	</table>
+</div>
+
 {% else %}
-	<p>No prose are available.</p>
+<p>There are no Prose.</p>
 {% endif %}

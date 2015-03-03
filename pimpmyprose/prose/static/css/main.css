@@ -3,3 +3,19 @@
 	float: none;
 	margin: 0 auto;
 }
+
+/* Class for the submission text area, it is assigned in forms.py */
+.pimpProseSubmit {
+	width: 100%;
+	height: 60px;
+	resize: none;
+}
+
+/* Table CSS for both pimps and proses */
+.pimpProseTable {
+	
+}
+
+.pimpProseTableOtherRows {
+	font-size: 0.8em;
+}

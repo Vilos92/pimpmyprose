@@ -1,0 +1,23 @@
+{% if pimp_list %}
+<div class="table-responsive">
+	<table class="table">
+		<tr>
+			<th><center>Score</center></th>
+			<th>Vote</th>
+			<th>Pimp</th>
+			<th><center>User</center></th>
+		</tr>
+		{% for pimp in pimp_list %}
+		<tr class="pimpProseTableOtherRows">
+			<th><center>{{ pimp.score }}</center></th>
+			<th><a href="{% url 'prose:upvote' pimp.id %}">Up</a><br><a href="{% url 'prose:downvote' pimp.id %}">Down</a></th>
+			<th>{{ pimp.pimp_text }}</a></th>
+			<th><center><a href="{% url 'prose:profile' pimp.user.id %}">{{ pimp.user.username }}</a></center></th>
+		</tr>
+		{% endfor %}
+	</table>
+</div>
+
+{% else %}
+<p>There are no Pimps.</p>
+{% endif %}

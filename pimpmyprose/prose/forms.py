@@ -17,7 +17,7 @@ class UserProfileForm( forms.ModelForm ):
 
 # Form for submitting a prose
 class ProseForm( forms.ModelForm ):
-	prose_text = forms.CharField( widget = forms.Textarea )
+	prose_text = forms.CharField( widget = forms.Textarea( attrs = { 'class' : 'pimpProseSubmit' } ) )
 
 	class Meta:
 		model = Prose
@@ -25,7 +25,7 @@ class ProseForm( forms.ModelForm ):
 
 # Form for submitting a pimp
 class PimpForm( forms.ModelForm ):
-	pimp_text = forms.CharField( widget = forms.Textarea )
+	pimp_text = forms.CharField( widget = forms.Textarea( attrs = { 'class' : 'pimpProseSubmit' } ) )
 
 	class Meta:
 		model = Pimp

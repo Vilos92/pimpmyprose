@@ -7,10 +7,6 @@
 <h1>{{ userProfile.website }}</h1>
 {% include "prose/latest_prose_list.html" %}
 <br>
-<ul>
-	{% for pimp in latest_pimp_list %}
-		<li>{{ pimp.pimp_text }} | <a href="{% url 'prose:upvote' pimp.id %}">up:</a> {{ pimp.upvotes.count }} | <a href="{% url 'prose:downvote' pimp.id %}">down:</a> {{ pimp.downvotes.count }} | <a href="{% url 'prose:profile' pimp.user.id %}">{{ pimp.user.username }}</a> | SCORE: {{ pimp.score }}</li>
-	{% endfor %}
-</ul>
+{% include "prose/pimp_list.html" %}
 
 {% endblock %}
