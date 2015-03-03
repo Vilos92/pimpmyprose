@@ -1,4 +1,4 @@
-{% if latest_prose_list %}
+{% if prose_list %}
 <div class="table-responsive">
 	<table class="table">
 		<tr class="pimpProseTableHeader">
@@ -6,7 +6,7 @@
 			<th>Prose</th>
 			<th><center>User</center></th>
 		</tr>
-		{% for prose in latest_prose_list %}
+		{% for prose in prose_list %}
 		<tr class="pimpProseTableOtherRows">
 			<th><center>{{ prose.pimpScoreSum }}</center></th>
 			<th><a href="{% url 'prose:detail' prose.id %}">{{ prose.prose_text }}</a></th>

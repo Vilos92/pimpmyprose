@@ -112,7 +112,7 @@ def index(request):
 			
 	return render_to_response(
 			'prose/index.html',
-			{ 'prose_form' : prose_form, 'latest_prose_list' : latest_prose_list  },
+			{ 'prose_form' : prose_form, 'prose_list' : latest_prose_list  },
 			context )
 	
 def detail( request, prose_id ):
@@ -156,9 +156,14 @@ def detail( request, prose_id ):
 def results( request, prose_id ):
 	respose = "You're looking at the results of prose %s."
 	return HttpResponse( response % prose_id )
-
+	
 @login_required
-def upvote( request, pimp_id ):
+def upvote(request):
+	context = RequestContext(request)
+	pimp_id = None
+	if request.method == 'GET':
+		pimp_id = request.GET.get('pimp_id')
+		
 	pimp = get_object_or_404( Pimp, pk = pimp_id )
 	
 	pimp.downvotes.remove( request.user )
@@ -166,11 +171,19 @@ def upvote( request, pimp_id ):
 		pimp.upvotes.remove( request.user )
 	else:
 		pimp.upvotes.add( request.user )
-
-	return HttpResponseRedirect( reverse( 'prose:detail', kwargs = { 'prose_id' : pimp.prose_id } ) )
+	
+	pimp.save()
+	
+	# Return the new score to be redisplayed
+	return HttpResponse( pimp.score )
 	
 @login_required
-def downvote( request, pimp_id ):
+def downvote( request ):
+	context = RequestContext(request)
+	pimp_id = None
+	if request.method == 'GET':
+		pimp_id = request.GET.get('pimp_id')
+		
 	pimp = get_object_or_404( Pimp, pk = pimp_id )
 	
 	pimp.upvotes.remove( request.user )
@@ -178,9 +191,12 @@ def downvote( request, pimp_id ):
 		pimp.downvotes.remove( request.user )
 	else:
 		pimp.downvotes.add( request.user )
-
-	return HttpResponseRedirect( reverse( 'prose:detail', kwargs = { 'prose_id' : pimp.prose_id } ) )
 	
+	pimp.save()
+	
+	# Return the new score to be redisplayed
+	return HttpResponse( pimp.score )
+
 def profile( request, user_id ):
 	context = RequestContext(request)
 
@@ -195,5 +211,5 @@ def profile( request, user_id ):
 	
 	return render_to_response(
 			'prose/profile.html',
-			{ 'userProfile' : userProfile, 'latest_prose_list' : latest_prose_list, 'pimp_list' : latest_pimp_list },
+			{ 'userProfile' : userProfile, 'prose_list' : latest_prose_list, 'pimp_list' : latest_pimp_list },
 			context )

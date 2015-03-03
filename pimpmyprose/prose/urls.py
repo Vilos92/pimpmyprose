@@ -13,11 +13,11 @@ urlpatterns = patterns( '',
 	# ex: /prose/5/results/
 	url( r'^(?P<prose_id>\d+)/results/$', views.results, name = 'results' ),
 	
-	# ex: /prose/pimp/10/upvote
-	url( r'^pimp/(?P<pimp_id>\d+)/upvote/$', views.upvote, name = 'upvote' ),
+	# ex: /prose/pimp/upvote/
+	url( r'^upvote/$', views.upvote, name = 'upvote' ),
 	
-	# ex: /prose/pimp/10/downvote
-	url( r'^pimp/(?P<pimp_id>\d+)/downvote/$', views.downvote, name = 'downvote' ),
+	# ex: /prose/pimp/10/downvote/
+	url( r'^downvote/$', views.downvote, name = 'downvote' ),
 	
 	# ex: /prose/register/
 	url( r'^register/$', views.register, name = 'register' ),
