@@ -12,10 +12,13 @@
 }
 
 /* Table CSS for both pimps and proses */
-.pimpProseTable {
-	
+
+/* Header rows */
+.pimpProseTableHeader {
+	font-size: 0.9em;
 }
 
+/* CSS for non-header rows */
 .pimpProseTableOtherRows {
 	font-size: 0.8em;
 }

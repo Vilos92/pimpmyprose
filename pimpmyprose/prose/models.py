@@ -1,4 +1,5 @@
 import datetime
+import difflib
 
 from django.db import models
 from django.utils import timezone
@@ -64,3 +65,15 @@ class Pimp( models.Model ):
 	@property
 	def score(self):
 		return self.upvotes.count() - self.downvotes.count()
+		
+	# Return the difference of this Pimp from its parent Prose
+	@property
+	def percentMatch(self):
+		# Get the seqence from Pimp and Prose texts
+		seq = difflib.SequenceMatcher( None, self.prose.prose_text, self.pimp_text )
+		
+		# Get the percent match
+		matchPercent = seq.ratio() * 100
+		
+		# Return the formatted percent match
+		return int(matchPercent)

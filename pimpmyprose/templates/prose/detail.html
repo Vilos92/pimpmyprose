@@ -16,12 +16,12 @@
 	<button type="submit" class="btn btn-primary" name="submit">Pimp It!</button>
 </form>
 
-<br>
-{% include "prose/pimp_list.html" %}
-
 {% else %}
 Must be logged in to pimp this prose!
 
 {% endif %}
+
+<br>
+{% include "prose/pimp_list.html" %}
 
 {% endblock %}
