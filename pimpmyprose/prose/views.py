@@ -209,7 +209,11 @@ def profile( request, user_id ):
 	# Need to get all pimps for user
 	latest_pimp_list = userProfile.getPimps()[:5]
 	
+	# Pass pimp_list_profile as true to indicate that 
+	# pimps should have links to their parent prose
+	pimp_list_profile = True
+	
 	return render_to_response(
 			'prose/profile.html',
-			{ 'userProfile' : userProfile, 'prose_list' : latest_prose_list, 'pimp_list' : latest_pimp_list },
+			{ 'userProfile' : userProfile, 'prose_list' : latest_prose_list, 'pimp_list' : latest_pimp_list, 'pimp_list_profile' : pimp_list_profile },
 			context )

@@ -12,7 +12,11 @@
 		<tr class="pimpProseTableOtherRows">
 			<th><center id="pimp_{{ pimp.id }}_score">{{ pimp.score }}</center></th>
 			<th>{% include "prose/voting_interface.html" %}</th>
-			<th>{{ pimp.pimp_text }}</a></th>
+			{% if pimp_list_profile %}
+			<th><a href="{% url 'prose:detail' pimp.prose_id %}">{{ pimp.pimp_text }}</a></th>
+			{% else %}
+			<th>{{ pimp.pimp_text }}</th>
+			{% endif %}
 			<th><center>{{ pimp.percentMatch }}</center></th>
 			<th><center><a href="{% url 'prose:profile' pimp.user.id %}">{{ pimp.user.username }}</a></center></th>
 		</tr>

@@ -5,7 +5,6 @@ Repository for pimpMyProse
 + A website where you can post a Prose, allowing the online community to Pimp it.
 
 # To-Do
-+ Should be able to use pimps on profile page to get to that user's profile
 + Pimp repost prevention
 + Amount of pimps completed by user
 + Search
@@ -19,3 +18,7 @@ Repository for pimpMyProse
 + Categories
 + Show submissions by date
 + Finish django tutorial, do some automated testing
++ Automatic login after register
++ Redirect after registering
++ Pimp notifications
++ Authenticate submissions in view - cannot be exact same as other submissions
