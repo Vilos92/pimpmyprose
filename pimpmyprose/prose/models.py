@@ -69,7 +69,9 @@ class UserProfile( models.Model ):
 			self.follows.add( otherUser.userProfile )
 		self.save()
 		
-		return
+		# Toggle does not return value, so option exists
+		# To get either bool or text of isFollowing
+		return None
 		
 	# Get amount of followers
 	@property

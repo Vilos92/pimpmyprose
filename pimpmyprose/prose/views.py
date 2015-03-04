@@ -248,4 +248,4 @@ def followToggle( request ):
 	thisUser.followUserToggle( otherUser )
 
 	# Return whether following or not as bool, parse on other side into text
-	return HttpResponse( thisUser.isFollowingUser( otherUser ) )
+	return HttpResponse( thisUser.isFollowingUserText( otherUser ) )

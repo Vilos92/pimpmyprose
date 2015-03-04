@@ -4,12 +4,13 @@ Repository for pimpMyProse
 # Currently
 + Users can follow each other, but need to expand follow_button to work for 
 a list. Right now, takes in a context value of either "Followed" or "Not Followed" from
-the profile view. The pimp_list would take a set.
+the profile view. Sets it to a string that says "Null" if not logged in The pimp_list would take a set.
 
 # About
 + A website where you can post a Prose, allowing the online community to Pimp it.
 
 # To-Do
++ Follow/Unfollow button has static size for changing text
 + Pimp repost prevention - no posting on own pimp
 + Search
 + Ability to edit profile, finish organizing profile page in general

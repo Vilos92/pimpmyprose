@@ -29,10 +29,6 @@ $('.followButton').click( function() {
 		$.get('/prose/follow/', { user_id : user_id }, function(data) {
 			var followClass = '.user_' + user_id + '_follow';
 			
-			if ( data == "True" ) {
-				$( followClass ).html( "Followed" );
-			} else {
-				$( followClass ).html( "Not Followed" );
-			}
+			$( followClass ).html(data);
 	});
 });
