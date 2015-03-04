@@ -1,0 +1,13 @@
+{% extends "prose/base.html" %}
+{% block title %}pimpMyProse - Invalid Login{% endblock %}
+
+{% block content %}
+pimpMyProse says: <strong>Invalid login details were supplied.</strong> Redirecting to login page in 5 seconds.
+
+<br><br><a href="{% url 'prose:login' %}">Return to the login page.</a>
+
+<script>
+	redirect( "{% url 'prose:login' %}" );
+</script>
+
+{% endblock %}

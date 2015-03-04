@@ -10,8 +10,12 @@ pimpMyProse says: <strong>You are already registered!</strong>
 <a href="{% url 'prose:index' %}">Return to the homepage.</a><br />
 
 {% elif registered %}
-pimpMyProse says: <strong>Thank you for registering!</strong>
-<a href="{% url 'prose:index' %}">Return to the homepage.</a><br />
+pimpMyProse says: <strong>Thank you for registering!</strong> Redirecting in 5 seconds.
+<br><br><a href="{% url 'prose:index' %}">Return to the homepage.</a>
+
+<script>
+	redirect( "{% url 'prose:index' %}" );
+</script>
 
 {% else %}
 pimpMyProse says: <strong>Register here!</strong><br />

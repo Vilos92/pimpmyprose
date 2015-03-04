@@ -9,7 +9,6 @@ Repository for pimpMyProse
 + Amount of pimps completed by user
 + Search
 + Invalid login page
-+ Update admin for models
 + Further use templates to reduce redundancies
 + Ability to edit profile, finish organizing profile page in general
 + More credential requirements for registration
@@ -22,3 +21,4 @@ Repository for pimpMyProse
 + Redirect after registering
 + Pimp notifications
 + Authenticate submissions in view - cannot be exact same as other submissions
++ Update admin for models
