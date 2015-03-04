@@ -217,7 +217,33 @@ def profile( request, user_id ):
 	# pimps should have links to their parent prose
 	pimp_list_profile = True
 	
+	# Only show follow status if logged in
+	if request.user.is_authenticated():
+		if request.user.userProfile.isFollowingUser( user ):
+			followingUser = "Followed"
+		else:
+			followingUser = "Not Followed"
+	
 	return render_to_response(
 			'prose/profile.html',
-			{ 'userProfile' : userProfile, 'prose_list' : latest_prose_list, 'pimp_list' : latest_pimp_list, 'pimp_list_profile' : pimp_list_profile },
+			{ 'userProfile' : userProfile, 'prose_list' : latest_prose_list, 'pimp_list' : latest_pimp_list, 'pimp_list_profile' : pimp_list_profile, 'followingUser' : followingUser },
 			context )
+
+# View to toggle following status, works with ajax. Returns text
+@login_required			
+def followToggle( request ):
+	context = RequestContext(request)
+	
+	user_id = None
+	if request.method == 'GET':
+		user_id = request.GET.get('user_id')
+		
+	otherUser = get_object_or_404( User, pk = user_id )
+	
+	thisUser = request.user.userProfile
+	
+	# Toggle follow on the other user
+	thisUser.followUserToggle( otherUser )
+
+	# Return whether following or not as bool, parse on other side into text
+	return HttpResponse( thisUser.isFollowingUser( otherUser ) )

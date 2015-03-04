@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 
 class UserProfile( models.Model ):
 	user = models.OneToOneField( User, related_name = 'userProfile' )
+	follows = models.ManyToManyField( 'self', related_name = 'followed_by' )
 	
 	website = models.URLField( blank = True )
 	
@@ -49,6 +50,26 @@ class UserProfile( models.Model ):
 		for pimp in allPimp:
 			totScore += pimp.score
 		return totScore
+	
+	# Check if following another user
+	def isFollowingUser( self, otherUser ):
+		return self.follows.filter( pk = otherUser.userProfile.id ).exists()
+		
+	def isFollowingUserText( self, otherUser ):
+		if self.isFollowingUser( otherUser ):
+			return "Followed"
+		else:
+			return "Not Followed"
+		
+	# Follow or unfollow a user
+	def followUserToggle( self, otherUser ):
+		if self.isFollowingUser( otherUser ):
+			self.follows.remove( otherUser.userProfile )
+		else:
+			self.follows.add( otherUser.userProfile )
+		self.save()
+		
+		return
 
 class Prose( models.Model ):
 	user = models.ForeignKey(User)

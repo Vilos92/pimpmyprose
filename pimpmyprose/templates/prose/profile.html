@@ -13,12 +13,14 @@
 			<th><center>Prose Score</center></th>
 			<th><center># Pimps</center></th>
 			<th><center>Pimp Score</center></th>
+			<th><center>Following:</center></th>
 		</tr>
 		<tr>
 			<th><center>{{ userProfile.getProsesAmt }}</center></th>
 			<th><center>{{ userProfile.getProseScore }}</center></th>
 			<th><center>{{ userProfile.getPimpsAmt }}</center></th>
 			<th><center>{{ userProfile.getPimpScore }}</center></th>
+			<th><center>{% include "prose/follow_button.html" %}</center></th>
 		</tr>
 	</table>
 </div>

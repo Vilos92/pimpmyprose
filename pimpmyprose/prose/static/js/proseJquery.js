@@ -21,3 +21,18 @@ $('.downvote').click( function() {
 		$( scoreID ).html(data);
 	});
 });
+
+// jQuery functions for following and unfollowing
+$('.followButton').click( function() {
+		var user_id;
+		user_id = $(this).attr("data-user_id");
+		$.get('/prose/follow/', { user_id : user_id }, function(data) {
+			var followClass = '.user_' + user_id + '_follow';
+			
+			if ( data == "True" ) {
+				$( followClass ).html( "Followed" );
+			} else {
+				$( followClass ).html( "Not Followed" );
+			}
+	});
+});
