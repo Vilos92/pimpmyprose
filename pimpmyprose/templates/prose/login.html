@@ -5,7 +5,16 @@
 
 <h1>Login to pimpMyProse</h1>
 
-{% if user.is_authenticated %}
+{% if invalidLogin %}
+pimpMyProse says: <strong>Invalid login details were supplied.</strong> Redirecting to login form in 5 seconds.
+
+<br><br><a href="{% url 'prose:login' %}">Return to the login page.</a>
+
+<script>
+	redirect( "{% url 'prose:login' %}" );
+</script>
+
+{% elif user.is_authenticated %}
 pimpMyProse says: <strong>You are already logged in!</strong>
 <a href="{% url 'prose:index' %}">Return to the homepage.</a><br />
 

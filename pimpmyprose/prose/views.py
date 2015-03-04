@@ -77,7 +77,7 @@ def user_login(request):
 				return HttpResponseRedirect( "Your pimpMyProse account is disabled." )
 		else:
 			print "Invalid login detail: {0}, {1}".format( username, password )
-			return render_to_response( 'prose/invalid_login.html', {}, context )
+			return render_to_response( 'prose/login.html', { 'invalidLogin' : True }, context )
 			
 	else:
 		return render_to_response( 'prose/login.html', {}, context )
