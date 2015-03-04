@@ -22,6 +22,34 @@ class UserProfile( models.Model ):
 	def getPimps(self):
 		return Pimp.objects.filter( user = self.user )
 
+	# Return number of proses from user
+	@property
+	def getProsesAmt(self):
+		return Prose.objects.filter( user = self.user ).count()
+	
+	# Return total prose score for user
+	@property
+	def getProseScore(self):
+		allProse = Prose.objects.filter( user = self.user )
+		totScore = 0
+		for prose in allProse:
+			totScore += prose.pimpScoreSum
+		return totScore
+	
+	# Return number of pimps from user
+	@property
+	def getPimpsAmt(self):
+		return Pimp.objects.filter( user = self.user ).count()
+	
+	# Return total pimp score for user
+	@property
+	def getPimpScore(self):
+		allPimp = Pimp.objects.filter( user = self.user )
+		totScore = 0
+		for pimp in allPimp:
+			totScore += pimp.score
+		return totScore
+
 class Prose( models.Model ):
 	user = models.ForeignKey(User)
 	prose_text = models.CharField( max_length = 250 )

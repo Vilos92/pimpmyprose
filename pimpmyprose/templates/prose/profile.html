@@ -4,7 +4,25 @@
 {% block content %}
 
 <h1>{{ userProfile.user.username }}</h1>
-<h1>{{ userProfile.website }}</h1>
+<h2>{{ userProfile.website }}</h2>
+
+<div class="table-responsive">
+	<table class="table">
+		<tr class="pimpProseTableHeader">
+			<th><center># Prose</center></th>
+			<th><center>Prose Score</center></th>
+			<th><center># Pimps</center></th>
+			<th><center>Pimp Score</center></th>
+		</tr>
+		<tr>
+			<th><center>{{ userProfile.getProsesAmt }}</center></th>
+			<th><center>{{ userProfile.getProseScore }}</center></th>
+			<th><center>{{ userProfile.getPimpsAmt }}</center></th>
+			<th><center>{{ userProfile.getPimpScore }}</center></th>
+		</tr>
+	</table>
+</div>
+
 {% include "prose/prose_list.html" %}
 <br>
 {% include "prose/pimp_list.html" %}
