@@ -1,4 +1,6 @@
 {% if user.is_authenticated %}
+{% if userProfile.user.id != user.id %}
 <button data-user_id="{{ userProfile.user.id }}" class="followButton btn btn-mini btn-primary user_{{ userProfile.user.id }}_follow" type="button">{{ followingUser }}</button>
+{% endif %}
 
 {% endif %}

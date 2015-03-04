@@ -13,14 +13,16 @@
 			<th><center>Prose Score</center></th>
 			<th><center># Pimps</center></th>
 			<th><center>Pimp Score</center></th>
-			<th><center>Following:</center></th>
+			<th><center>Followers</center></th>
+			{% if user.is_authenticated %}<th></th>{% endif %}
 		</tr>
 		<tr>
 			<th><center>{{ userProfile.getProsesAmt }}</center></th>
 			<th><center>{{ userProfile.getProseScore }}</center></th>
 			<th><center>{{ userProfile.getPimpsAmt }}</center></th>
 			<th><center>{{ userProfile.getPimpScore }}</center></th>
-			<th><center>{% include "prose/follow_button.html" %}</center></th>
+			<th><center>{{ userProfile.getFollowersAmt }}</center></th>
+			{% if user.is_authenticated %}<th><center>{% include "prose/follow_button.html" %}</center></th>{% endif %}
 		</tr>
 	</table>
 </div>

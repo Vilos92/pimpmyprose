@@ -70,6 +70,11 @@ class UserProfile( models.Model ):
 		self.save()
 		
 		return
+		
+	# Get amount of followers
+	@property
+	def getFollowersAmt(self):
+		return self.follows.count()
 
 class Prose( models.Model ):
 	user = models.ForeignKey(User)

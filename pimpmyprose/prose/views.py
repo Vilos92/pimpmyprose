@@ -223,6 +223,8 @@ def profile( request, user_id ):
 			followingUser = "Followed"
 		else:
 			followingUser = "Not Followed"
+	else:
+		followingUser = "Null"
 	
 	return render_to_response(
 			'prose/profile.html',
