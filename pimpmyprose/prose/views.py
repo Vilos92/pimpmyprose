@@ -41,6 +41,10 @@ def register(request):
 			profile.save()
 			
 			registered = True
+			
+			# Log user in
+			userLogin = authenticate( username = request.POST['username'], password = request.POST['password'] )
+			login( request, userLogin)
 		
 		else:
 			print user_form.errors, profile_form.errors

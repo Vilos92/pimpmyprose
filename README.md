@@ -17,7 +17,6 @@ Repository for pimpMyProse
 + Categories
 + Show submissions by date
 + Finish django tutorial, do some automated testing
-+ Automatic login after register
 + Pimp notifications
 + Authenticate submissions in view - cannot be exact same as other submissions
 + Update admin for models
