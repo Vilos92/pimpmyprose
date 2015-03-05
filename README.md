@@ -25,4 +25,4 @@ the profile view. Sets it to a string that says "Null" if not logged in The pimp
 + Replace after-form displays (login, register, logout) with django message system? Left a comment in login.html showing example
 + Clear form on page reload
 + Show username next to prose text
-+ Improve notifications
++ Improve notifications, come from nav bar and use jquery to clear upon viewing

@@ -3,6 +3,7 @@
 
 {% block content %}
 
+<h4><a href="{% url 'prose:profile' prose.user.id %}">{{ prose.user.username }}</a></h4>
 <h3>{{ prose.prose_text }}</h3>
 <br>
 
