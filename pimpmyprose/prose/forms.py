@@ -4,10 +4,23 @@ from django import forms
 
 class UserForm( forms.ModelForm ):
 	password = forms.CharField( widget = forms.PasswordInput() )
+	passwordValidate = forms.CharField( label = 'Validate Password', widget = forms.PasswordInput() )
 	
 	class Meta:
 		model = User
 		fields = ( 'username', 'email', 'password' )
+		
+	def clean_email(self):
+		email = self.cleaned_data['email']
+		if User.objects.filter( email = email ).exists():
+			raise forms.ValidationError( "Email already exists." )
+		return email
+			
+	def clean(self):
+		form_data = self.cleaned_data
+		if form_data['password'] != form_data['passwordValidate']:
+			self._errors['password'] = ['Password fields do not match.']
+		return form_data
 
 # This will have more fields later
 class UserProfileForm( forms.ModelForm ):

@@ -13,7 +13,6 @@ the profile view. Sets it to a string that says "Null" if not logged in The pimp
 + Pimp repost prevention - no posting on own pimp
 + Search
 + Ability to edit profile, finish organizing profile page in general
-+ More credential requirements for registration
 + Complete nav bar
 + Categories - ask Byron
 + Show submissions by date - need general filter, pagination
@@ -25,3 +24,4 @@ the profile view. Sets it to a string that says "Null" if not logged in The pimp
 + Use for loop with context set to pass all user ids for follow alongside pimps, since cannot use a function inside the template must use beforehand %}
 + Auto create userProfile if none exists for user
 + Following and unfollowing needs to show number change on page from Ajax
++ Do form validation for registration with JQUERY (frontend, backend is done)

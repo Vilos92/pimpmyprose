@@ -49,5 +49,6 @@
 
 /* CSS For the follow button */
 .followButton {
-	width: 100px;
+	font-size: 0.7em;
+	width: 75px;
 }
