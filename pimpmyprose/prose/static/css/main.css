@@ -46,3 +46,8 @@
 .voteArrowDown {	
 	border-top: 9px solid #286090;
 }
+
+/* CSS For the follow button */
+.followButton {
+	width: 100px;
+}

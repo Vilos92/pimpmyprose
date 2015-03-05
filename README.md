@@ -10,7 +10,6 @@ the profile view. Sets it to a string that says "Null" if not logged in The pimp
 + A website where you can post a Prose, allowing the online community to Pimp it.
 
 # To-Do
-+ Follow/Unfollow button has static size for changing text
 + Pimp repost prevention - no posting on own pimp
 + Search
 + Ability to edit profile, finish organizing profile page in general
