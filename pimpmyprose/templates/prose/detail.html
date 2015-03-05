@@ -7,14 +7,17 @@
 <br>
 
 {% if user.is_authenticated %}
-<!-- Form to post a new Pimp -->
-<form id="pimp_form" method="post" action="{% url 'prose:detail' prose.id %}">
-	{% csrf_token %}
-	
-	{{ pimp_form.as_p }}
-	
-	<button type="submit" class="btn btn-primary" name="submit">Pimp It!</button>
-</form>
+
+	{% if prose.user != user %}
+	<!-- Form to post a new Pimp -->
+	<form id="pimp_form" method="post" action="{% url 'prose:detail' prose.id %}">
+		{% csrf_token %}
+		
+		{{ pimp_form.as_p }}
+		
+		<button type="submit" class="btn btn-primary" name="submit">Pimp It!</button>
+	</form>
+	{% endif %}
 
 {% else %}
 Must be logged in to pimp this prose!
