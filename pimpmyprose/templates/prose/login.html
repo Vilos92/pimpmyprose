@@ -5,6 +5,10 @@
 
 <h1>Login to pimpMyProse</h1>
 
+{% comment %}
+The if invalidlogin should be replaced with a {% for message in message.errors %}
+
+{% endcomment %}
 {% if invalidLogin %}
 pimpMyProse says: <strong>Invalid login details were supplied.</strong> Redirecting to login form in 5 seconds.
 

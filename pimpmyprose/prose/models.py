@@ -6,11 +6,73 @@ from django.utils import timezone
 
 from django.contrib.auth.models import User
 
+class Prose( models.Model ):
+	user = models.ForeignKey(User)
+	prose_text = models.CharField( max_length = 250 )
+	pub_date = models.DateTimeField( 'date published' )
+	
+	def __str__(self):
+		return self.prose_text
+		
+	def was_published_recently(self):
+		return self.pub_date >= timezone.now() - datetime.timedelta( days = 1 )
+	was_published_recently.admin_order_field = 'pub_date'
+	was_published_recently.boolean = True
+	was_published_recently.short_description = 'Published recently?'
+	
+	# Return if a pimp already exists for this prose
+	def pimpExists( self, pimp_text ):
+		return self.pimp_set.filter( pimp_text = pimp_text ).count() > 0
+	
+	# Return all pimps ranked by their pimp score
+	def rankedPimps(self):
+		return sorted( list( self.pimp_set.all() ), key = lambda x : x.score, reverse = True )
+	
+	# Return culmative pimp score for this prose
+	@property
+	def pimpScoreSum(self):
+		totScore = 0
+		for pimp in self.pimp_set.all():
+			totScore += pimp.score
+		return totScore
+
+class Pimp( models.Model ):
+	user = models.ForeignKey(User)
+ 	prose = models.ForeignKey(Prose)
+	pimp_text = models.CharField( max_length = 250 )
+	pub_date = models.DateTimeField( 'date published' )
+	
+	# Upvotes and Downvotes many to many, must only let user
+	# either upvote or downvote
+	upvotes = models.ManyToManyField( User, null = True, blank = True, related_name = 'upvotedPimps' )
+	downvotes = models.ManyToManyField( User, null  = True, blank = True, related_name = 'downvotedPimps' )
+	
+	def __str__(self):
+		return self.pimp_text
+	
+	@property
+	def score(self):
+		return self.upvotes.count() - self.downvotes.count()
+		
+	# Return the difference of this Pimp from its parent Prose
+	@property
+	def percentMatch(self):
+		# Get the seqence from Pimp and Prose texts
+		seq = difflib.SequenceMatcher( None, self.prose.prose_text, self.pimp_text )
+		
+		# Get the percent match
+		matchPercent = seq.ratio() * 100
+		
+		# Return the formatted percent match
+		return int(matchPercent)
+
 class UserProfile( models.Model ):
 	user = models.OneToOneField( User, related_name = 'userProfile' )
 	follows = models.ManyToManyField( 'self', related_name = 'followed_by' )
 	
-	website = models.URLField( blank = True )
+	# Notifications is a set of pimps (for now). No reason to add
+	# a related_name field
+	pimpNotifications = models.ManyToManyField(Pimp)
 	
 	def __unicode__(self):
 		return self.user.username
@@ -60,6 +122,18 @@ class UserProfile( models.Model ):
 			return "Followed"
 		else:
 			return "Not Followed"
+			
+	# Return notifications for user by pub_date, only 10
+	def getPimpNotifications(self):
+		return self.pimpNotifications.order_by('-pub_date')[:10]
+		
+	# Clear notifications before returning them
+	def getClearPimpNotifications(self):
+		pimp_notifications_list = list( self.getPimpNotifications() )
+		self.pimpNotifications.clear()
+		self.save()
+		
+		return pimp_notifications_list
 		
 	# Follow or unfollow a user
 	def followUserToggle( self, otherUser ):
@@ -77,63 +151,3 @@ class UserProfile( models.Model ):
 	@property
 	def getFollowersAmt(self):
 		return self.follows.count()
-
-class Prose( models.Model ):
-	user = models.ForeignKey(User)
-	prose_text = models.CharField( max_length = 250 )
-	pub_date = models.DateTimeField( 'date published' )
-	
-	def __str__(self):
-		return self.prose_text
-		
-	def was_published_recently(self):
-		return self.pub_date >= timezone.now() - datetime.timedelta( days = 1 )
-	was_published_recently.admin_order_field = 'pub_date'
-	was_published_recently.boolean = True
-	was_published_recently.short_description = 'Published recently?'
-	
-	# Return if a pimp already exists for this prose
-	def pimpExists( self, pimp_text ):
-		return self.pimp_set.filter( pimp_text = pimp_text ).count() > 0
-	
-	# Return all pimps ranked by their pimp score
-	def rankedPimps(self):
-		return sorted( list( self.pimp_set.all() ), key = lambda x : x.score, reverse = True )
-	
-	# Return culmative pimp score for this prose
-	@property
-	def pimpScoreSum(self):
-		totScore = 0
-		for pimp in self.pimp_set.all():
-			totScore += pimp.score
-		return totScore
-	
-class Pimp( models.Model ):
-	user = models.ForeignKey(User)
- 	prose = models.ForeignKey(Prose)
-	pimp_text = models.CharField( max_length = 250 )
-	pub_date = models.DateTimeField( 'date published' )
-	
-	# Upvotes and Downvotes many to many, must only let user
-	# either upvote or downvote
-	upvotes = models.ManyToManyField( User, null = True, blank = True, related_name = 'upvotedPimps' )
-	downvotes = models.ManyToManyField( User, null  = True, blank = True, related_name = 'downvotedPimps' )
-	
-	def __str__(self):
-		return self.pimp_text
-	
-	@property
-	def score(self):
-		return self.upvotes.count() - self.downvotes.count()
-		
-	# Return the difference of this Pimp from its parent Prose
-	@property
-	def percentMatch(self):
-		# Get the seqence from Pimp and Prose texts
-		seq = difflib.SequenceMatcher( None, self.prose.prose_text, self.pimp_text )
-		
-		# Get the percent match
-		matchPercent = seq.ratio() * 100
-		
-		# Return the formatted percent match
-		return int(matchPercent)

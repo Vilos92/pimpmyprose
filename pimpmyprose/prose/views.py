@@ -132,6 +132,7 @@ def detail( request, prose_id ):
 			# Check to see if pimp already exists for this prose
 			pimp_text = pimp_form.cleaned_data['pimp_text']
 			if prose.pimpExists( pimp_text ):
+				# If pimp already exists, return normal PimpForm and error
 				pimp_form = PimpForm()
 				pimp_form.errors["pimp_text"] = ErrorList( [u"Pimp already exists."] )
 				
@@ -152,6 +153,10 @@ def detail( request, prose_id ):
 				
 				# Final save
 				pimp.save()
+				
+				# Also, notify the prose user that someone pimped his prose
+				prose.user.userProfile.pimpNotifications.add(pimp)
+				prose.save()
 		
 		else:
 			print pimp_form.errors
@@ -227,6 +232,12 @@ def profile( request, user_id ):
 	# pimps should have links to their parent prose
 	pimp_list_profile = True
 	
+	# This is temporary to test notifications
+	# Show notifications on profile page if they exist
+	pimp_notification_list = None
+	if user == request.user:
+		pimp_notification_list = user.userProfile.getClearPimpNotifications()
+	
 	# Only show follow status if logged in
 	if request.user.is_authenticated():
 		if request.user.userProfile.isFollowingUser( user ):
@@ -238,7 +249,9 @@ def profile( request, user_id ):
 	
 	return render_to_response(
 			'prose/profile.html',
-			{ 'userProfile' : userProfile, 'prose_list' : latest_prose_list, 'pimp_list' : latest_pimp_list, 'pimp_list_profile' : pimp_list_profile, 'followingUser' : followingUser },
+			{	'userProfile' : userProfile, 'prose_list' : latest_prose_list,
+				'pimp_list' : latest_pimp_list, 'pimp_list_profile' : pimp_list_profile,
+				'followingUser' : followingUser, 'pimp_notification_list' : pimp_notification_list },
 			context )
 
 # View to toggle following status, works with ajax. Returns text

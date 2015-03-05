@@ -32,7 +32,7 @@ class UserForm( forms.ModelForm ):
 class UserProfileForm( forms.ModelForm ):
 	class Meta:
 		model = UserProfile
-		fields = ( 'website', )
+		fields = ();
 
 # Form for submitting a prose
 class ProseForm( forms.ModelForm ):
