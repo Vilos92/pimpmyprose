@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from django.forms.util import ErrorList
 from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import timezone
 
@@ -128,20 +129,29 @@ def detail( request, prose_id ):
 		pimp_form = PimpForm( data = request.POST )
 		
 		if pimp_form.is_valid():
-			# Save prose data from form into prose
-			pimp = pimp_form.save( commit = False )
-			pimp.user = request.user
-			pimp.pub_date = timezone.now()
-			pimp.prose = prose
-			
-			# Must save before m2m value can be added
-			pimp.save()
-			
-			# Set current user to be an upvoter
-			pimp.upvotes.add( request.user )
-			
-			# Final save
-			pimp.save()
+			# Check to see if pimp already exists for this prose
+			pimp_text = pimp_form.cleaned_data['pimp_text']
+			if prose.pimpExists( pimp_text ):
+				pimp_form = PimpForm()
+				pimp_form.errors["pimp_text"] = ErrorList( [u"Pimp already exists."] )
+				
+			# Pimp does not exist, create and save
+			else:
+				# Save prose data from form into prose
+				pimp = pimp_form.save( commit = False )
+				
+				pimp.user = request.user
+				pimp.pub_date = timezone.now()
+				pimp.prose = prose
+				
+				# Must save before m2m value can be added
+				pimp.save()
+				
+				# Set current user to be an upvoter
+				pimp.upvotes.add( request.user )
+				
+				# Final save
+				pimp.save()
 		
 		else:
 			print pimp_form.errors

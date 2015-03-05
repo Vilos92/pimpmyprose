@@ -92,6 +92,10 @@ class Prose( models.Model ):
 	was_published_recently.boolean = True
 	was_published_recently.short_description = 'Published recently?'
 	
+	# Return if a pimp already exists for this prose
+	def pimpExists( self, pimp_text ):
+		return self.pimp_set.filter( pimp_text = pimp_text ).count() > 0
+	
 	# Return all pimps ranked by their pimp score
 	def rankedPimps(self):
 		return sorted( list( self.pimp_set.all() ), key = lambda x : x.score, reverse = True )
