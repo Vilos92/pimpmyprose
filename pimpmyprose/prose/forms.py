@@ -24,9 +24,13 @@ class UserForm( forms.ModelForm ):
 			
 	def clean(self):
 		form_data = self.cleaned_data
+		if not 'password' in form_data or not 'passwordValidate' in form_data:
+			self._errors['password'] = ['Password fields cannot be empty']
+			return form_data
+		
 		if form_data['password'] != form_data['passwordValidate']:
 			self._errors['password'] = ['Password fields do not match.']
-		return form_data
+			return form_data
 
 # This will have more fields later
 class UserProfileForm( forms.ModelForm ):
@@ -34,6 +38,35 @@ class UserProfileForm( forms.ModelForm ):
 		model = UserProfile
 		fields = ();
 
+# Form to edit user account, does not include username
+class UserManageForm( forms.Form ):
+	email = forms.EmailField()
+	password = forms.CharField( widget = forms.PasswordInput() )
+	passwordValidate = forms.CharField( label = 'Validate Password', widget = forms.PasswordInput() )
+	
+	def __init__( self, *args, **kwargs ):
+		self.user = kwargs.pop( 'user', None )
+		super( UserManageForm, self ).__init__( *args, **kwargs )
+
+	def clean_email(self):
+		email = self.cleaned_data['email']
+		if email == self.user.email:
+			return email
+		
+		if User.objects.filter( email = email ).exists():
+			raise forms.ValidationError( "Email already exists." )
+		return email
+	
+	def clean(self):
+		form_data = self.cleaned_data
+		if not 'password' in form_data or not 'passwordValidate' in form_data:
+			self._errors['password'] = ['Password fields cannot be empty']
+			return form_data
+		
+		if form_data['password'] != form_data['passwordValidate']:
+			self._errors['password'] = ['Password fields do not match.']
+			return form_data
+	
 # Form for submitting a prose
 class ProseForm( forms.ModelForm ):
 	prose_text = forms.CharField( widget = forms.Textarea( attrs = { 'class' : 'pimpProseSubmit' } ), label = '' )

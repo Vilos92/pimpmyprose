@@ -1,0 +1,16 @@
+{% extends "prose/base.html" %}
+{% block title %}Manage Profile - {{ user.username }}{% endblock %}
+
+{% block content %}
+
+<h1>Manage Profile: Greg</h1>
+
+<form id="user_form" method="post" action="{% url 'prose:profile_manage' %}">
+	{% csrf_token %}
+	
+	{{ userManage_form.as_p }}
+	
+	<button type="submit" class="btn btn-primary" name="submit" />Edit Profile</button>
+</form>
+
+{% endblock %}

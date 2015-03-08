@@ -10,9 +10,9 @@ the profile view. Sets it to a string that says "Null" if not logged in The pimp
 + A website where you can post a Prose, allowing the online community to Pimp it.
 
 # To-Do
++ Can edit profile, should show flash message after successfully doing so
 + Search
 + Ability to edit profile, finish organizing profile page in general
-+ Complete nav bar
 + Categories - ask Byron
 + Show submissions by date - need general filter, pagination
 + Finish django tutorial, do some automated testing

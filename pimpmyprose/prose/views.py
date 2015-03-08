@@ -11,7 +11,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import timezone
 
 from prose.models import Prose, Pimp, UserProfile
-from prose.forms import UserForm, UserProfileForm, ProseForm, PimpForm
+from prose.forms import UserForm, UserProfileForm, UserManageForm, ProseForm, PimpForm
 
 def register(request):
 	context = RequestContext(request)
@@ -252,6 +252,41 @@ def profile( request, user_id ):
 			{	'userProfile' : userProfile, 'prose_list' : latest_prose_list,
 				'pimp_list' : latest_pimp_list, 'pimp_list_profile' : pimp_list_profile,
 				'followingUser' : followingUser, 'pimp_notification_list' : pimp_notification_list },
+			context )
+			
+# Manage the user profile
+@login_required
+def profile_manage( request ):
+	context = RequestContext(request)
+	
+	if request.method == 'POST':
+		# Edited Form to allow passing in request, to allow user to keep email
+		userManage_form = UserManageForm( data = request.POST, user = request.user )
+		
+		if userManage_form.is_valid():
+			currUser = User.objects.get( pk = request.user.id )
+			
+			# Save info from form into user
+			currUser.email = request.POST['email']
+			
+			if not request.POST['password'] == '':
+				currUser.set_password( request.POST['password'] )
+	
+			currUser.save()
+			
+			# Log user in
+			userLogin = authenticate( username = request.user.username, password = request.POST['password'] )
+			login( request, userLogin)
+		
+		else:
+			print userManage_form.errors
+		
+	else:
+		userManage_form = UserManageForm()
+
+	return render_to_response(
+			'prose/profile_manage.html',
+			{ 'userManage_form' : userManage_form },
 			context )
 
 # View to toggle following status, works with ajax. Returns text

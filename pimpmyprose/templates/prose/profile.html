@@ -4,6 +4,7 @@
 {% block content %}
 
 <h1>{{ userProfile.user.username }}</h1>
+<h5><a href="{% url 'prose:profile_manage' %}">{% if userProfile.user == user %}Manage{% endif %}</a></h5>
 
 <div class="table-responsive">
 	<table class="table">

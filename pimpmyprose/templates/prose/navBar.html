@@ -14,8 +14,8 @@
 		<li><p class="navbar-text">Signed in as <a href="{% url 'prose:profile' user.id %}">{{ user.username }}</a></p></li>
 		
 		{% else %}
-		<li><a href="{% url 'prose:register' %}"><button type="button" class="btn btn btn-primary navbar-btn">Register</button></a></li>
-		<li><a href="{% url 'prose:login' %}"><button type="button" class="btn btn btn-primary navbar-btn">Login</button></a></li>
+		<li><a href="{% url 'prose:register' %}"><button type="button" class="btn btn-sm btn-primary">Register</button></a></li>
+		<li><a href="{% url 'prose:login' %}"><button type="button" class="btn btn-sm btn-primary">Login</button></a></li>
 		
 		{% endif %}
 		

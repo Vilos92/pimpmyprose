@@ -31,6 +31,9 @@ urlpatterns = patterns( '',
 	# ex: /prose/profile/1/
 	url( r'^profile/(?P<user_id>\d+)/$', views.profile, name = 'profile' ),
 	
+	# ex: /prose/profile/manage/
+	url( r'^profile/manage/$', views.profile_manage, name = 'profile_manage' ),
+	
 	# ex: /prose/follow/
 	url( r'^follow/$', views.followToggle, name = 'follow' ),
 )
