@@ -11,16 +11,17 @@
 	
 	<body>
 		<script src="{% static 'js/main.js' %}"></script>
+		
+		<!-- Navbar -->
+		{% include "prose/navBar.html" %}
 	
+		<!-- Main content filled by other pages -->
 		<div class="container">
 			<div class="row-fluid">
+				<div class="col-md-12 main-column">
 				<!-- Background color from bootstrap class. Move height property to css file -->
-				<div class="col-md-6 col-centered" style="height: 100%;">
-				
-					{% include "prose/navBar.html" %}
-					
-					{% block content %}
-					{% endblock %}
+				{% block content %}
+				{% endblock %}
 				</div>
 			</div>
 		</div>

@@ -26,3 +26,4 @@ the profile view. Sets it to a string that says "Null" if not logged in The pimp
 + Clear form on page reload
 + Show username next to prose text
 + Improve notifications, come from nav bar and use jquery to clear upon viewing
++ Have a Prose of the day, to get responses from people

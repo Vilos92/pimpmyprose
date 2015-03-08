@@ -1,5 +1,5 @@
 {% load staticfiles %}
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container-fluid">
 		<div class="navbar-header">
 			<a class="navbar-brand" href="{% url 'prose:index' %}">
@@ -7,14 +7,21 @@
 			</a>
 		</div>
 		
+		<ul class="nav navbar-nav navbar-right">
+
 		{% if user.is_authenticated %}
-		<a href="{% url 'prose:logout' %}"><button type="button" class="btn btn-default navbar-btn">Logout</button></a>
-		<p class="navbar-text navbar-right statusText">Signed in as <a href="{% url 'prose:profile' user.id %}">{{ user.username }}</a></p>
+		<li><a href="{% url 'prose:logout' %}"><button type="button" class="btn btn-primary navbar-btn">Logout</button></a></li>
+		<li><p class="navbar-text">Signed in as <a href="{% url 'prose:profile' user.id %}">{{ user.username }}</a></p></li>
 		
 		{% else %}
-		<a href="{% url 'prose:register' %}"><button type="button" class="btn btn-default navbar-btn">Register</button></a>
-		<a href="{% url 'prose:login' %}"><button type="button" class="btn btn-default navbar-btn">Login</button></a>
+		<li><a href="{% url 'prose:register' %}"><button type="button" class="btn btn-primary navbar-btn">Register</button></a></li>
+		<li><a href="{% url 'prose:login' %}"><button type="button" class="btn btn-primary navbar-btn">Login</button></a></li>
 		
 		{% endif %}
+		
+		</ul>
 	</div>
+
 </nav>
+
+<div class="navbar-texture"></div>

@@ -1,12 +1,41 @@
+/* Body must have padding at the top so navbar does not cover content by default */
+body {
+	background-color: #fdc673;
+
+	padding-top: 70px;
+}
+
+/* Custom navbar paragraph */
+.navbar p {
+	font-size: 1.5em;
+	line-height: 50px;
+}
+
+.navbar-texture {
+	background-image: url('../images/navbar-texture.png');
+	
+	position: fixed;
+	top: 0px;
+	height: 600px;
+	width: 100%;
+	z-index: -1;
+}
+
+/* CSS for the main column */
+.main-column {
+	background-color: #FFFFFF;
+
+	padding-top: 20px;
+	padding-bottom: 30px;
+	margin-top: 30px;
+	
+	border-radius: 25px 25px 25px 25px;
+}
+
 /* CSS class to center the main column */
 .col-centered {
 	float: none;
 	margin: 0 auto;
-}
-
-/* CSS Class to add margin to the status text ('You are signed in as .... ') */
-.statusText {
-	margin-right: 3px;
 }
 
 /* Class for the submission text area, it is assigned in forms.py */
