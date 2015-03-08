@@ -5,10 +5,19 @@ body {
 	padding-top: 70px;
 }
 
-/* Custom navbar paragraph */
+/* Custom navbar */
+.navbar-custom {
+	height: 30px;
+}
+
+.navbar-center {
+	width: 76%;
+	margin-left: 12%;
+}
+
 .navbar p {
 	font-size: 1.5em;
-	line-height: 50px;
+	line-height: 20px;
 }
 
 .navbar-texture {
@@ -27,7 +36,6 @@ body {
 
 	padding-top: 20px;
 	padding-bottom: 30px;
-	margin-top: 30px;
 	
 	border-radius: 25px 25px 25px 25px;
 }
@@ -40,9 +48,14 @@ body {
 
 /* Class for the submission text area, it is assigned in forms.py */
 .pimpProseSubmit {
-	width: 100%;
-	height: 60px;
+	width: 50%;
+	margin-left: 25%;
+	height: 100px;
 	resize: none;
+}
+
+.pimpProseSubmitBtn {
+	margin-left: 25%;
 }
 
 /* Table CSS for both pimps and proses */
