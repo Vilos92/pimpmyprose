@@ -7,7 +7,7 @@ body {
 
 /* Custom navbar */
 .navbar-custom {
-	height: 30px;
+	height: 60px;
 }
 
 .navbar-center {
@@ -16,8 +16,7 @@ body {
 }
 
 .navbar p {
-	font-size: 1.5em;
-	line-height: 20px;
+	font-size: 1.2em;
 }
 
 .navbar-texture {

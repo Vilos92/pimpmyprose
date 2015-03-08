@@ -3,19 +3,19 @@
 	<div class="container-fluid col-md-10 navbar-center">
 		<div class="navbar-header">
 			<a class="navbar-brand" href="{% url 'prose:index' %}">
-				<img alt="pimpMyProse" src="{% static 'images/navLogo.png' %}">
+				pimpMyProse
 			</a>
 		</div>
 		
 		<ul class="nav navbar-nav navbar-right">
 
 		{% if user.is_authenticated %}
-		<li><a href="{% url 'prose:logout' %}"><button type="button" class="btn btn-sm btn-primary navbar-btn">Logout</button></a></li>
+		<li><a href="{% url 'prose:logout' %}"><button type="button" class="btn btn-sm btn-primary">Logout</button></a></li>
 		<li><p class="navbar-text">Signed in as <a href="{% url 'prose:profile' user.id %}">{{ user.username }}</a></p></li>
 		
 		{% else %}
-		<li><a href="{% url 'prose:register' %}"><button type="button" class="btn btn-sm btn-primary navbar-btn">Register</button></a></li>
-		<li><a href="{% url 'prose:login' %}"><button type="button" class="btn btn-sm btn-primary navbar-btn">Login</button></a></li>
+		<li><a href="{% url 'prose:register' %}"><button type="button" class="btn btn btn-primary navbar-btn">Register</button></a></li>
+		<li><a href="{% url 'prose:login' %}"><button type="button" class="btn btn btn-primary navbar-btn">Login</button></a></li>
 		
 		{% endif %}
 		
