@@ -27,13 +27,6 @@
 	</table>
 </div>
 
-{% comment %}Show user notifications if this is their profile page{% endcomment %}
-<h2>Pimp Responses:</h2>
-{% if userProfile.user == user %}
-{% include "prose/pimp_notification_list.html" %}
-<br>
-{% endif %}
-
 <h2>{{ userProfile.user.username }}'s Prose</h2>
 {% include "prose/prose_list.html" %}
 <br>

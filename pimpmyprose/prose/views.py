@@ -233,12 +233,6 @@ def profile( request, user_id ):
 	# pimps should have links to their parent prose
 	pimp_list_profile = True
 	
-	# This is temporary to test notifications
-	# Show notifications on profile page if they exist
-	pimp_notification_list = None
-	if user == request.user:
-		pimp_notification_list = user.userProfile.getClearPimpNotifications()
-	
 	# Only show follow status if logged in
 	if request.user.is_authenticated():
 		if request.user.userProfile.isFollowingUser( user ):
@@ -252,7 +246,20 @@ def profile( request, user_id ):
 			'prose/profile.html',
 			{	'userProfile' : userProfile, 'prose_list' : latest_prose_list,
 				'pimp_list' : latest_pimp_list, 'pimp_list_profile' : pimp_list_profile,
-				'followingUser' : followingUser, 'pimp_notification_list' : pimp_notification_list },
+				'followingUser' : followingUser },
+			context )
+
+# View current user's notifications
+@login_required
+def notifications(request):
+	context = RequestContext(request)
+	
+	# Show notifications
+	pimp_notification_list = request.user.userProfile.getClearPimpNotifications()
+	
+	return render_to_response(
+			'prose/notifications.html',
+			{ 'pimp_notification_list' : pimp_notification_list, },
 			context )
 			
 # Manage the user profile

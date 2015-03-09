@@ -34,8 +34,12 @@ urlpatterns = patterns( '',
 	# ex: /prose/profile/manage/
 	url( r'^profile/manage/$', views.profile_manage, name = 'profile_manage' ),
 	
+	# ex: /prose/notifications/
+	url( r'^notifications/$', views.notifications, name = 'notifications' ),
+	
 	# ex: /prose/follow/
 	url( r'^follow/$', views.followToggle, name = 'follow' ),
 	
-	url( r'^search/', include( 'haystack.urls' ) ),
+	# ex: /prose/search
+	url( r'^search/$', include( 'haystack.urls' ) ),
 )

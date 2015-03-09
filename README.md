@@ -5,6 +5,8 @@ Repository for pimpMyProse
 + Users can follow each other, but need to expand follow_button to work for 
 a list. Right now, takes in a context value of either "Followed" or "Not Followed" from
 the profile view. Sets it to a string that says "Null" if not logged in The pimp_list would take a set.
++ manage.py reindex
+++ Need to do whenever changing haystack search
 
 # About
 + A website where you can post a Prose, allowing the online community to Pimp it.
@@ -24,9 +26,10 @@ the profile view. Sets it to a string that says "Null" if not logged in The pimp
 + Do form validation for registration with JQUERY (frontend, backend is done)
 + Replace after-form displays (login, register, logout) with django message system? Left a comment in login.html showing example
 + Clear form on page reload
-+ Show username next to prose text
 + Improve notifications, come from nav bar and use jquery to clear upon viewing
 + Have a Prose of the day, to get responses from people
++ Bootstrap glyphicon for upvote and downvote
 
 # For Server
-+ Need to install haystack and Whoosh
++ Need to install haystack and Whoosh (use pip)
+++ http://django-haystack.readthedocs.org/en/latest/tutorial.html

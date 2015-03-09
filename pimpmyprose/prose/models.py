@@ -135,6 +135,11 @@ class UserProfile( models.Model ):
 		
 		return pimp_notifications_list
 		
+	# Check if user has notifications
+	@property
+	def hasNotifications(self):
+		return self.pimpNotifications.count() > 0
+		
 	# Follow or unfollow a user
 	def followUserToggle( self, otherUser ):
 		if self.isFollowingUser( otherUser ):
