@@ -257,9 +257,15 @@ def notifications(request):
 	# Show notifications
 	pimp_notification_list = request.user.userProfile.getClearPimpNotifications()
 	
+	# Get all user pimp responses
+	pimp_response_list = request.user.userProfile.getPimpResponses()
+	
+	# Subtract notification list from the overall pimp_response_list
+	pimp_response_list = [ pimp for pimp in pimp_response_list if pimp not in pimp_notification_list ]
+	
 	return render_to_response(
 			'prose/notifications.html',
-			{ 'pimp_notification_list' : pimp_notification_list, },
+			{ 'pimp_notification_list' : pimp_notification_list, 'pimp_response_list' : pimp_response_list },
 			context )
 			
 # Manage the user profile

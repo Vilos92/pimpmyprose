@@ -1,6 +1,9 @@
 import datetime
 import difflib
 
+from itertools import chain
+from operator import attrgetter
+
 from django.db import models
 from django.utils import timezone
 
@@ -123,9 +126,23 @@ class UserProfile( models.Model ):
 		else:
 			return "Not Followed"
 			
+	# Return all pimp responses
+	def getPimpResponses(self):
+		allProses = self.getProses()
+		
+		# Get all proses from this
+		pimp_response_set = []
+		for prose in allProses:
+			pimp_set = list( prose.pimp_set.all() )
+			
+			pimp_response_set = sorted(	chain( pimp_response_set, pimp_set ),
+						key = attrgetter( 'pub_date' ), reverse = True )
+						
+		return pimp_response_set
+			
 	# Return notifications for user by pub_date, only 10
 	def getPimpNotifications(self):
-		return self.pimpNotifications.order_by('-pub_date')[:10]
+		return self.pimpNotifications.order_by('-pub_date')
 		
 	# Clear notifications before returning them
 	def getClearPimpNotifications(self):
@@ -139,6 +156,11 @@ class UserProfile( models.Model ):
 	@property
 	def hasNotifications(self):
 		return self.pimpNotifications.count() > 0
+		
+	# Check amount of notifications
+	@property
+	def getNotificationsCount(self):
+		return self.pimpNotifications.count()
 		
 	# Follow or unfollow a user
 	def followUserToggle( self, otherUser ):

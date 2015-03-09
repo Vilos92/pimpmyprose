@@ -105,3 +105,8 @@ body {
 	font-size: 0.7em;
 	width: 75px;
 }
+
+/* Unread prose table cell */
+.unreadResponse {
+	background-color: #FDC673;
+}

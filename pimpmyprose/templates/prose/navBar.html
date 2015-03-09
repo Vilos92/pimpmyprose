@@ -18,7 +18,7 @@
 
 			{% if user.is_authenticated %}
 			<li><a href="{% url 'prose:logout' %}"><button type="button" class="btn btn-sm btn-primary">Logout</button></a></li>
-			<li><a class="notifications-icon" href="{% url 'prose:notifications' %}"><p class="navbar-text"><span class="glyphicon glyphicon-comment {% if user.userProfile.hasNotifications %}unread{% endif %}"></p></a></li>
+			<li><a class="notifications-icon" href="{% url 'prose:notifications' %}"><p class="navbar-text"><span class="glyphicon glyphicon-comment {% if user.userProfile.hasNotifications %}unread{% endif %}"></span> ({{ user.userProfile.getNotificationsCount }})</p></a></li>
 			<li><p class="navbar-text">Signed in as <a href="{% url 'prose:profile' user.id %}">{{ user.username }}</a></p></li>
 			
 			{% else %}

@@ -26,7 +26,6 @@ the profile view. Sets it to a string that says "Null" if not logged in The pimp
 + Do form validation for registration with JQUERY (frontend, backend is done)
 + Replace after-form displays (login, register, logout) with django message system? Left a comment in login.html showing example
 + Clear form on page reload
-+ Improve notifications, come from nav bar and use jquery to clear upon viewing
 + Have a Prose of the day, to get responses from people
 + Bootstrap glyphicon for upvote and downvote
 

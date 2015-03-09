@@ -1,4 +1,5 @@
-{% if pimp_notification_list %}
+<h2>Pimp Responses:</h2>
+{% if pimp_response_list %}
 <div class="table-responsive">
 	<table class="table">
 		<tr class="pimpProseTableHeader">
@@ -8,7 +9,24 @@
 			<th><center>Match %</center></th>
 			<th><center>User</center></th>
 		</tr>
+		
+		{% if pimp_notification_list %}
 		{% for pimp in pimp_notification_list %}
+		<tr class="pimpProseTableOtherRows unreadResponse">
+			<th><center id="pimp_{{ pimp.id }}_score">{{ pimp.score }}</center></th>
+			<th>{% include "prose/voting_interface.html" %}</th>
+			{% if pimp_list_profile %}
+			<th><a href="{% url 'prose:detail' pimp.prose_id %}">{{ pimp.pimp_text }}</a></th>
+			{% else %}
+			<th>{{ pimp.pimp_text }}</th>
+			{% endif %}
+			<th><center>{{ pimp.percentMatch }}</center></th>
+			<th><center><a href="{% url 'prose:profile' pimp.user.id %}">{{ pimp.user.username }}</a></center></th>
+		</tr>
+		{% endfor %}
+		{% endif %}
+		
+		{% for pimp in pimp_response_list %}
 		<tr class="pimpProseTableOtherRows">
 			<th><center id="pimp_{{ pimp.id }}_score">{{ pimp.score }}</center></th>
 			<th>{% include "prose/voting_interface.html" %}</th>
@@ -25,5 +43,5 @@
 </div>
 
 {% else %}
-<p>You have no Pimp notifications.</p>
+<p>You have no Pimp responses.</p>
 {% endif %}
