@@ -6,13 +6,13 @@ Repository for pimpMyProse
 a list. Right now, takes in a context value of either "Followed" or "Not Followed" from
 the profile view. Sets it to a string that says "Null" if not logged in The pimp_list would take a set.
 + manage.py reindex
-..+ Need to do whenever changing haystack search
+..* Need to do whenever changing haystack search
 
 # About
 + A website where you can post a Prose, allowing the online community to Pimp it.
 
 # To-Do
-+ Finish search page
++ Finish search page - style haystack search bar with bootstrap
 + Make login page look better
 + Finish organizing profile page in general
 + Categories - ask Byron
@@ -31,4 +31,4 @@ the profile view. Sets it to a string that says "Null" if not logged in The pimp
 
 # For Server
 + Need to install haystack and Whoosh (use pip)
-..+ http://django-haystack.readthedocs.org/en/latest/tutorial.html
+..* http://django-haystack.readthedocs.org/en/latest/tutorial.html

@@ -83,6 +83,10 @@ HAYSTACK_CONNECTIONS = {
 	},
 }
 
+# Allow haystack to update in real time
+# May need to change this to reduce load in production
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 

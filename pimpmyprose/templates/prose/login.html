@@ -25,9 +25,9 @@ pimpMyProse says: <strong>You are already logged in!</strong>
 {% else %}
 <form id="login_form" method="post" action="{% url 'prose:login' %}">
 	{% csrf_token %}
-	Username: <input type="text" name="username" value="" size="50" />
+	Username: <input type="text" name="username" value="" size="50" class="form-control form-control-custom" />
 	<br />
-	Password: <input type="password" name="password" value="" size="50" />
+	Password: <input type="password" name="password" value="" size="50" class="form-control form-control-custom" />
 	<br />
 	
 	<button type="submit" class="btn btn-primary" name="submit" />Submit</button>

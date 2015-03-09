@@ -18,11 +18,9 @@ pimpMyProse says: <strong>Thank you for registering!</strong> Redirecting in 5 s
 </script>
 
 {% else %}
-pimpMyProse says: <strong>Register here!</strong><br />
-
 <form id="user_form" method="post" action="{% url 'prose:register' %}">
 	{% csrf_token %}
-	
+
 	{{ user_form.as_p }}
 	{{ profile_form.as_p }}
 	

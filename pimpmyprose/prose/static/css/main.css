@@ -45,8 +45,7 @@ body {
 .main-column {
 	background-color: #FFFFFF;
 
-	padding-top: 20px;
-	padding-bottom: 30px;
+	padding: 30px 30px 30px 30px;
 	
 	border-radius: 25px 25px 25px 25px;
 }
@@ -109,4 +108,9 @@ body {
 /* Unread prose table cell */
 .unreadResponse {
 	background-color: #FDC673;
+}
+
+/* Make forms on register and login page look better */
+.form-control-custom {
+	width: 30%;
 }

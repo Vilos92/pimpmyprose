@@ -3,8 +3,10 @@ from django.contrib.auth.models import User
 from django import forms
 
 class UserForm( forms.ModelForm ):
-	password = forms.CharField( widget = forms.PasswordInput() )
-	passwordValidate = forms.CharField( label = 'Validate Password', widget = forms.PasswordInput() )
+	username = forms.CharField( widget = forms.TextInput( attrs = { 'class' : 'form-control form-control-custom' } ) )
+	email = forms.EmailField( widget = forms.TextInput( attrs = { 'class' : 'form-control form-control-custom' } ) )
+	password = forms.CharField( widget = forms.PasswordInput( attrs = { 'class' : 'form-control form-control-custom' } ) )
+	passwordValidate = forms.CharField( label = 'Validate Password', widget = forms.PasswordInput( attrs = { 'class' : 'form-control form-control-custom' } ) )
 	
 	class Meta:
 		model = User
@@ -40,9 +42,9 @@ class UserProfileForm( forms.ModelForm ):
 
 # Form to edit user account, does not include username
 class UserManageForm( forms.Form ):
-	email = forms.EmailField()
-	password = forms.CharField( widget = forms.PasswordInput() )
-	passwordValidate = forms.CharField( label = 'Validate Password', widget = forms.PasswordInput() )
+	email = forms.EmailField( widget = forms.TextInput( attrs = { 'class' : 'form-control form-control-custom' } ) )
+	password = forms.CharField( widget = forms.PasswordInput( attrs = { 'class' : 'form-control form-control-custom' } ) )
+	passwordValidate = forms.CharField( label = 'Validate Password', widget = forms.PasswordInput( attrs = { 'class' : 'form-control form-control-custom' } ) )
 	
 	def __init__( self, *args, **kwargs ):
 		self.user = kwargs.pop( 'user', None )
