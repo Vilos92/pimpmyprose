@@ -1,0 +1,2 @@
+{{ object.user.username }}
+{{ object.prose_text }}

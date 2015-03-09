@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, render, render_to_response
 
 from django.template import RequestContext
 
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -277,6 +278,9 @@ def profile_manage( request ):
 			# Log user in
 			userLogin = authenticate( username = request.user.username, password = request.POST['password'] )
 			login( request, userLogin)
+			
+			# Add message to flash message telling user profile edited
+			messages.add_message( request, messages.INFO, 'Profile Updated' )
 		
 		else:
 			print userManage_form.errors

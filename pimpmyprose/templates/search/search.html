@@ -1,0 +1,41 @@
+{% extends 'prose/base.html' %}
+
+{% block title %}pimpMyProse - Search{% endblock %}
+
+{% block content %}
+<h2>Search</h2>
+
+<form method="get" action=".">
+	<table>
+		{{ form.as_table }}
+		<tr>
+			<td>&nbsp;</td>
+			<td>
+				<input type="submit" value="Search">
+			</td>
+		</tr>
+	</table>
+	
+	{% if query %}
+	<h3>Results</h3>
+	
+		{% for result in page.object_list %}
+		<p>
+			<a href="{% url 'prose:detail' result.object.id %}">{{ result.object.prose_text }}</a>
+		</p>
+		{% empty %}
+		<p>No results found.</p>
+		{% endfor %}
+		
+		{% if page.has_previous or page.has_next %}
+		<div>
+		
+		</div>
+		{% endif %}
+	{% else %}
+		{# Show some example queries to run, maybe query syntax, something else? #}
+	{% endif %}
+	
+</form>
+
+{% endblock %}

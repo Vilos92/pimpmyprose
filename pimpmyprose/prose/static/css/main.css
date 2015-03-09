@@ -9,6 +9,8 @@ body {
 .navbar-custom {
 	background-color: #4F2F4F;
 	height: 60px;
+	
+	overflow: hidden;
 }
 
 .navbar-center {

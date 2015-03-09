@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import patterns, url, include
 
 from prose import views
 
@@ -36,4 +36,6 @@ urlpatterns = patterns( '',
 	
 	# ex: /prose/follow/
 	url( r'^follow/$', views.followToggle, name = 'follow' ),
+	
+	url( r'^search/', include( 'haystack.urls' ) ),
 )

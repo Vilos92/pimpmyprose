@@ -1,4 +1,6 @@
 pimpmyprose/prose/migrations
+pimpmyprose/pimpmyprose/whoosh_index
+
 psd
 
 *.pyc

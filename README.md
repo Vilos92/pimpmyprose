@@ -10,9 +10,9 @@ the profile view. Sets it to a string that says "Null" if not logged in The pimp
 + A website where you can post a Prose, allowing the online community to Pimp it.
 
 # To-Do
-+ Can edit profile, should show flash message after successfully doing so
-+ Search
-+ Ability to edit profile, finish organizing profile page in general
++ Finish search page
++ Make login page look better
++ Finish organizing profile page in general
 + Categories - ask Byron
 + Show submissions by date - need general filter, pagination
 + Finish django tutorial, do some automated testing
@@ -27,3 +27,6 @@ the profile view. Sets it to a string that says "Null" if not logged in The pimp
 + Show username next to prose text
 + Improve notifications, come from nav bar and use jquery to clear upon viewing
 + Have a Prose of the day, to get responses from people
+
+# For Server
++ Need to install haystack and Whoosh

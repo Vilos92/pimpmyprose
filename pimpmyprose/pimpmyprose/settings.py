@@ -38,6 +38,11 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+	
+	# App for searching
+	'haystack',
+	
+	# pimpMyProse app
 	'prose',
 )
 
@@ -68,6 +73,14 @@ DATABASES = {
 		'HOST': '127.0.0.1',
 		'PORT': '5432',
     }
+}
+
+# Connections so Haystack can search models
+HAYSTACK_CONNECTIONS = {
+	'default': {
+		'ENGINE' : 'haystack.backends.whoosh_backend.WhooshEngine',
+		'PATH' : os.path.join( os.path.dirname( __file__ ), 'whoosh_index' ),
+	},
 }
 
 # Internationalization
