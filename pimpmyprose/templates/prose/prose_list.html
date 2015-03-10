@@ -1,16 +1,13 @@
 {% if prose_list %}
 <div class="table-responsive">
 	<table class="table">
-		<tr class="pimpProseTableHeader">
-			<th><center>Full Score</center></th>
-			<th>Prose</th>
-			<th><center>User</center></th>
-		</tr>
 		{% for prose in prose_list %}
+		<tr class="pimpProseTableHeader">
+			<th class="pimpProsePurpleCell"><p class="pimpProseTableHeaderUser"><a href="{% url 'prose:profile' prose.user.id %}">{{ prose.user.username }}</a></p>
+			<p class="pimpProseTableHeaderText">&nbsp;&nbsp;&nbsp;&nbsp;{{ prose.pimpScoreSum }} total points&nbsp;&nbsp;-&nbsp;&nbsp;{{ prose.pimp_set.count }} Pimps&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'prose:detail' prose.id %}">Pimp-it</a></p></th>
+		</tr>
 		<tr class="pimpProseTableOtherRows">
-			<th><center>{{ prose.pimpScoreSum }}</center></th>
-			<th><a href="{% url 'prose:detail' prose.id %}">{{ prose.prose_text }}</a></th>
-			<th><center><a href="{% url 'prose:profile' prose.user.id %}">{{ prose.user.username }}</a></center></th>
+			<th>{{ prose.prose_text }}</th>
 		</tr>
 		{% endfor %}
 	</table>

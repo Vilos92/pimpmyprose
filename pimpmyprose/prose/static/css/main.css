@@ -1,3 +1,8 @@
+/* Recolor all links */
+a:link, a:hover, a:visited, a:active {
+ color: #9DB688;
+}
+
 /* Body must have padding at the top so navbar does not cover content by default */
 body {
 	background-color: #fdc673;
@@ -44,6 +49,7 @@ body {
 	background-color: #FFFFFF;
 
 	padding: 30px 30px 30px 30px;
+	margin-bottom: 30px;
 	
 	/* Do not want to shrink too small. Use same on navBar center */
 	min-width: 768px;
@@ -70,34 +76,50 @@ body {
 }
 
 /* Table CSS for both pimps and proses */
+/* Individual cell CSS */
+
+.pimpProsePurpleCell {
+	background-color: #4F2F4F;
+	color: #FFFFFF;
+}
+
 /* Header rows */
 .pimpProseTableHeader {
 	font-size: 0.9em;
+	
+	border-color: #4F2F4F;
+	border-style: solid;
+	border-width: 2px 2px 0 2px;
 }
 
 /* CSS for non-header rows */
 .pimpProseTableOtherRows {
 	font-size: 0.8em;
+	height: 50px;
+	
+	border-color: #4F2F4F;
+	border-style: solid;
+	border-width: 0 2px 2px 2px;
+}
+
+/* Paragraph CSS for score and reply link */
+p.pimpProseTableHeaderText {
+	font-size: 0.7em;
+	display: inline;
+}
+
+p.pimpProseTableHeaderUser {
+	font-size: 0.9em;
+	display: inline;
 }
 
 /* Voting Arrows */
 .voteArrow {
-	width: 0;
-	height: 0;
-	border-left: 9px solid transparent;
-	border-right: 9px solid transparent;
-	
 	cursor: pointer;
 }
 
-.voteArrowUp {
-	border-bottom: 9px solid black;
-	
-	margin: 0 0 4px 0;
-}
-
-.voteArrowDown {	
-	border-top: 9px solid #286090;
+.voteArrow:hover {
+	color: red;
 }
 
 /* CSS For the follow button */

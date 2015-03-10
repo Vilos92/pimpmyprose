@@ -12,8 +12,8 @@ the profile view. Sets it to a string that says "Null" if not logged in The pimp
 + A website where you can post a Prose, allowing the online community to Pimp it.
 
 # To-Do
-+ Try giving navBar a min-width so that it does not overflow
-+ Try resizing column, and also prose/pimp display tables
++ Finish styling
++ Try nowrap whitespace on navbar
 + Finish search page - style haystack search bar with bootstrap
 + Make login page look better
 + Finish organizing profile page in general

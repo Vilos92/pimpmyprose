@@ -1,25 +1,8 @@
 {% if pimp_list %}
 <div class="table-responsive">
 	<table class="table">
-		<tr class="pimpProseTableHeader">
-			<th><center>Score</center></th>
-			<th>Vote</th>
-			<th>Pimp</th>
-			<th><center>Match %</center></th>
-			<th><center>User</center></th>
-		</tr>
 		{% for pimp in pimp_list %}
-		<tr class="pimpProseTableOtherRows">
-			<th><center id="pimp_{{ pimp.id }}_score">{{ pimp.score }}</center></th>
-			<th>{% include "prose/voting_interface.html" %}</th>
-			{% if pimp_list_profile %}
-			<th><a href="{% url 'prose:detail' pimp.prose_id %}">{{ pimp.pimp_text }}</a></th>
-			{% else %}
-			<th>{{ pimp.pimp_text }}</th>
-			{% endif %}
-			<th><center>{{ pimp.percentMatch }}</center></th>
-			<th><center><a href="{% url 'prose:profile' pimp.user.id %}">{{ pimp.user.username }}</a></center></th>
-		</tr>
+			{% include "prose/pimp_list_item.html" %}
 		{% endfor %}
 	</table>
 </div>

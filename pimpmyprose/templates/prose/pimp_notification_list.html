@@ -2,42 +2,32 @@
 {% if pimp_response_list %}
 <div class="table-responsive">
 	<table class="table">
-		<tr class="pimpProseTableHeader">
-			<th><center>Score</center></th>
-			<th>Vote</th>
-			<th>Pimp</th>
-			<th><center>Match %</center></th>
-			<th><center>User</center></th>
-		</tr>
 		
 		{% if pimp_notification_list %}
 		{% for pimp in pimp_notification_list %}
-		<tr class="pimpProseTableOtherRows unreadResponse">
-			<th><center id="pimp_{{ pimp.id }}_score">{{ pimp.score }}</center></th>
-			<th>{% include "prose/voting_interface.html" %}</th>
-			{% if pimp_list_profile %}
-			<th><a href="{% url 'prose:detail' pimp.prose_id %}">{{ pimp.pimp_text }}</a></th>
-			{% else %}
-			<th>{{ pimp.pimp_text }}</th>
-			{% endif %}
-			<th><center>{{ pimp.percentMatch }}</center></th>
-			<th><center><a href="{% url 'prose:profile' pimp.user.id %}">{{ pimp.user.username }}</a></center></th>
+		{# Same as pimp_list_item, just green header #}
+		<tr class="pimpProseTableHeader">
+			<th class="success">
+				<p class="pimpProseTableHeaderUser"><a href="{% url 'prose:profile' pimp.user.id %}">{{ pimp.user.username }}</a></p>
+				&nbsp;&nbsp;&nbsp;&nbsp;<p id="pimp_{{ pimp.id }}_score" class="pimpProseTableHeaderText">{{ pimp.score }}</p>
+				&nbsp;&nbsp;&nbsp;&nbsp;{% include "prose/voting_interface.html" %}
+				&nbsp;&nbsp;&nbsp;&nbsp;<p class="pimpProseTableHeaderText">{{ pimp.percentMatch }}%&nbsp;&nbsp;match</p>
+			</th>
+		</tr>
+		<tr class="pimpProseTableOtherRows">
+			<th>
+				{% if pimp_list_profile %}
+				<a href="{% url 'prose:detail' pimp.prose_id %}">{{ pimp.pimp_text }}</a>
+				{% else %}
+				{{ pimp.pimp_text }}
+				{% endif %}
+			</th>
 		</tr>
 		{% endfor %}
 		{% endif %}
 		
 		{% for pimp in pimp_response_list %}
-		<tr class="pimpProseTableOtherRows">
-			<th><center id="pimp_{{ pimp.id }}_score">{{ pimp.score }}</center></th>
-			<th>{% include "prose/voting_interface.html" %}</th>
-			{% if pimp_list_profile %}
-			<th><a href="{% url 'prose:detail' pimp.prose_id %}">{{ pimp.pimp_text }}</a></th>
-			{% else %}
-			<th>{{ pimp.pimp_text }}</th>
-			{% endif %}
-			<th><center>{{ pimp.percentMatch }}</center></th>
-			<th><center><a href="{% url 'prose:profile' pimp.user.id %}">{{ pimp.user.username }}</a></center></th>
-		</tr>
+			{% include "prose/pimp_list_item.html" %}
 		{% endfor %}
 	</table>
 </div>
