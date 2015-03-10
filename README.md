@@ -12,6 +12,8 @@ the profile view. Sets it to a string that says "Null" if not logged in The pimp
 + A website where you can post a Prose, allowing the online community to Pimp it.
 
 # To-Do
++ Try giving navBar a min-width so that it does not overflow
++ Try resizing column, and also prose/pimp display tables
 + Finish search page - style haystack search bar with bootstrap
 + Make login page look better
 + Finish organizing profile page in general
@@ -28,6 +30,8 @@ the profile view. Sets it to a string that says "Null" if not logged in The pimp
 + Clear form on page reload
 + Have a Prose of the day, to get responses from people
 + Bootstrap glyphicon for upvote and downvote
++ Tag other users to pimp your prose (users you are following?)
++ Share link on reddit
 
 # For Server
 + Need to install haystack and Whoosh (use pip)

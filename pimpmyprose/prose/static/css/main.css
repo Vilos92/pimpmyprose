@@ -14,8 +14,6 @@ body {
 }
 
 .navbar-center {
-	width: 76%;
-	margin-left: 12%;
 }
 
 .navbar p {
@@ -46,6 +44,9 @@ body {
 	background-color: #FFFFFF;
 
 	padding: 30px 30px 30px 30px;
+	
+	/* Do not want to shrink too small. Use same on navBar center */
+	min-width: 768px;
 	
 	border-radius: 25px 25px 25px 25px;
 }
