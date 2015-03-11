@@ -12,6 +12,8 @@ the profile view. Sets it to a string that says "Null" if not logged in The pimp
 + A website where you can post a Prose, allowing the online community to Pimp it.
 
 # To-Do
++ Reddit share link added, add facebook link
+..* Need to customize templates and views for share links. Facebook plugin needs correct url
 + Finish styling
 + Finish search page - style haystack search bar with bootstrap
 + Finish organizing profile page in general
@@ -25,7 +27,6 @@ the profile view. Sets it to a string that says "Null" if not logged in The pimp
 + Do form validation for registration with JQUERY (frontend, backend is done)
 + Have a Prose of the day, to get responses from people
 + Tag other users to pimp your prose (users you are following?)
-+ Share link on reddit
 
 # For Server
 + Need to install haystack and Whoosh (use pip)
