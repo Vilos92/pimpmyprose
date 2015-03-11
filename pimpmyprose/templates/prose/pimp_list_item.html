@@ -4,14 +4,11 @@
 		&nbsp;&nbsp;&nbsp;&nbsp;<p id="pimp_{{ pimp.id }}_score" class="pimpProseTableHeaderText">{{ pimp.score }}</p>
 		&nbsp;&nbsp;&nbsp;&nbsp;{% include "prose/voting_interface.html" %}
 		&nbsp;&nbsp;&nbsp;&nbsp;<p class="pimpProseTableHeaderText">{{ pimp.percentMatch }}%&nbsp;&nbsp;match</p>
+		{% if pimp_list_profile %}&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'prose:detail' pimp.prose_id %}"><p class="pimpProseTableHeaderText">view parent Prose</p></a>{% endif %}
 	</th>
 </tr>
 <tr class="pimpProseTableOtherRows">
 	<th>
-		{% if pimp_list_profile %}
-		<a href="{% url 'prose:detail' pimp.prose_id %}">{{ pimp.pimp_text }}</a>
-		{% else %}
 		{{ pimp.pimp_text }}
-		{% endif %}
 	</th>
 </tr>
