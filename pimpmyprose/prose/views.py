@@ -103,6 +103,9 @@ def index(request):
 		if prose_form.is_valid():
 			# Save prose data from form into prose
 			prose = prose_form.save( commit = False )
+			# Reset prose form so no data on page reload
+			prose_form = ProseForm()
+			
 			prose.user = request.user
 			prose.pub_date = timezone.now()
 			
@@ -141,6 +144,8 @@ def detail( request, prose_id ):
 			else:
 				# Save prose data from form into prose
 				pimp = pimp_form.save( commit = False )
+				# Reset pimp form for page reload, no repost
+				pimp_form = PimpForm()
 				
 				pimp.user = request.user
 				pimp.pub_date = timezone.now()

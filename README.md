@@ -23,10 +23,7 @@ the profile view. Sets it to a string that says "Null" if not logged in The pimp
 + Auto create userProfile if none exists for user
 + Following and unfollowing needs to show number change on page from Ajax
 + Do form validation for registration with JQUERY (frontend, backend is done)
-+ Replace after-form displays (login, register, logout) with django message system? Left a comment in login.html showing example
-+ Clear form on page reload
 + Have a Prose of the day, to get responses from people
-+ Bootstrap glyphicon for upvote and downvote
 + Tag other users to pimp your prose (users you are following?)
 + Share link on reddit
 
