@@ -52,9 +52,11 @@ class UserManageForm( forms.Form ):
 
 	def clean_email(self):
 		email = self.cleaned_data['email']
+		# User can keep their email
 		if email == self.user.email:
 			return email
 		
+		# Cant use an existing email
 		if User.objects.filter( email = email ).exists():
 			raise forms.ValidationError( "Email already exists." )
 		return email
@@ -76,6 +78,12 @@ class ProseForm( forms.ModelForm ):
 	class Meta:
 		model = Prose
 		fields = ( 'prose_text', )
+		
+	def clean_prose_text(self):
+		prose_text = self.cleaned_data['prose_text']
+		if Prose.objects.filter( prose_text = prose_text ).exists():
+			raise forms.ValidationError( "Prose Text already exist." )
+		return prose_text
 
 # Form for submitting a pimp
 class PimpForm( forms.ModelForm ):
@@ -84,3 +92,9 @@ class PimpForm( forms.ModelForm ):
 	class Meta:
 		model = Pimp
 		fields = ( 'pimp_text', )
+		
+	def clean_pimp_text(self):
+		pimp_text = self.cleaned_data['pimp_text']
+		if Pimp.objects.filter( pimp_text = pimp_text ).exists():
+			raise forms.ValidationError( "Pimp Text already exist." )
+		return pimp_text

@@ -1,6 +1,6 @@
 /* Recolor all links */
 a:link, a:hover, a:visited, a:active {
- color: #9DB688;
+ color: #337AB7;
 }
 
 /* Body must have padding at the top so navbar does not cover content by default */
@@ -16,9 +16,6 @@ body {
 	height: 60px;
 	
 	overflow: hidden;
-}
-
-.navbar-center {
 }
 
 .navbar p {

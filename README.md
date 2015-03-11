@@ -13,14 +13,11 @@ the profile view. Sets it to a string that says "Null" if not logged in The pimp
 
 # To-Do
 + Finish styling
-+ Try nowrap whitespace on navbar
 + Finish search page - style haystack search bar with bootstrap
-+ Make login page look better
 + Finish organizing profile page in general
 + Categories - ask Byron
 + Show submissions by date - need general filter, pagination
 + Finish django tutorial, do some automated testing
-+ Authenticate submissions in view - cannot be exact same as other submissions
 + Update admin for models
 + Use for loop with context set to pass all user ids for follow alongside pimps, since cannot use a function inside the template must use beforehand %}
 + Auto create userProfile if none exists for user
