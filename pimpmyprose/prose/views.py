@@ -78,7 +78,7 @@ def user_login(request):
 		if user:
 			if user.is_active:
 				login( request, user )
-				return HttpResponseRedirect('/prose/')
+				return HttpResponseRedirect( reverse( 'prose:index' ) )
 			else:
 				return HttpResponseRedirect( "Your pimpMyProse account is disabled." )
 		else:
@@ -121,7 +121,53 @@ def index(request):
 			
 	return render_to_response(
 			'prose/index.html',
-			{ 'prose_form' : prose_form, 'prose_list' : latest_prose_list  },
+			{ 'prose_form' : prose_form, 'prose_list' : latest_prose_list, 'filter' : 'top' },
+			context )
+			
+def indexFiltered( request, filter ):
+	context = RequestContext(request)
+	
+	if filter == 'top':
+		# Right now order by best in newest 50.
+		# Replace this later by adding time to score for rank in top
+		# Newer ones get precedence then, but score matters most
+		prose_list = Prose.objects.order_by('-pub_date')[:50]
+		prose_list = sorted( list( prose_list ), key = lambda x : x.pimpScoreSum, reverse = True )
+	elif filter == 'new':
+		# Simply get the 50 latest posts
+		prose_list = Prose.objects.order_by('-pub_date')[:50]
+	elif filter == 'worst':
+		# Show worst posts
+		prose_list = Prose.objects.order_by('-pub_date')[:50]
+		prose_list = sorted( list( prose_list ), key = lambda x : x.pimpScoreSum )
+	elif filter == 'old':
+		prose_list = Prose.objects.order_by('pub_date')[:50]
+	else:
+		return HttpResponseRedirect( reverse( 'prose:index' ) )
+	
+	if request.user.is_authenticated() and request.method == 'POST':
+		prose_form = ProseForm( data = request.POST )
+		
+		if prose_form.is_valid():
+			# Save prose data from form into prose
+			prose = prose_form.save( commit = False )
+			# Reset prose form so no data on page reload
+			prose_form = ProseForm()
+			
+			prose.user = request.user
+			prose.pub_date = timezone.now()
+			
+			prose.save()
+		
+		else:
+			print prose_form.errors
+		
+	else:
+		prose_form = ProseForm()
+			
+	return render_to_response(
+			'prose/index.html',
+			{ 'prose_form' : prose_form, 'prose_list' : prose_list, 'filter' : filter },
 			context )
 	
 def detail( request, prose_id ):

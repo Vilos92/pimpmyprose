@@ -1,6 +1,6 @@
 /* Recolor all links */
 a:link, a:hover, a:visited, a:active {
- color: #337AB7;
+ color: #FFFFFF;
 }
 
 /* Body must have padding at the top so navbar does not cover content by default */
@@ -75,13 +75,11 @@ body {
 /* Table CSS for both pimps and proses */
 /* Individual cell CSS */
 
-.pimpProsePurpleCell {
-	background-color: #4F2F4F;
-	color: #FFFFFF;
-}
-
 /* Header rows */
 .pimpProseTableHeader {
+	background-color: #4F2F4F;
+	color: #9D9D9D;
+
 	font-size: 0.9em;
 	
 	border-color: #4F2F4F;

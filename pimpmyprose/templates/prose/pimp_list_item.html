@@ -1,5 +1,5 @@
 <tr class="pimpProseTableHeader">
-	<th class="pimpProsePurpleCell">
+	<th>
 		<p class="pimpProseTableHeaderUser"><a href="{% url 'prose:profile' pimp.user.id %}">{{ pimp.user.username }}</a></p>
 		&nbsp;&nbsp;&nbsp;&nbsp;<p id="pimp_{{ pimp.id }}_score" class="pimpProseTableHeaderText">{{ pimp.score }}</p>
 		&nbsp;&nbsp;&nbsp;&nbsp;{% include "prose/voting_interface.html" %}

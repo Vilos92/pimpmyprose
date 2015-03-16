@@ -1,5 +1,5 @@
 {% extends "prose/base.html" %}
-{% block title %}pimpMyProse {% endblock %}
+{% block title %}pimpMyProse{% endblock %}
 
 {% block content %}
 
@@ -19,6 +19,19 @@ Must be logged in to prose!
 {% endif %}
 
 <br>
+
+<div class="dropdown">
+	<button class="btn btn-default dropdown-toggle" type="button" id="dropdownFilter" data-toggle="dropdown" aria-expanded="true">
+		sorted by: {{ filter }}
+		<span class="caret"></span>
+	</button>
+	<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownFilter">
+		<li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'prose:indexFiltered' 'top' %}">Top</a></li>
+		<li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'prose:indexFiltered' 'new' %}">New</a></li>
+		<li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'prose:indexFiltered' 'worst' %}">Worst</a></li>
+		<li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'prose:indexFiltered' 'old' %}">Old</a></li>
+	</ul>
+</div>
 
 <h2>All new proses</h2>
 {% include "prose/prose_list.html" %}
