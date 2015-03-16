@@ -282,7 +282,7 @@ def profile( request, user_id ):
 	
 	# Pass pimp_list_profile as true to indicate that 
 	# pimps should have links to their parent prose
-	pimp_list_profile = True
+	show_parent_prose = True
 	
 	# Only show follow status if logged in
 	if request.user.is_authenticated():
@@ -296,7 +296,7 @@ def profile( request, user_id ):
 	return render_to_response(
 			'prose/profile.html',
 			{	'userProfile' : userProfile, 'prose_list' : latest_prose_list,
-				'pimp_list' : latest_pimp_list, 'pimp_list_profile' : pimp_list_profile,
+				'pimp_list' : latest_pimp_list, 'show_parent_prose' : show_parent_prose,
 				'followingUser' : followingUser },
 			context )
 
@@ -314,9 +314,12 @@ def notifications(request):
 	# Subtract notification list from the overall pimp_response_list
 	pimp_response_list = [ pimp for pimp in pimp_response_list if pimp not in pimp_notification_list ]
 	
+	# Pass variable to indicate that Pimp's should link to their parent Prose
+	show_parent_prose = True
+	
 	return render_to_response(
 			'prose/notifications.html',
-			{ 'pimp_notification_list' : pimp_notification_list, 'pimp_response_list' : pimp_response_list },
+			{ 'pimp_notification_list' : pimp_notification_list, 'pimp_response_list' : pimp_response_list, 'show_parent_prose' : show_parent_prose },
 			context )
 			
 # Manage the user profile
