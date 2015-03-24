@@ -30,7 +30,19 @@ class Prose( models.Model ):
 	# Return all pimps ranked by their pimp score
 	def rankedPimps(self):
 		return sorted( list( self.pimp_set.all() ), key = lambda x : x.score, reverse = True )
-	
+		
+	# Return all pimps in order of new first
+	def newPimps(self):
+		return self.pimp_set.order_by('-pub_date')
+		
+	# Return all pimps in order of worst first
+	def worstPimps(self):
+		return sorted( list( self.pimp_set.all() ), key = lambda x : x.score, reverse = False )
+
+	# Return all pimps in order of older first
+	def oldPimps(self):
+		return self.pimp_set.order_by('pub_date')
+		
 	# Return culmative pimp score for this prose
 	@property
 	def pimpScoreSum(self):

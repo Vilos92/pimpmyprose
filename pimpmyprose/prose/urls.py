@@ -12,6 +12,7 @@ urlpatterns = patterns( '',
 	
 	# ex: /prose/5/
 	url( r'^(?P<prose_id>\d+)/$', views.detail, name = 'detail' ),
+	url( r'^(?P<prose_id>\d+)/(?P<filter>top|new|worst|old)/$', views.detail, name = 'detail' ),
 	
 	# ex: /prose/5/results/
 	url( r'^(?P<prose_id>\d+)/results/$', views.results, name = 'results' ),

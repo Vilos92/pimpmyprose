@@ -27,6 +27,21 @@ Must be logged in to pimp this prose!
 {% endif %}
 
 <br>
+
+<div class="dropdown">
+	<button class="btn btn-default dropdown-toggle" type="button" id="dropdownFilter" data-toggle="dropdown" aria-expanded="true">
+		sorted by: {{ filter }}
+		<span class="caret"></span>
+	</button>
+	<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownFilter">
+		<li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'prose:detail' prose.id 'top' %}">Top</a></li>
+		<li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'prose:detail' prose.id 'new' %}">New</a></li>
+		<li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'prose:detail' prose.id 'worst' %}">Worst</a></li>
+		<li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'prose:detail' prose.id 'old' %}">Old</a></li>
+	</ul>
+</div>
+
+<br>
 {% include "prose/pimp_list.html" %}
 
 {% endblock %}

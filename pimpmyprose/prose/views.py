@@ -170,7 +170,7 @@ def indexFiltered( request, filter ):
 			{ 'prose_form' : prose_form, 'prose_list' : prose_list, 'filter' : filter },
 			context )
 	
-def detail( request, prose_id ):
+def detail( request, prose_id, filter = 'top' ):
 	context = RequestContext(request)
 	
 	prose = get_object_or_404( Prose, pk = prose_id )
@@ -215,13 +215,24 @@ def detail( request, prose_id ):
 		
 	else:
 		pimp_form = PimpForm()
-		
+	
+	# Create empty rankedPimps object
+	
+	rankedPimps = []
 	# Put sorted pimps by score in variable to pass to template
-	rankedPimps = prose.rankedPimps()
+	# if there is no filter, just return rankedPimps
+	if filter == 'top':
+		rankedPimps = prose.rankedPimps()
+	elif filter == 'new':
+		rankedPimps = prose.newPimps()
+	elif filter == 'worst':
+		rankedPimps = prose.worstPimps()
+	elif filter == 'old':
+		rankedPimps = prose.oldPimps()
 		
 	return render_to_response(
 			'prose/detail.html',
-			{ 'pimp_form' : pimp_form, 'prose' : prose, 'pimp_list' : rankedPimps },
+			{ 'pimp_form' : pimp_form, 'prose' : prose, 'pimp_list' : rankedPimps, 'filter' : filter },
 			context )
 	
 def results( request, prose_id ):

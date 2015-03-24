@@ -12,16 +12,19 @@ the profile view. Sets it to a string that says "Null" if not logged in The pimp
 + A website where you can post a Prose, allowing the online community to Pimp it.
 
 # To-Do
++ Make a pimp which is the origin of pimpMyProse. Let others upvote it
 + Added filtering on index page for proses
 	+ Need to do the same for the detail page (pimps)
 + Reddit share link added, add facebook link
 	+ Need to customize templates and views for share links. Facebook plugin needs correct url
 + Finish styling
+	+ Notification color scheme is very bad
 + Finish search page - style haystack search bar with bootstrap
 + Finish organizing profile page in general
 + Categories - ask Byron
 + Show submissions by date - need general filter, pagination
 + Finish django tutorial, do some automated testing
+	+ Create batch files for testing
 + Update admin for models
 + Use for loop with context set to pass all user ids for follow alongside pimps, since cannot use a function inside the template must use beforehand %}
 + Auto create userProfile if none exists for user
@@ -29,6 +32,7 @@ the profile view. Sets it to a string that says "Null" if not logged in The pimp
 + Do form validation for registration with JQUERY (frontend, backend is done)
 + Have a Prose of the day, to get responses from people
 + Tag other users to pimp your prose (users you are following?)
++ Pagination on index, detail, profile, notifactions, etc.
 
 # For Server
 + Need to install haystack and Whoosh (use pip)
