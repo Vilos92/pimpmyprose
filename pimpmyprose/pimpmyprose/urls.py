@@ -7,7 +7,7 @@ urlpatterns = patterns('',
     # url(r'^$', 'pimpmyprose.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
-	url( r'^prose/', include( 'prose.urls', namespace = "prose" ) ),
+	url( r'^', include( 'prose.urls', namespace = "prose" ) ),
     url( r'^admin/', include(admin.site.urls) ),
 )
 

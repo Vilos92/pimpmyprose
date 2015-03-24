@@ -20,17 +20,17 @@ the profile view. Sets it to a string that says "Null" if not logged in The pimp
 + Finish search page - style haystack search bar with bootstrap
 + Finish organizing profile page in general
 + Categories - ask Byron
-+ Show submissions by date - need general filter, pagination
 + Finish django tutorial, do some automated testing
 	+ Create batch files for testing
 + Update admin for models
-+ Use for loop with context set to pass all user ids for follow alongside pimps, since cannot use a function inside the template must use beforehand %}
 + Auto create userProfile if none exists for user
 + Following and unfollowing needs to show number change on page from Ajax
 + Do form validation for registration with JQUERY (frontend, backend is done)
 + Have a Prose of the day, to get responses from people
 + Tag other users to pimp your prose (users you are following?)
 + Pagination on index, detail, profile, notifactions, etc.
++ Need to be able to click follow on user for all Pimps/Proses. Need to be able to pass in list of 
+user names to accomplish this.
 
 # For Server
 + Need to install haystack and Whoosh (use pip)

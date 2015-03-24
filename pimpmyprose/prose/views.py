@@ -94,7 +94,7 @@ def user_logout(request):
 	
 	return HttpResponseRedirect( reverse( 'prose:index' ) )
 		
-def index( request, filter = 'top' ):
+def index( request, filter = 'hot' ):
 	context = RequestContext(request)
 	
 	if request.user.is_authenticated() and request.method == 'POST':
@@ -119,14 +119,16 @@ def index( request, filter = 'top' ):
 		
 	# Create empty set of prose for case of bad filter input
 	prose_list = []
-	print filter
-	# Sort by filter, default is top
-	if filter == 'top':
-		# This is more like hot than top
+	# Sort by filter, default is hot
+	if filter == 'hot':
 		# Right now order by best in newest 50.
-		# Replace this later by adding time to score for rank in top
-		# Newer ones get precedence then, but score matters most
+		# Replace this later by adding time to score for rank (lke reddit)
 		prose_list = Prose.objects.order_by('-pub_date')[:50]
+		prose_list = sorted( list( prose_list ), key = lambda x : x.pimpScoreSum, reverse = True )
+	# Sort by filter, default is top
+	elif filter == 'top':
+		# Best of all time. Should have sub-filter for how long ago (like reddit)
+		prose_list = Prose.objects.all()
 		prose_list = sorted( list( prose_list ), key = lambda x : x.pimpScoreSum, reverse = True )
 	elif filter == 'new':
 		# Simply get the 50 latest posts
@@ -140,7 +142,7 @@ def index( request, filter = 'top' ):
 			
 	return render_to_response(
 			'prose/index.html',
-			{ 'prose_form' : prose_form, 'prose_list' : prose_list, 'filter' : 'top' },
+			{ 'prose_form' : prose_form, 'prose_list' : prose_list, 'filter' : filter },
 			context )
 	
 def detail( request, prose_id, filter = 'top' ):
