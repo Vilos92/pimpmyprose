@@ -1,3 +1,5 @@
+import datetime
+
 from django.shortcuts import get_object_or_404, render, render_to_response
 
 from django.template import RequestContext
@@ -13,6 +15,9 @@ from django.utils import timezone
 
 from prose.models import Prose, Pimp, UserProfile
 from prose.forms import UserForm, UserProfileForm, UserManageForm, ProseForm, PimpForm
+
+# Include custom functions for hot ranking (from reddit)
+from ranking_functions import getHotScore
 
 def register(request):
 	context = RequestContext(request)
@@ -121,10 +126,11 @@ def index( request, filter = 'hot' ):
 	prose_list = []
 	# Sort by filter, default is hot
 	if filter == 'hot':
-		# Right now order by best in newest 50.
+		# Should not get all and then sort by hot, need to either store
+		# hot rating in database to speed up loading or stick to newest 200
 		# Replace this later by adding time to score for rank (lke reddit)
-		prose_list = Prose.objects.order_by('-pub_date')[:50]
-		prose_list = sorted( list( prose_list ), key = lambda x : x.pimpScoreSum, reverse = True )
+		prose_list = Prose.objects.all()[:200]
+		prose_list = sorted( list( prose_list ), key = lambda x : getHotScore( x.pimpScoreSum, datetime.datetime.now() ) , reverse = True )
 	# Sort by filter, default is top
 	elif filter == 'top':
 		# Best of all time. Should have sub-filter for how long ago (like reddit)

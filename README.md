@@ -12,6 +12,9 @@ the profile view. Sets it to a string that says "Null" if not logged in The pimp
 + A website where you can post a Prose, allowing the online community to Pimp it.
 
 # To-Do
++ Reddit hot score algorithm seems to work, unit test it
++ Confidence algorithm? http://amix.dk/blog/post/19588
++ Move ranking_functions.py to its own folder?
 + Make a pimp which is the origin of pimpMyProse. Let others upvote it
 + Reddit share link added, add facebook link
 	+ Need to customize templates and views for share links. Facebook plugin needs correct url

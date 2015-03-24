@@ -65,6 +65,7 @@ class Pimp( models.Model ):
 	def __str__(self):
 		return self.pimp_text
 	
+	# Get the base score of a pimp, based on upvotes and downvotes
 	@property
 	def score(self):
 		return self.upvotes.count() - self.downvotes.count()
