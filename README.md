@@ -13,8 +13,6 @@ the profile view. Sets it to a string that says "Null" if not logged in The pimp
 
 # To-Do
 + Make a pimp which is the origin of pimpMyProse. Let others upvote it
-+ Added filtering on index page for proses
-	+ Need to do the same for the detail page (pimps)
 + Reddit share link added, add facebook link
 	+ Need to customize templates and views for share links. Facebook plugin needs correct url
 + Finish styling

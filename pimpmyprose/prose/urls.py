@@ -6,12 +6,12 @@ from prose import views
 urlpatterns = patterns( '',
 	# ex: /prose/
 	url( r'^$', views.index, name = 'index' ),
-	
-	# ex: /prose/top/
-	url( r'^(?P<filter>top|new|worst|old)/$', views.indexFiltered, name = 'indexFiltered' ),
+	# filtered ex: /prose/top/
+	url( r'^(?P<filter>top|new|worst|old)/$', views.index, name = 'index' ),
 	
 	# ex: /prose/5/
 	url( r'^(?P<prose_id>\d+)/$', views.detail, name = 'detail' ),
+	# filtered ex: /prose/5/top/
 	url( r'^(?P<prose_id>\d+)/(?P<filter>top|new|worst|old)/$', views.detail, name = 'detail' ),
 	
 	# ex: /prose/5/results/

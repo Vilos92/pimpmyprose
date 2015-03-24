@@ -94,7 +94,7 @@ def user_logout(request):
 	
 	return HttpResponseRedirect( reverse( 'prose:index' ) )
 		
-def index(request):
+def index( request, filter = 'top' ):
 	context = RequestContext(request)
 	
 	if request.user.is_authenticated() and request.method == 'POST':
@@ -116,18 +116,13 @@ def index(request):
 		
 	else:
 		prose_form = ProseForm()
-
-	latest_prose_list = Prose.objects.order_by('-pub_date')[:5]
-			
-	return render_to_response(
-			'prose/index.html',
-			{ 'prose_form' : prose_form, 'prose_list' : latest_prose_list, 'filter' : 'top' },
-			context )
-			
-def indexFiltered( request, filter ):
-	context = RequestContext(request)
-	
+		
+	# Create empty set of prose for case of bad filter input
+	prose_list = []
+	print filter
+	# Sort by filter, default is top
 	if filter == 'top':
+		# This is more like hot than top
 		# Right now order by best in newest 50.
 		# Replace this later by adding time to score for rank in top
 		# Newer ones get precedence then, but score matters most
@@ -142,32 +137,10 @@ def indexFiltered( request, filter ):
 		prose_list = sorted( list( prose_list ), key = lambda x : x.pimpScoreSum )
 	elif filter == 'old':
 		prose_list = Prose.objects.order_by('pub_date')[:50]
-	else:
-		return HttpResponseRedirect( reverse( 'prose:index' ) )
-	
-	if request.user.is_authenticated() and request.method == 'POST':
-		prose_form = ProseForm( data = request.POST )
-		
-		if prose_form.is_valid():
-			# Save prose data from form into prose
-			prose = prose_form.save( commit = False )
-			# Reset prose form so no data on page reload
-			prose_form = ProseForm()
-			
-			prose.user = request.user
-			prose.pub_date = timezone.now()
-			
-			prose.save()
-		
-		else:
-			print prose_form.errors
-		
-	else:
-		prose_form = ProseForm()
 			
 	return render_to_response(
 			'prose/index.html',
-			{ 'prose_form' : prose_form, 'prose_list' : prose_list, 'filter' : filter },
+			{ 'prose_form' : prose_form, 'prose_list' : prose_list, 'filter' : 'top' },
 			context )
 	
 def detail( request, prose_id, filter = 'top' ):
@@ -217,10 +190,8 @@ def detail( request, prose_id, filter = 'top' ):
 		pimp_form = PimpForm()
 	
 	# Create empty rankedPimps object
-	
 	rankedPimps = []
-	# Put sorted pimps by score in variable to pass to template
-	# if there is no filter, just return rankedPimps
+	# Sort by filter, default is top
 	if filter == 'top':
 		rankedPimps = prose.rankedPimps()
 	elif filter == 'new':
