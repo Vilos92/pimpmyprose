@@ -20,6 +20,7 @@ the profile view. Sets it to a string that says "Null" if not logged in The pimp
 	+ Need to customize templates and views for share links. Facebook plugin needs correct url
 + Finish styling
 	+ Notification color scheme is very bad
+	+ Try alternating posts like twitter, rather than blankd tables
 + Finish search page - style haystack search bar with bootstrap
 + Finish organizing profile page in general
 + Categories - ask Byron
