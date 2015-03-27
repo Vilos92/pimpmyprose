@@ -92,7 +92,8 @@ HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 LANGUAGE_CODE = 'en-us'
 
-LOGIN_URL = '/prose/login/'
+# Use a reverse here if possible
+LOGIN_URL = 'prose:login'
 
 TIME_ZONE = 'US/Pacific'
 
