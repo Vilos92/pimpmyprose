@@ -35,6 +35,8 @@ the profile view. Sets it to a string that says "Null" if not logged in The pimp
 + Pagination on index, detail, profile, notifactions, etc.
 + Need to be able to click follow on user for all Pimps/Proses. Need to be able to pass in list of 
 user names to accomplish this.
++ Find way not to load main.js on every page
++ Email validation
 
 # For Server
 + Need to install haystack and Whoosh (use pip)
