@@ -4,7 +4,7 @@
 {% block content %}
 
 <h4><a href="{% url 'prose:profile' prose.user.id %}">{{ prose.user.username }}</a></h4>
-<h3>{{ prose.prose_text }}</h3>
+<div class="pimpProseBox"><h3>{{ prose.prose_text }}</h3></div>
 <a href="//www.reddit.com/submit" onclick="window.location = '//www.reddit.com/submit?url=' + encodeURIComponent(window.location); return false"> <img src="//www.redditstatic.com/spreddit1.gif" alt="submit to reddit" border="0" /> </a>
 <br>
 

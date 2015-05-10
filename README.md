@@ -5,12 +5,19 @@ Repository for pimpMyProse
 + A website where you can post a Prose, allowing the online community to Pimp it. Pimps can then be upvoted or downvoted.
 
 ## Current Activity
-	+ Restyle site
-		+ Notification list has a very strange color scheme
-		+ The list of Prose/Pimps should have alternating colors to distinguish them. The current layout of tables looks bland and uninviting
-		+ Have some kind of graphic on the index page to direct users towards posting a new Prose, looking at Pimps, or just registering
-		
-	+ Upload alpha to Webfactional
++ Restyle site
+	+ Notification list has a very strange color scheme
+	+ The list of Prose/Pimps should have alternating colors to distinguish them. The current layout of tables looks bland and uninviting
+	+ Have some kind of graphic on the index page to direct users towards posting a new Prose, looking at Pimps, or just registering
+	+ Items must be restyled in multiple places:
+		+ pimp_list_item
+		+ prose_list_item
+		+ pimp_notification_list
+		+ main.css
+			+ Remove old CSS for tables afterwords
+	+ On Prose page, Prose text should be in its own box
+	
++ Upload alpha to Webfactional
 
 ## Haystack
 + manage.py reindex

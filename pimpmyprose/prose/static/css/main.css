@@ -75,6 +75,48 @@ body {
 /* Table CSS for both pimps and proses */
 /* Individual cell CSS */
 
+/* New pimpProseBox for all posts */
+.pimpProseBox {
+	background-color: #FFFFFF;
+	
+	width: 100%;
+	
+	margin: 0 0 15px 0;
+	padding: 0 15px 0 15px;
+	
+	border-radius: 15px 15px 15px 15px;
+	-moz-border-radius: 15px 15px 15px 15px;
+	-webkit-border-radius: 15px 15px 15px 15px;
+	border: 1px solid #9D9D9D;
+}
+
+.pimpProseBox a {
+	color: #4F2F4F;
+}
+
+.pimpProseBox h3 {
+	margin-right: 10px;
+}
+
+.pimpProseBox h3, h4 {
+	display: inline-block;
+}
+
+.pimpProseBox h4, h5 {
+	color: #9D9D9D;
+}
+
+.pimpProseBox h5 {
+	float: right;
+	margin: -40px 0 0 0;
+}
+
+.pimpProseBox .btn {
+	margin: 0 0 0 25px;
+}
+/* Delete everything below this once you no longer are using the tables */
+	
+
 /* Header rows */
 .pimpProseTableHeader {
 	background-color: #4F2F4F;
@@ -106,6 +148,16 @@ p.pimpProseTableHeaderText {
 p.pimpProseTableHeaderUser {
 	font-size: 0.9em;
 	display: inline;
+}
+
+p.pimpProseTablePimps {
+	font-size: 0.9em;
+	display: inlin;
+	float: right;
+}
+
+p.pimpProseTablePimps a {
+	color: #000000;
 }
 
 /* Voting Arrows */
