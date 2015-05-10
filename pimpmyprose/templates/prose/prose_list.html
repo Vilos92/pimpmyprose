@@ -1,11 +1,7 @@
 {% if prose_list %}
-<div class="table-responsive">
-	<table class="table">
-		{% for prose in prose_list %}
-			{% include "prose/prose_list_item.html" %}
-		{% endfor %}
-	</table>
-</div>
+	{% for prose in prose_list %}
+		{% include "prose/prose_list_item.html" %}
+	{% endfor %}
 
 {% else %}
 <p>There are no Prose.</p>
