@@ -2,7 +2,7 @@
 $('.upvote').click( function() {
 	var pimp_id;
 	pimp_id = $(this).attr("data-pimp_id");
-	$.get('/prose/upvote/', { pimp_id : pimp_id }, function(data) {
+	$.get('/upvote/', { pimp_id : pimp_id }, function(data) {
 		var scoreID = '#pimp_' + pimp_id + '_score';
 		console.log(scoreID);
 		
@@ -14,7 +14,7 @@ $('.upvote').click( function() {
 $('.downvote').click( function() {
 	var pimp_id;
 	pimp_id = $(this).attr("data-pimp_id");
-	$.get('/prose/downvote/', { pimp_id : pimp_id }, function(data) {
+	$.get('/downvote/', { pimp_id : pimp_id }, function(data) {
 		var scoreID = '#pimp_' + pimp_id + '_score';
 		
 		// Data returned from get query is the new score for this pimp
@@ -26,7 +26,7 @@ $('.downvote').click( function() {
 $('.followButton').click( function() {
 		var user_id;
 		user_id = $(this).attr("data-user_id");
-		$.get('/prose/follow/', { user_id : user_id }, function(data) {
+		$.get('/follow/', { user_id : user_id }, function(data) {
 			var followClass = '.user_' + user_id + '_follow';
 			
 			$( followClass ).html(data);
