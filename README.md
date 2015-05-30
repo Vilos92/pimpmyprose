@@ -20,11 +20,13 @@ Repository for pimpMyProse
 + Upload alpha to Webfactional
 
 ## Haystack
-+ manage.py reindex
++ manage.py rebuild_index
 	+ Need to do whenever changing haystack search
 
 ## To-Do
-+ Haystack search not working, maybe because URL for prose put at the root
++ Ability to string a series of prose together
++ Use angularJS to count characters left as the user types
++ Haystack search now works, but text is all white (since default links are white)
 + Should be able to show posts of only followed people
 + JQUERY scripts for upvoting/downvoting have hardcoded URL, need to change to be somehow dynamic
 	+ Use the {{ STATIC_URL }} tag and pass it into the JavaScript functions using django template

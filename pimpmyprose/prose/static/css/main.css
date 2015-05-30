@@ -1,7 +1,7 @@
-/* Recolor all links */
+/* Recolor all links
 a:link, a:hover, a:visited, a:active {
  color: #FFFFFF;
-}
+} */
 
 /* Body must have padding at the top so navbar does not cover content by default */
 body {
@@ -100,6 +100,10 @@ body {
 
 .pimpProseBox h3, h4 {
 	display: inline-block;
+}
+
+.pimpProseBox p {
+	padding-bottom: 50px;
 }
 
 .pimpProseBox h4, h5 {
