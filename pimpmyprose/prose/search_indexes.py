@@ -11,5 +11,5 @@ class ProseIndex( indexes.SearchIndex, indexes.Indexable ):
 		return Prose
 		
 	def index_queryset( self, using = None ):
-		"""Used when the entire inde for model is updated."""
+		"""Used when the entire index for model is updated."""
 		return self.get_model().objects.filter( pub_date__lte = datetime.datetime.now() )
