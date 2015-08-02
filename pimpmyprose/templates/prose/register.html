@@ -5,13 +5,17 @@
 
 <h1>Register with pimpMyProse</h1>
 
-{% if user.is_authenticated %}
-pimpMyProse says: <strong>You are already registered!</strong>
-<a href="{% url 'prose:index' %}">Return to the homepage.</a><br />
-
-{% elif registered %}
+{% if registered %}
 pimpMyProse says: <strong>Thank you for registering!</strong> Redirecting in 5 seconds.
 <br><br><a href="{% url 'prose:index' %}">Return to the homepage.</a>
+
+<script>
+	redirect( "{% url 'prose:index' %}" );
+</script>
+
+{% elif user.is_authenticated %}
+pimpMyProse says: <strong>You are already registered!</strong> Redirecting in 5 seconds.
+<a href="{% url 'prose:index' %}">Return to the homepage.</a><br />
 
 <script>
 	redirect( "{% url 'prose:index' %}" );
@@ -23,7 +27,7 @@ pimpMyProse says: <strong>Thank you for registering!</strong> Redirecting in 5 s
 
 	{{ user_form.as_p }}
 	{{ profile_form.as_p }}
-	
+
 	<button type="submit" class="btn btn-primary" name="submit" />Register</button>
 </form>
 

@@ -55,10 +55,9 @@ Repository for pimpMyProse, a website for posting any form of prose that you wou
 + Do form validation for registration with jQuery/angularJS (frontend, backend is done)
 + Ability to follow users from a Prose/Pimp page, not just profile
 	+ Users can follow each other, but need to expand follow_button to work for a list. Right now, takes in a context value of either "Followed" or "Not Followed" from the profile view. Sets it to a string that says "Null" if not logged in. The pimp_list would take a set.
-+ Find way not to load main.js on every page 
++ Find way not to load main.js on every page
 	+ In base.html, add a new block above all main content, where other pages can load their own JavaScript in that block
-	+ After registering, user is incorrectly told they have already registered. The user is still successfully registered, though
-	
+
 ## Non-Priority
 + Make a pimp which is the origin of pimpMyProse. Let others upvote it
 + Tag other users to pimp your prose (users you are following?)
