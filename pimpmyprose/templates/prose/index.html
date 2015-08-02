@@ -4,6 +4,25 @@
 {% block content %}
 
 {% if user.is_authenticated %}
+
+{% if not user.userProfile.getProsesAmt %}
+<div class="jumbotron">
+	<h2>Post your first Prose!</h2>
+	<p>
+		Say something, anything! People are here to help you say what you want to say, better!
+	</p>
+</div>
+
+{% elif not user.userProfile.getPimpsAmt %}
+<div class="jumbotron">
+	<h2>Help someone by Pimping your first Prose!</h2>
+	<p>
+		A lot of people need help with their Prose, show what you have to offer!
+	</p>
+</div>
+
+{% endif %}
+
 <!-- Form to post a new Prose -->
 <form id="prose_form" method="post" action="{% url 'prose:index' %}">
 	{% csrf_token %}

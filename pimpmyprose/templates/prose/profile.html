@@ -6,6 +6,8 @@
 <h1>{{ userProfile.user.username }}</h1>
 <h5><a href="{% url 'prose:profile_manage' %}">{% if userProfile.user == user %}Manage{% endif %}</a></h5>
 
+{% if user.is_authenticated %}{% include "prose/follow_button.html" %}{% endif %}
+
 <table class="table-userStats">
 	<tr>
 		<th>FOLLOWERS</th>

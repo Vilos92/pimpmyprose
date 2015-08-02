@@ -33,7 +33,7 @@ Repository for pimpMyProse, a website for posting any form of prose that you wou
 + A reddit share link exists, but maybe redesign (or make custom logo)
 	+ Need to customize templates and views for share links. Facebook plugin needs correct url
 + Finish search page - style haystack search bar with bootstrap
-+ Finish django tutorial, do some automated testing
++ Automated testing
 	+ Reddit hot score algorithm seems to work, unit test it
 	+ Confidence algorithm? http://amix.dk/blog/post/19588
 + Pagination on index, detail, profile, notifactions, etc.

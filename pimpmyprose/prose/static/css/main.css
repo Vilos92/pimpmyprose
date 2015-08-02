@@ -32,6 +32,8 @@ body {
 /* Customize the bootstrap jumbotron which shows when not logged in */
 .jumbotron {
 	background-color: #ffffff;
+
+	border: 1px solid #9D9D9D;
 }
 
 .jumbotron h1 {
@@ -212,7 +214,7 @@ p.pimpProseTablePimps a {
 /* CSS For the follow button */
 .followButton {
 	font-size: 0.7em;
-	width: 75px;
+	width: 90px;
 }
 
 /* Unread prose table cell */

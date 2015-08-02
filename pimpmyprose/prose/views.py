@@ -102,6 +102,7 @@ def user_logout(request):
 def index( request, filter = 'hot' ):
 	context = RequestContext(request)
 
+	# Allow user to post Prose from index
 	if request.user.is_authenticated() and request.method == 'POST':
 		prose_form = ProseForm( data = request.POST )
 
