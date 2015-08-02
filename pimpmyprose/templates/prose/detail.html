@@ -3,8 +3,21 @@
 
 {% block content %}
 
-<h4><a href="{% url 'prose:profile' prose.user.id %}">{{ prose.user.username }}</a></h4>
-<div class="pimpProseBox"><h3>{{ prose.prose_text }}</h3></div>
+{% if user.is_authenticated and not user.userProfile.getPimpsAmt %}
+<div class="jumbotron">
+	<h2>Help <a href="{% url 'prose:profile' prose.user.id %}">{{ prose.user.username }}</a> by Pimping your first Prose!</h2>
+	<p>
+		{{ prose.user.username }} is looking for help with their Prose, show what you have to offer!
+	</p>
+</div>
+
+{% endif %}
+
+<div class="pimpProseBox">
+	<h3><a href="{% url 'prose:profile' prose.user.id %}">{{ prose.user.username }}</a></h3>
+	<p>{{ prose.prose_text }}</p>
+	<p></p>
+</div>
 <a href="//www.reddit.com/submit" onclick="window.location = '//www.reddit.com/submit?url=' + encodeURIComponent(window.location); return false"> <img src="//www.redditstatic.com/spreddit1.gif" alt="submit to reddit" border="0" /> </a>
 <br>
 
@@ -14,9 +27,9 @@
 	<!-- Form to post a new Pimp -->
 	<form id="pimp_form" method="post" action="{% url 'prose:detail' prose.id %}">
 		{% csrf_token %}
-		
+
 		{{ pimp_form.as_p }}
-		
+
 		<button type="submit" class="btn btn-primary pimpProseSubmitBtn" name="submit">Pimp</button>
 	</form>
 	{% endif %}

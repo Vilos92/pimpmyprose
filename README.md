@@ -14,6 +14,7 @@ Repository for pimpMyProse, a website for posting any form of prose that you wou
 		+ The list of 'new' notifications is not showing, the list of already viewed notifications is fine.
 + Finish organizing profile page in general
 + Restyle site
+	+ Restyle pimpProseBox to have text-wrapping, and a non-fixed height
 	+ Notification list has a very strange color scheme
 	+ The list of Prose/Pimps should have alternating colors to distinguish them. The current layout of tables looks bland and uninviting
 	+ Have some kind of graphic on the index page to direct users towards posting a new Prose, looking at Pimps, or just registering
