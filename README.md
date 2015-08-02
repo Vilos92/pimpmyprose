@@ -12,10 +12,9 @@ Repository for pimpMyProse, a website for posting any form of prose that you wou
 	+ Notifications list was empty on first view, but then showed on refresh. But proses were empty.
 	+ Tried again: 6 notifications, clicked. List was empty, notifications icon said 0. Refreshed and the notifications could be seen, but weren't marked as new.
 		+ The list of 'new' notifications is not showing, the list of already viewed notifications is fine.
-+ Finish organizing profile page in general
 + Restyle site
 	+ Restyle pimpProseBox to have text-wrapping, and a non-fixed height
-	+ Notification list has a very strange color scheme
+	+ Notification list has a very strange color scheme - new messags use old CSS table instead of pimpProseBox
 	+ The list of Prose/Pimps should have alternating colors to distinguish them. The current layout of tables looks bland and uninviting
 	+ Have some kind of graphic on the index page to direct users towards posting a new Prose, looking at Pimps, or just registering
 	+ Items must be restyled in multiple places:

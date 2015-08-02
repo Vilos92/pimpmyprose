@@ -84,7 +84,7 @@ class Pimp( models.Model ):
 
 class UserProfile( models.Model ):
 	user = models.OneToOneField( User, related_name = 'userProfile' )
-	follows = models.ManyToManyField( 'self', related_name = 'followed_by' )
+	follows = models.ManyToManyField( 'self', related_name = 'followed_by', symmetrical = False )
 
 	# Notifications is a set of pimps (for now). No reason to add
 	# a related_name field
@@ -187,7 +187,13 @@ class UserProfile( models.Model ):
 		# To get either bool or text of isFollowing
 		return None
 
-	# Get amount of followers
+	# Get amount of users following
+	@property
+	def getFollowingAmt(self):
+		return self.follows.count()
+
+	# Get amount of users followed by
 	@property
 	def getFollowersAmt(self):
-		return self.follows.count()
+		print self.followed_by.all()
+		return self.followed_by.count()

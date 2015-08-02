@@ -31,9 +31,8 @@ body {
 
 /* Customize the bootstrap jumbotron which shows when not logged in */
 .jumbotron {
-	background-color: #ffffff;
-
-	border: 1px solid #9D9D9D;
+	background-color: #4F2F4F;
+	color: #ffffff;
 }
 
 .jumbotron h1 {
@@ -96,6 +95,11 @@ body {
 	-moz-border-radius: 15px 15px 15px 15px;
 	-webkit-border-radius: 15px 15px 15px 15px;
 	border: 1px solid #9D9D9D;
+}
+
+/* Alternate background color of posts to distinguish them */
+.pimpProseBox:nth-child(odd) {
+	background-color: #fffff0;
 }
 
 .pimpProseBox a {

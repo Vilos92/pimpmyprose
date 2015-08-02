@@ -1,0 +1,23 @@
+{% extends "prose/base.html" %}
+{% block title %}pimpMyProse - Users Followed by {{ userProfile.user.username }}{% endblock %}
+
+{% block content %}
+{% if following %}
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Users Followed by <a href="{% url 'prose:profile' userProfile.user.id %}">{{ userProfile.user.username }}</a></h3>
+  </div>
+  {% for userProfile in following %}
+  <ul class="list-group">
+    <li class="list-group-item"><a href="{% url 'prose:profile' userProfile.user.id %}">{{ userProfile.user.username }}</a></li>
+  </ul>
+
+  {% endfor %}
+</div>
+
+{% else %}
+{{ userProfile.user.username }} is not following anyone.
+
+{% endif %}
+
+{% endblock %}

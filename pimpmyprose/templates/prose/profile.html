@@ -10,15 +10,17 @@
 
 <table class="table-userStats">
 	<tr>
-		<th>FOLLOWERS</th>
 		<th>PROSE</th>
 		<th>PIMPS</th>
+		<th><a href="{% url 'prose:following' userProfile.user.id %}">FOLLOWING</a></th>
+		<th><a href="{% url 'prose:followers' userProfile.user.id %}">FOLLOWERS</a></th>
 	</tr>
 
 	<tr>
-		<td rowspan="2">{{ userProfile.getFollowersAmt }}</td>
 		<td>{{ userProfile.getProsesAmt }} posted</td>
 		<td>{{ userProfile.getPimpsAmt }} posted</td>
+		<td rowspan="2">{{ userProfile.getFollowingAmt }}</td>
+		<td rowspan="2">{{ userProfile.getFollowersAmt }}</td>
 	</tr>
 
 	<tr>

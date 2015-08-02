@@ -155,6 +155,40 @@ def index( request, filter = 'hot' ):
 			{ 'prose_form' : prose_form, 'prose_list' : prose_list, 'filter' : filter },
 			context )
 
+# View to show all users another user is following
+def following( request, user_id ):
+	context = RequestContext(request)
+
+	# Get the user profile to see who they are following
+	user = get_object_or_404( User, pk = user_id )
+	userProfile = user.userProfile
+
+	# From this userProfile, get all users they are following
+	following = userProfile.follows.all()
+
+	# Pass users that are followed to the view
+	return render_to_response(
+			'prose/follows.html',
+			{ 'userProfile' : userProfile, 'following' : following },
+			context )
+
+# View to show all users following a user
+def followers( request, user_id ):
+	context = RequestContext(request)
+
+	# Get user profile to see their followers
+	user = get_object_or_404( User, pk = user_id )
+	userProfile = user.userProfile
+
+	# From this userProfile, get all their followers
+	followers = userProfile.followed_by.all()
+
+	# Pass user's followers to the view
+	return render_to_response(
+			'prose/followers.html',
+			{ 'userProfile' : userProfile, 'followers' : followers },
+			context )
+
 def detail( request, prose_id, filter = 'top' ):
 	context = RequestContext(request)
 

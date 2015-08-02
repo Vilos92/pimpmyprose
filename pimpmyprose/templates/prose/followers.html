@@ -1,0 +1,23 @@
+{% extends "prose/base.html" %}
+{% block title %}pimpMyProse - {{ userProfile.user.username }}'s Followers{% endblock %}
+
+{% block content %}
+{% if followers %}
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title"><a href="{% url 'prose:profile' userProfile.user.id %}">{{ userProfile.user.username }}</a>'s Followers</h3>
+  </div>
+  {% for userProfile in followers %}
+  <ul class="list-group">
+    <li class="list-group-item"><a href="{% url 'prose:profile' userProfile.user.id %}">{{ userProfile.user.username }}</a></li>
+  </ul>
+
+  {% endfor %}
+</div>
+
+{% else %}
+{{ userProfile.user.username }} has no followers.
+
+{% endif %}
+
+{% endblock %}
