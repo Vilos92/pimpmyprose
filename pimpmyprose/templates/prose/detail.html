@@ -3,7 +3,7 @@
 
 {% block content %}
 
-{% if user.is_authenticated and not user.userProfile.getPimpsAmt %}
+{% if user.is_authenticated and user != prose.user and not user.userProfile.getPimpsAmt %}
 <div class="jumbotron">
 	<h2>Help <a href="{% url 'prose:profile' prose.user.id %}">{{ prose.user.username }}</a> by Pimping your first Prose!</h2>
 	<p>

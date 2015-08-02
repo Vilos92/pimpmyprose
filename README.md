@@ -28,7 +28,6 @@ Repository for pimpMyProse, a website for posting any form of prose that you wou
 
 ## Medium-Priority
 + Filter to show posts from only people you are following
-+ When a new Prose is posted, redirect user to the page of their Prose instead of the index
 + Proses longer than a certain length should be shortened on the index, with ellipse at end
 	+ Must click on "see full Prose" or something to this effect, which takes use to that Prose page
 + A reddit share link exists, but maybe redesign (or make custom logo)

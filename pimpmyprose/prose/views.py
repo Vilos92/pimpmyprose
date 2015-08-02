@@ -117,6 +117,9 @@ def index( request, filter = 'hot' ):
 
 			prose.save()
 
+			# Redirect to the detail for this newly created Prose
+			return HttpResponseRedirect( reverse( 'prose:detail', args = [ prose.id ] ) )
+
 		else:
 			print prose_form.errors
 
