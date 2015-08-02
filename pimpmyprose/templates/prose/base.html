@@ -1,34 +1,62 @@
 {% load staticfiles %}
 <html>
 	<head>
+		<!--
+			Googe Fonts
+		-->
+		<!-- Google Font used as main font -->
+		<link href='http://fonts.googleapis.com/css?family=Old+Standard+TT' rel='stylesheet' type='text/css'>
+		<!-- Google Font used in the jumbotron header -->
+		<link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+		<!-- Main bootstrap CSS file -->
 		<link href="{% static 'bootstrap/css/bootstrap.min.css' %}"
 			rel="stylesheet" media="screen">
+
+		<!-- Main CSS for entire site -->
 		<link href="{% static 'css/main.css' %}" rel="stylesheet" media="screen">
 
 		<title>{% block title %}pimpMyProse{% endblock %}</title>
-		
+
 	</head>
-	
+
 	<body>
+		<!-- Main JavaScript file -->
 		<script src="{% static 'js/main.js' %}"></script>
-		
+
 		<!-- Navbar -->
 		{% include "prose/navBar.html" %}
-	
+
 		<!-- Main content filled by other pages -->
 		<div class="container">
+
+			{% if not user.is_authenticated %}
 			<div class="row-fluid">
-				<div class="col-md-1"></div>
-				<div class="col-md-10 main-column">
+				<div class="jumbotron">
+					<h1>Welcome to pimpMyProse!</h1>
+					<p>
+						pimpMyProse is a place where you can post any form of prose, and let the community pimp it up!
+						Whether it be a poem, a letter, or a paragraph from an already existing book, pimpMyProse will
+						help you say what you want - in the best way possible!
+					</p>
+				</div>
+			</div>
+			{% endif %}
+
+			<div class="row-fluid">
+				<div class="col-md-10 col-md-offset-1 main-column">
 				<!-- Background color from bootstrap class. Move height property to css file -->
 				{% block content %}
 				{% endblock %}
 				</div>
 			</div>
 		</div>
-		
+
+		<!-- jQuery and bootstrap JavaScript libraries -->
 		<script src="{% static 'js/jquery-1.11.2.min.js' %}"></script>
 		<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
+		<!-- jQuery used for AJAX requests -->
 		<script src="{% static 'js/proseJquery.js' %}"></script>
 	</body>
 </html>

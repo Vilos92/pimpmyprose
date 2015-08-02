@@ -1,14 +1,13 @@
-<tr class="pimpProseTableHeader">
-	<th>
-		<p class="pimpProseTableHeaderUser"><a href="{% url 'prose:profile' pimp.user.id %}">{{ pimp.user.username }}</a></p>
-		&nbsp;&nbsp;&nbsp;&nbsp;<p id="pimp_{{ pimp.id }}_score" class="pimpProseTableHeaderText">{{ pimp.score }}</p>
-		&nbsp;&nbsp;&nbsp;&nbsp;{% include "prose/voting_interface.html" %}
-		&nbsp;&nbsp;&nbsp;&nbsp;<p class="pimpProseTableHeaderText">{{ pimp.percentMatch }}%&nbsp;&nbsp;match</p>
-		{% if show_parent_prose %}&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'prose:detail' pimp.prose_id %}"><p class="pimpProseTableHeaderText">view parent Prose</p></a>{% endif %}
-	</th>
-</tr>
-<tr class="pimpProseTableOtherRows">
-	<th>
-		{{ pimp.pimp_text }}
-	</th>
-</tr>
+<div class="pimpProseBox">
+	<h3><a href="{% url 'prose:profile' pimp.user.id %}">{{ pimp.user.username }}</a></h3>
+
+	<h4 id="pimp_{{ pimp.id }}_score">{{ pimp.score }}</h4>
+	<h4>points</h4>
+	<h4>{% include "prose/voting_interface.html" %}</h4>
+	<h4>{{ pimp.percentMatch }}% match</h4>
+
+	<p>{{ pimp.pimp_text }}</p>
+	<h5>
+		{% if show_parent_prose %}<a href="{% url 'prose:detail' pimp.prose_id %}">view parent Prose</a>{% endif %}
+	</h5>
+</div>

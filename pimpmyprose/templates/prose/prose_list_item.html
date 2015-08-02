@@ -1,16 +1,3 @@
-<!-- <tr class="pimpProseTableHeader">
-	<th>
-		<p class="pimpProseTableHeaderUser"><a href="{% url 'prose:profile' prose.user.id %}">{{ prose.user.username }}</a></p>
-		<p class="pimpProseTableHeaderText">&nbsp;&nbsp;&nbsp;&nbsp;{{ prose.pimpScoreSum }} total points</p>
-	</th>
-</tr>
-<tr class="pimpProseTableOtherRows">
-	<th>
-		{{ prose.prose_text }}<br>
-		<p class="pimpProseTablePimps">{{ prose.pimp_set.count }} Pimps&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'prose:detail' prose.id %}">Pimp-it</a></p>
-	</th>
-</tr> -->
-
 <div class="pimpProseBox">
 	<h3><a href="{% url 'prose:profile' prose.user.id %}">{{ prose.user.username }}</a></h3>
 	<h4>{{ prose.pimpScoreSum }} total points</h4>

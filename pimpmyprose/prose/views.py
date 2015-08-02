@@ -223,7 +223,6 @@ def upvote(request):
 	context = RequestContext(request)
 	pimp_id = None
 	if request.method == 'POST':
-		print "TEST1"
 		pimp_id = request.POST.get( 'pimp_id' )
 
 	pimp = get_object_or_404( Pimp, pk = pimp_id )

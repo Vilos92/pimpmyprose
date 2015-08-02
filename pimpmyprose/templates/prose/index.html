@@ -7,9 +7,9 @@
 <!-- Form to post a new Prose -->
 <form id="prose_form" method="post" action="{% url 'prose:index' %}">
 	{% csrf_token %}
-	
+
 	{{ prose_form.as_p }}
-	
+
 	<button type="submit" class="btn btn-primary pimpProseSubmitBtn" name="submit" />Prose</button>
 </form>
 
