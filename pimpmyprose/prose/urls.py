@@ -42,6 +42,10 @@ urlpatterns = patterns( '',
 	# ex: /prose/profile/1/following
 	url( r'^profile/(?P<user_id>\d+)/following/$', views.following, name = 'following' ),
 
+	# Pimps from all users a user is following
+	# ex: /prose/profile/1/following/pimps
+	url( r'^profile/(?P<user_id>\d+)/following/pimps/$', views.following_pimps, name = 'following_pimps' ),
+
 	# Users who are following a certain user
 	# ex: /prose/profile/1/followers
 	url( r'^profile/(?P<user_id>\d+)/followers/$', views.followers, name = 'followers' ),

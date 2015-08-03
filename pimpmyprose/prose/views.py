@@ -172,6 +172,30 @@ def following( request, user_id ):
 			{ 'userProfile' : userProfile, 'following' : following },
 			context )
 
+# Pimps from all users another user is following
+def following_pimps( request, user_id ):
+	context = RequestContext(request)
+
+	# Get user profile to see who they are following
+	user = get_object_or_404( User, pk = user_id )
+	userProfile = user.userProfile
+
+	# From this userProfile, get all users they are following
+	following = userProfile.follows.all()
+
+	# Get all pimps from the users being followed
+	# To speed this up, try and have more of the filtering done by SQL
+	# Need ability to sort based on URL
+	following_pimps = []
+	for followedUserProfile in following:
+		pimps = followedUserProfile.getPimps().all()
+		following_pimps.extend( pimps )
+
+	return render_to_response(
+			'prose/follows_pimps.html',
+			{ 'userProfile' : userProfile, 'following_pimps' : following_pimps },
+			context )
+
 # View to show all users following a user
 def followers( request, user_id ):
 	context = RequestContext(request)

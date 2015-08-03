@@ -1,0 +1,17 @@
+{% extends "prose/base.html" %}
+{% block title %}pimpMyProse - Users Followed by {{ userProfile.user.username }}{% endblock %}
+
+{% block content %}
+{% if following_pimps %}
+<h2>Pimp responses from users followed by <a href="{% url 'prose:profile' userProfile.user.id %}">{{ userProfile.user.username }}</a>:</h2>
+  {% for pimp in following_pimps %}
+    {% include "prose/pimp_list_item.html" %}
+
+  {% endfor %}
+
+{% else %}
+{{ userProfile.user.username }} is not following anyone.
+
+{% endif %}
+
+{% endblock %}

@@ -35,8 +35,9 @@ Repository for pimpMyProse, a website for posting any form of prose that you wou
 + Automated testing
 	+ Reddit hot score algorithm seems to work, unit test it
 	+ Confidence algorithm? http://amix.dk/blog/post/19588
-+ Pagination on index, detail, profile, notifactions, etc.
++ Pagination on index, detail, profile, notifications, etc.
 + Email validation (already figured it out for EnvoyNow)
++ If user has already voted on a pimp, corresponding arrow should be highlighted already
 
 
 ## Low-Priority
