@@ -3,9 +3,6 @@
 
 {% block content %}
 {% if following %}
-View all Pimps from users that <a href="{% url 'prose:profile' userProfile.user.id %}">{{ userProfile.user.username }}</a> is <a href="{% url 'prose:following_pimps' userProfile.user.id %}">following</a>.
-<br><br>
-
 <div class="panel panel-primary">
   <div class="panel-heading">
     <h3 class="panel-title">Users Followed by <a href="{% url 'prose:profile' userProfile.user.id %}">{{ userProfile.user.username }}</a></h3>
@@ -17,6 +14,10 @@ View all Pimps from users that <a href="{% url 'prose:profile' userProfile.user.
 
   {% endfor %}
 </div>
+
+<a href="{% url 'prose:following_prose' userProfile.user.id %}">View Prose</a>
+<br>
+<a href="{% url 'prose:following_pimps' userProfile.user.id %}">View Pimps</a>
 
 {% else %}
 {{ userProfile.user.username }} is not following anyone.

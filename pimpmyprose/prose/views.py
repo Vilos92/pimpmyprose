@@ -191,9 +191,36 @@ def following_pimps( request, user_id ):
 		pimps = followedUserProfile.getPimps().all()
 		following_pimps.extend( pimps )
 
+	# Want to show a link to the parent prose of each pimp
+	show_parent_prose = True
+
 	return render_to_response(
 			'prose/follows_pimps.html',
-			{ 'userProfile' : userProfile, 'following_pimps' : following_pimps },
+			{ 'userProfile' : userProfile, 'following_pimps' : following_pimps, 'show_parent_prose' : show_parent_prose },
+			context )
+
+# Pimps from all users another user is following
+def following_prose( request, user_id ):
+	context = RequestContext(request)
+
+	# Get user profile to see who they are following
+	user = get_object_or_404( User, pk = user_id )
+	userProfile = user.userProfile
+
+	# From this userProfile, get all users they are following
+	following = userProfile.follows.all()
+
+	# Get all prose from the users being followed
+	# To speed this up, try and have more of the filtering done by SQL
+	# Need ability to sort based on URL
+	following_prose = []
+	for followedUserProfile in following:
+		prose = followedUserProfile.getProses().all()
+		following_prose.extend( prose )
+
+	return render_to_response(
+			'prose/follows_prose.html',
+			{ 'userProfile' : userProfile, 'following_prose' : following_prose },
 			context )
 
 # View to show all users following a user

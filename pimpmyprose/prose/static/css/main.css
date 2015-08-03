@@ -83,7 +83,7 @@ body {
 CSS for index page
 --------------------------*/
 /* Label for the prose_form on index */
-#prose_form_label {
+.pimpProse_form_label {
 	margin-left: 25%;
 }
 
