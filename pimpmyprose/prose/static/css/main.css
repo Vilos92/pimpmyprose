@@ -79,6 +79,15 @@ body {
 	margin-left: 25%;
 }
 
+/*-------------------------
+CSS for index page
+--------------------------*/
+/* Label for the prose_form on index */
+#prose_form_label {
+	margin-left: 25%;
+}
+
+
 /* Table CSS for both pimps and proses */
 /* Individual cell CSS */
 
@@ -133,51 +142,6 @@ body {
 
 .pimpProseBox .btn {
 	margin: 0 0 0 25px;
-}
-/* Delete everything below this once you no longer are using the tables */
-
-
-/* Header rows */
-.pimpProseTableHeader {
-	background-color: #4F2F4F;
-	color: #9D9D9D;
-
-	font-size: 0.9em;
-
-	border-color: #4F2F4F;
-	border-style: solid;
-	border-width: 2px 2px 0 2px;
-}
-
-/* CSS for non-header rows */
-.pimpProseTableOtherRows {
-	font-size: 0.8em;
-	height: 50px;
-
-	border-color: #4F2F4F;
-	border-style: solid;
-	border-width: 0 2px 2px 2px;
-}
-
-/* Paragraph CSS for score and reply link */
-p.pimpProseTableHeaderText {
-	font-size: 0.7em;
-	display: inline;
-}
-
-p.pimpProseTableHeaderUser {
-	font-size: 0.9em;
-	display: inline;
-}
-
-p.pimpProseTablePimps {
-	font-size: 0.9em;
-	display: inlin;
-	float: right;
-}
-
-p.pimpProseTablePimps a {
-	color: #000000;
 }
 
 /* Voting Arrows */
