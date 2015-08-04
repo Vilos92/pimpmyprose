@@ -79,6 +79,12 @@ body {
 	margin-left: 25%;
 }
 
+/* Div which holds the remaining characters for the pimpProse text area */
+#remainingCharacters {
+	display: inline-block;
+	margin-left: 5px;
+}
+
 /*-------------------------
 CSS for index page
 --------------------------*/

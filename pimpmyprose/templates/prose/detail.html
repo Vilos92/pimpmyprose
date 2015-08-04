@@ -26,12 +26,13 @@
 	{% if prose.user != user %}
 	<!-- Form to post a new Pimp -->
 	<form id="pimp_form" method="post" action="{% url 'prose:detail' prose.id %}">
-		<div class="pimpProse_form_label">Pimp this Prose:</div>
 		{% csrf_token %}
 
+		<div class="pimpProse_form_label">Pimp this Prose:</div>
 		{{ pimp_form.as_p }}
 
 		<button type="submit" class="btn btn-primary pimpProseSubmitBtn" name="submit">Pimp</button>
+		<div id="remainingCharacters"></div>
 	</form>
 	{% endif %}
 

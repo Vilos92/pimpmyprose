@@ -8,10 +8,6 @@ Repository for pimpMyProse, a website for posting any form of prose that you wou
 
 # To-Do
 ## High-Priority
-+ Test notifications list for bugs
-	+ Notifications list was empty on first view, but then showed on refresh. But proses were empty.
-	+ Tried again: 6 notifications, clicked. List was empty, notifications icon said 0. Refreshed and the notifications could be seen, but weren't marked as new.
-		+ The list of 'new' notifications is not showing, the list of already viewed notifications is fine.
 + Restyle site
 	+ Restyle pimpProseBox to have text-wrapping, and a non-fixed height
 	+ Notification list has a very strange color scheme - new messags use old CSS table instead of pimpProseBox
@@ -48,7 +44,6 @@ Repository for pimpMyProse, a website for posting any form of prose that you wou
 + jQuery scripts for upvoting/downvoting have hardcoded URL, would be better if dynamic
 	+ Use the {{ STATIC_URL }} tag and pass it into the JavaScript functions using django templates
 + Move ranking_functions.py to its own scripts folder?
-	+ Python has specific way to load .py file from a different folder
 + Update admin page for your new models, customize to be more effective
 + Auto create userProfile if none exists for user (primarily for superusers/admins)
 + Following and unfollowing a user on their profile page should use ajax to retrieve new amount of followers
