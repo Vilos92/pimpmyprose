@@ -347,16 +347,17 @@ def downvote( request ):
 	# Return the new score to be redisplayed
 	return HttpResponse( pimp.score )
 
+# View a use profile, including self
 def profile( request, user_id ):
 	context = RequestContext(request)
 
 	user = get_object_or_404( User, pk = user_id )
 	userProfile = user.userProfile
 
-	# Need to get all proses for user
+	# Get 5 latest prose from user
 	latest_prose_list = userProfile.getProses()[:5]
 
-	# Need to get all pimps for user
+	# Get 5 latest pimps from user
 	latest_pimp_list = userProfile.getPimps()[:5]
 
 	# Pass pimp_list_profile as true to indicate that
@@ -364,19 +365,52 @@ def profile( request, user_id ):
 	show_parent_prose = True
 
 	# Only show follow status if logged in
+	followingUser = "Null"
 	if request.user.is_authenticated():
 		if request.user.userProfile.isFollowingUser( user ):
 			followingUser = "Followed"
 		else:
 			followingUser = "Not Followed"
-	else:
-		followingUser = "Null"
 
 	return render_to_response(
 			'prose/profile.html',
 			{	'userProfile' : userProfile, 'prose_list' : latest_prose_list,
 				'pimp_list' : latest_pimp_list, 'show_parent_prose' : show_parent_prose,
 				'followingUser' : followingUser },
+			context )
+
+# View Prose of a user profile
+def profile_prose( request, user_id ):
+	context = RequestContext(request)
+
+	user = get_object_or_404( User, pk = user_id )
+	userProfile = user.userProfile
+
+	# Get all prose from user
+	prose_list = userProfile.getProses().all()
+
+	return render_to_response(
+			'prose/profile_prose.html',
+			{ 'userProfile' : userProfile, 'prose_list' : prose_list },
+			context )
+
+# View Pimps of a user profile
+def profile_pimps( request, user_id ):
+	context = RequestContext(request)
+
+	user = get_object_or_404( User, pk = user_id )
+	userProfile = user.userProfile
+
+	# Get all pimps from user
+	pimp_list = userProfile.getPimps().all()
+
+	# Pass pimp_list_profile as true to indicate that
+	# pimps should have links to their parent prose
+	show_parent_prose = True
+
+	return render_to_response(
+			'prose/profile_pimps.html',
+			{ 'userProfile' : userProfile, 'pimp_list' : pimp_list },
 			context )
 
 # View current user's notifications

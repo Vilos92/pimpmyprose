@@ -1,0 +1,9 @@
+{% extends "prose/base.html" %}
+{% block title %}All Prose from {{ userProfile.user.username }}{% endblock %}
+
+{% block content %}
+
+<h2>All Prose from {{ userProfile.user.username }}</h2>
+{% include "prose/prose_list.html" %}
+
+{% endblock %}

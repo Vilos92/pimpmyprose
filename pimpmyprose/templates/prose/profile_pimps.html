@@ -1,0 +1,9 @@
+{% extends "prose/base.html" %}
+{% block title %}All Pimps from {{ userProfile.user.username }}{% endblock %}
+
+{% block content %}
+
+<h2>All Pimps from {{ userProfile.user.username }}</h2>
+{% include "prose/pimp_list.html" %}
+
+{% endblock %}
