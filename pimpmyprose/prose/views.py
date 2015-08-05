@@ -534,8 +534,11 @@ class PimpViewSet( viewsets.ModelViewSet ):
 		"""
 		queryset = Pimp.objects.all()
 		user_id = self.request.query_params.get( 'user_id', None )
+		prose_id = self.request.query_params.get( 'prose_id', None )
 		if user_id is not None:
 			queryset = queryset.filter( user__id = user_id )
+		elif prose_id is not None:
+			queryset = queryset.filter( prose__id = prose_id )
 		return queryset
 
 	permission_classes = ( permissions.IsAuthenticatedOrReadOnly,
