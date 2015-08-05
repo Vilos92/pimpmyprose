@@ -504,8 +504,19 @@ class ProseViewSet( viewsets.ModelViewSet ):
 	"""
 	API endpoint which allows Prose to be viewed or edited
 	"""
-	queryset = Prose.objects.all()
+	#queryset = Prose.objects.all()
 	serializer_class = ProseSerializer
+
+	def get_queryset(self):
+		"""
+		Restrict returned Prose to be from a specific user,
+		by filtering against a 'username' query parameter in the URL
+		"""
+		queryset = Prose.objects.all()
+		user_id = self.request.query_params.get( 'user_id', None )
+		if user_id is not None:
+			queryset = queryset.filter( user__id = user_id )
+		return queryset
 
 	permission_classes = ( permissions.IsAuthenticatedOrReadOnly,
 							IsOwnerOrReadOnly, )
@@ -514,8 +525,18 @@ class PimpViewSet( viewsets.ModelViewSet ):
 	"""
 	API endpoint which allows Pimps to be viewed or edited
 	"""
-	queryset = Pimp.objects.all()
 	serializer_class = PimpSerializer
+
+	def get_queryset(self):
+		"""
+		Restrict returned Pimps to be from a specific user,
+		by filtering against a 'username' query parameter in the URL
+		"""
+		queryset = Pimp.objects.all()
+		user_id = self.request.query_params.get( 'user_id', None )
+		if user_id is not None:
+			queryset = queryset.filter( user__id = user_id )
+		return queryset
 
 	permission_classes = ( permissions.IsAuthenticatedOrReadOnly,
 							IsOwnerOrReadOnly, )

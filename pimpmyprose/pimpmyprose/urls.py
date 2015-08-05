@@ -8,8 +8,8 @@ from prose import views
 
 # Register routers for Prose and Pimp views
 router = routers.DefaultRouter()
-router.register( r'prose', views.ProseViewSet )
-router.register( r'pimp', views.PimpViewSet )
+router.register( r'prose', views.ProseViewSet, base_name = 'prose' )
+router.register( r'pimp', views.PimpViewSet, base_name = 'pimp' )
 
 urlpatterns = patterns('',
     # Examples:
