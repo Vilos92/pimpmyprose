@@ -26,7 +26,7 @@
 
 	{% if prose.user != user %}
 	<!-- Form to post a new Pimp -->
-	<form id="pimp_form" method="post" action="{% url 'prose:detail' prose.id %}">
+	<form id="pimp_form" method="post" action="{% url 'prose:detail_angular' prose.id %}">
 		{% csrf_token %}
 
 		<div class="pimpProse_form_label">Pimp this Prose:</div>
@@ -45,6 +45,7 @@ Must be logged in to pimp this prose!
 <br>
 
 <div ng-app="mainApp" ng-controller="detailController">
+	<!-- AngularJS orderby implementation -->
 	<div class="dropdown">
 		<button class="btn btn-default dropdown-toggle" type="button" id="dropdownFilter" data-toggle="dropdown" aria-expanded="true">
 			sorted by: {[{ currentOrderby.title }]}
@@ -59,10 +60,13 @@ Must be logged in to pimp this prose!
 
 	<br>
 
+	<button ng-click="previousPage()" ng-disabled="!pimps.previous">previous</button>
+	<button ng-click="nextPage()" ng-disabled="!pimps.next">next</button>
+
 	<!-- Print all the pimps here -->
 	<div ng-show="pimps.results">
 			<div class="pimpProseBox" ng-repeat="pimp in pimps.results | orderBy : currentOrderby.expression">
-				<h3><a href="">{[{ pimp.username }]}</a></h3>
+				<h3><a href="{[{ profileURL + pimp.user_id }]}">{[{ pimp.username }]}</a></h3>
 
 				<h4 id="pimp_{[{ pimp.id }]}_score">{[{ pimp.upvotes - pimp.downvotes }]}</h4>
 				<h4>points</h4>
@@ -73,10 +77,11 @@ Must be logged in to pimp this prose!
 				<h4>{[{ pimp.percentMatch }]}% match</h4>
 
 				<p>{[{ pimp.pimp_text }]}</p>
+				<!--
 				<h5>
 					<a href="">view parent Prose</a>
 				</h5>
-			</div>
+			</div>-->
 
 	</div>
 	<p ng-hide="pimps.results">There are no Pimps.</p>
@@ -92,6 +97,7 @@ Must be logged in to pimp this prose!
 /* Set all URLs to be used by the detailController */
 var prose_id = {{ prose.id }};
 var pimpAPI = "{% url 'prose:index' %}" + "api/pimp/";
+var profileURL = "{% url 'prose:profile' 1 %}".replace( '1/', '' );
 </script>
 
 <script src="{% static 'js/angular/mainApp.js' %}"></script>

@@ -11,10 +11,11 @@ class ProseSerializer( serializers.ModelSerializer ):
 
 class PimpSerializer( serializers.ModelSerializer ):
     username = serializers.ReadOnlyField( source = 'user.username' )
+    user_id = serializers.ReadOnlyField( source = 'user.id' )
     prose = serializers.HyperlinkedRelatedField( view_name = 'prose-detail', read_only = True )
     upvotes = serializers.ReadOnlyField( source = 'upvotes.count' )
     downvotes = serializers.ReadOnlyField( source = 'downvotes.count' )
 
     class Meta:
         model = Pimp
-        fields = ( 'id', 'username', 'prose', 'pimp_text', 'pub_date', 'upvotes', 'downvotes', 'percentMatch' )
+        fields = ( 'id', 'username', 'user_id', 'prose', 'pimp_text', 'pub_date', 'upvotes', 'downvotes', 'percentMatch' )
