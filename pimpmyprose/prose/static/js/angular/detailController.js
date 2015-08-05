@@ -1,7 +1,7 @@
 // Assign a controller for getting the parent prose and all pimps in a detail
 mainApp.controller( 'detailController', function( $scope, $http ) {
   // Get page 1 of all pimps associated with this Prose
-  var pimpURL = pimpAPI + '?prose_id=' + prose_id + '&page=1';
+  var pimpURL = pimpAPI + '?prose_id=' + prose_id;
   $http.get( pimpURL ).success( function( response ) {
     $scope.pimps = response;
   } );

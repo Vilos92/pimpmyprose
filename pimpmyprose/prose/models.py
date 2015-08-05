@@ -195,5 +195,4 @@ class UserProfile( models.Model ):
 	# Get amount of users followed by
 	@property
 	def getFollowersAmt(self):
-		print self.followed_by.all()
 		return self.followed_by.count()

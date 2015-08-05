@@ -17,7 +17,7 @@ function getCookie(name) {
 }
 
 // jQuery functions for voting
-$('.upvote').click( function() {
+$( document ).on( 'click', '.upvote', function() {
 	var csrftoken = getCookie( 'csrftoken' );
 
 	var pimp_id;
@@ -31,7 +31,7 @@ $('.upvote').click( function() {
 	} );
 } );
 
-$('.downvote').click( function() {
+$( document ).on( 'click', '.downvote', function() {
 	var csrftoken = getCookie( 'csrftoken' );
 
 	var pimp_id;
