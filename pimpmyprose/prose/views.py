@@ -19,6 +19,11 @@ from prose.forms import UserForm, UserProfileForm, UserManageForm, ProseForm, Pi
 # Include custom functions for hot ranking (from reddit)
 from ranking_functions import getHotScore
 
+# Rest Framework
+from rest_framework import viewsets, permissions
+from serializers import ProseSerializer, PimpSerializer
+from permissions import IsOwnerOrReadOnly
+
 def register(request):
 	context = RequestContext(request)
 
@@ -491,3 +496,26 @@ def followToggle( request ):
 
 	# Return whether following or not as bool, parse on other side into text
 	return HttpResponse( thisUser.isFollowingUserText( otherUser ) )
+
+#################################################
+# REST Framework								#
+#################################################
+class ProseViewSet( viewsets.ModelViewSet ):
+	"""
+	API endpoint which allows Prose to be viewed or edited
+	"""
+	queryset = Prose.objects.all()
+	serializer_class = ProseSerializer
+
+	permission_classes = ( permissions.IsAuthenticatedOrReadOnly,
+							IsOwnerOrReadOnly, )
+
+class PimpViewSet( viewsets.ModelViewSet ):
+	"""
+	API endpoint which allows Pimps to be viewed or edited
+	"""
+	queryset = Pimp.objects.all()
+	serializer_class = PimpSerializer
+
+	permission_classes = ( permissions.IsAuthenticatedOrReadOnly,
+							IsOwnerOrReadOnly, )

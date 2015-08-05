@@ -38,10 +38,13 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-	
+
 	# App for searching
 	'haystack',
-	
+
+    # App for Django Rest Framework
+    'rest_framework',
+
 	# pimpMyProse app
 	'prose',
 )
@@ -119,3 +122,9 @@ STATICFILES_DIRS = (
         'static',
     ),
 )
+
+# Default settings for the rest_framework
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES' : ( 'rest_framework.permissions.IsAuthenticatedOrReadOnly', ),
+    'PAGE_SIZE' : 10
+}
