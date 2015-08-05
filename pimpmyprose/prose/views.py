@@ -308,9 +308,56 @@ def detail( request, prose_id, filter = 'top' ):
 			{ 'pimp_form' : pimp_form, 'prose' : prose, 'pimp_list' : rankedPimps, 'filter' : filter },
 			context )
 
-def results( request, prose_id ):
-	respose = "You're looking at the results of prose %s."
-	return HttpResponse( response % prose_id )
+def detail_angular( request, prose_id ):
+	context = RequestContext(request)
+
+	prose = get_object_or_404( Prose, pk = prose_id )
+
+	if request.user.is_authenticated() and request.method == 'POST':
+		pimp_form = PimpForm( data = request.POST )
+
+		if pimp_form.is_valid():
+			# Check to see if pimp already exists for this prose
+			pimp_text = pimp_form.cleaned_data['pimp_text']
+			if prose.pimpExists( pimp_text ):
+				# If pimp already exists, return normal PimpForm and error
+				pimp_form = PimpForm()
+				pimp_form.errors["pimp_text"] = ErrorList( [u"Pimp already exists."] )
+
+			# Pimp does not exist, create and save
+			else:
+				# Save prose data from form into prose
+				pimp = pimp_form.save( commit = False )
+				# Reset pimp form for page reload, no repost
+				pimp_form = PimpForm()
+
+				pimp.user = request.user
+				pimp.pub_date = timezone.now()
+				pimp.prose = prose
+
+				# Must save before m2m value can be added
+				pimp.save()
+
+				# Set current user to be an upvoter
+				pimp.upvotes.add( request.user )
+
+				# Final save
+				pimp.save()
+
+				# Also, notify the prose user that someone pimped his prose
+				prose.user.userProfile.pimpNotifications.add(pimp)
+				prose.save()
+
+		else:
+			print pimp_form.errors
+
+	else:
+		pimp_form = PimpForm()
+
+	return render_to_response(
+			'prose/detail_angular.html',
+			{ 'pimp_form' : pimp_form, 'prose' : prose },
+			context )
 
 @login_required
 def upvote(request):

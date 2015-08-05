@@ -14,8 +14,9 @@ urlpatterns = patterns( '',
 	# filtered ex: /prose/5/top/
 	url( r'^(?P<prose_id>\d+)/(?P<filter>top|new|worst|old)/$', views.detail, name = 'detail' ),
 
-	# ex: /prose/5/results/
-	url( r'^(?P<prose_id>\d+)/results/$', views.results, name = 'results' ),
+	# angularJS version of detail
+	# ex: /prose_angular/5/
+	url( r'^(?P<prose_id>\d+)/angular/$', views.detail_angular, name = 'detail_angular' ),
 
 	# ex: /prose/pimp/upvote/
 	url( r'^upvote/$', views.upvote, name = 'upvote' ),

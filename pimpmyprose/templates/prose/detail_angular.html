@@ -1,0 +1,99 @@
+{% extends "prose/base.html" %}
+{% load staticfiles %}
+{% block title %}pimpMyProse - Viewing a Prose{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated and user != prose.user and not user.userProfile.getPimpsAmt %}
+<div class="jumbotron">
+	<h2>Help <a href="{% url 'prose:profile' prose.user.id %}">{{ prose.user.username }}</a> by Pimping your first Prose!</h2>
+	<p>
+		{{ prose.user.username }} is looking for help with their Prose, show what you have to offer!
+	</p>
+</div>
+
+{% endif %}
+
+<div class="pimpProseBox">
+	<h3><a href="{% url 'prose:profile' prose.user.id %}">{{ prose.user.username }}</a></h3>
+	<p>{{ prose.prose_text }}</p>
+	<p></p>
+</div>
+<a href="//www.reddit.com/submit" onclick="window.location = '//www.reddit.com/submit?url=' + encodeURIComponent(window.location); return false"> <img src="//www.redditstatic.com/spreddit1.gif" alt="submit to reddit" border="0" /> </a>
+<br>
+
+{% if user.is_authenticated %}
+
+	{% if prose.user != user %}
+	<!-- Form to post a new Pimp -->
+	<form id="pimp_form" method="post" action="{% url 'prose:detail' prose.id %}">
+		{% csrf_token %}
+
+		<div class="pimpProse_form_label">Pimp this Prose:</div>
+		{{ pimp_form.as_p }}
+
+		<button type="submit" class="btn btn-primary pimpProseSubmitBtn" name="submit">Pimp</button>
+		<div id="remainingCharacters"></div>
+	</form>
+	{% endif %}
+
+{% else %}
+Must be logged in to pimp this prose!
+
+{% endif %}
+
+<br>
+
+<div ng-app="mainApp" ng-controller="detailController">
+	<div class="dropdown">
+		<button class="btn btn-default dropdown-toggle" type="button" id="dropdownFilter" data-toggle="dropdown" aria-expanded="true">
+			sorted by: {[{ currentOrderby.title }]}
+			<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownFilter">
+			<li role="presentation" ng-repeat="orderby in orderby_set">
+				<a role="menuitem" tabindex="-1" ng-click="$parent.currentOrderby = orderby">{[{ orderby.title }]}</a>
+			</li>
+		</ul>
+	</div>
+
+	<br>
+
+	<!-- Print all the pimps here -->
+	<div ng-show="pimps.results">
+			<div class="pimpProseBox" ng-repeat="pimp in pimps.results | orderBy : currentOrderby.expression">
+				<h3><a href="">{[{ pimp.username }]}</a></h3>
+
+				<h4 id="pimp_{[{ pimp.id }]}_score">{[{ pimp.upvotes - pimp.downvotes }]}</h4>
+				<h4>points</h4>
+				<h4>
+					<span data-pimp_id="{[{ pimp.id }]}" class="upvote voteArrow glyphicon glyphicon-triangle-top"></span>
+					<span data-pimp_id="{[{ pimp.id }]}" class="downvote voteArrow glyphicon glyphicon-triangle-bottom"></span>
+				</h4>
+				<h4>{[{ pimp.percentMatch }]}% match</h4>
+
+				<p>{[{ pimp.pimp_text }]}</p>
+				<h5>
+					<a href="">view parent Prose</a>
+				</h5>
+			</div>
+
+	</div>
+	<p ng-hide="pimps.results">There are no Pimps.</p>
+
+</div>
+
+{% endblock %}
+
+{% block JavaScript %}
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+
+<script>
+/* Set all URLs to be used by the detailController */
+var prose_id = {{ prose.id }};
+var pimpAPI = "{% url 'prose:index' %}" + "api/pimp/";
+</script>
+
+<script src="{% static 'js/angular/mainApp.js' %}"></script>
+<script src="{% static 'js/angular/detailController.js' %}"></script>
+{% endblock %}
