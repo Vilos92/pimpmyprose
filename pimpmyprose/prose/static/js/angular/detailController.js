@@ -11,20 +11,26 @@ mainApp.controller( 'detailController', function( $scope, $http ) {
   }
 
   $scope.pimps = { results : [] };
-  // Get page 1 of all pimps associated with this Prose
+  // Get page 1 of all pimps associated with this Prose, default ordering is top
   var pimpURL = pimpAPI + '?prose_id=' + prose_id;
   setPimps( pimpURL );
 
-  // Initialize the ordering for this page, which will be by highest score
-  $scope.orderby_set = [
-    { title: 'Top', expression: 'downvotes - upvotes' },
-    { title: 'New', expression: '-pub_date' },
-    { title: 'Worst', expression: 'upvotes - downvotes' },
-    { title: 'Old', expression: 'pub_date' }
-  ];
+  // Function which takes ordering parameter and reloads all pimps on page
+  $scope.setOrder = function( order ) {
+    // Query parameter requires order word to be lowercase
+    var orderedPimpURL = pimpURL + '&orderBy=' + order.toLowerCase();
+    setPimps( orderedPimpURL );
+  }
 
-  // Initialize the current Filter
-  $scope.currentOrderby = $scope.orderby_set[0];
+  $scope.orderBy_set = [
+    'Top',
+    'New',
+    'Worst',
+    'Old'
+  ]
+
+  // Initialize the current orderBy
+  $scope.currentOrderBy = $scope.orderBy_set[0];
 
   // Get next page
   $scope.nextPage = function() {

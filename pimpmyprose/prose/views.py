@@ -579,17 +579,44 @@ class PimpViewSet( viewsets.ModelViewSet ):
 		Restrict returned Pimps to be from a specific user,
 		by filtering against a 'username' query parameter in the URL
 		"""
+		# Get default queryset (all pimps)
 		queryset = Pimp.objects.all()
+
+		# If a user_id is specified, filter query set by their user_id
 		user_id = self.request.query_params.get( 'user_id', None )
-		prose_id = self.request.query_params.get( 'prose_id', None )
 		if user_id is not None:
 			queryset = queryset.filter( user__id = user_id )
-		elif prose_id is not None:
-			#queryset = queryset.filter( prose__id = prose_id )
-			# Test getting prose in order of newest
-			# don't use get_object_or_404?
+			return queryset
+
+		# If a prose_id is specified (no user_id), check orderBy and return queryset
+		prose_id = self.request.query_params.get( 'prose_id', None )
+		if prose_id is not None:
+			# Get prose associated with this id
 			prose = get_object_or_404( Prose, pk = prose_id )
-			queryset = prose.newPimps().all()
+
+			# If a prose_id is specified, check the orderBy parameter
+			orderBy = self.request.query_params.get( 'orderBy', None )
+
+			# Get default query set for a specific prose
+			queryset = prose.rankedPimps()
+
+			# If no orderBy specification, just order by top (default query set)
+			if orderBy is None or orderBy == 'top':
+				return queryset
+			elif orderBy == 'new':
+				queryset = prose.newPimps().all()
+				return queryset
+			elif orderBy == 'worst':
+				queryset = prose.worstPimps()
+				return queryset
+			elif orderBy == 'old':
+				queryset = prose.oldPimps().all()
+				return queryset
+
+			# If orderBy filter is invalid, return by rankedPimps
+			return queryset
+
+		# If no parameters matched, return default queryset (all pimps)
 		return queryset
 
 	permission_classes = ( permissions.IsAuthenticatedOrReadOnly,

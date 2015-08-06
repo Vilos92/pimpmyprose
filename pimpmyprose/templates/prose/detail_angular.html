@@ -48,12 +48,12 @@ Must be logged in to pimp this prose!
 	<!-- AngularJS orderby implementation -->
 	<div class="dropdown">
 		<button class="btn btn-default dropdown-toggle" type="button" id="dropdownFilter" data-toggle="dropdown" aria-expanded="true">
-			sorted by: {[{ currentOrderby.title }]}
+			sorted by: {[{ currentOrderBy.title }]}
 			<span class="caret"></span>
 		</button>
 		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownFilter">
-			<li role="presentation" ng-repeat="orderby in orderby_set">
-				<a role="menuitem" tabindex="-1" ng-click="$parent.currentOrderby = orderby">{[{ orderby.title }]}</a>
+			<li role="presentation" ng-repeat="orderBy in orderBy_set">
+				<a role="menuitem" tabindex="-1" ng-click="setOrder( orderBy )">{[{ orderBy }]}</a>
 			</li>
 		</ul>
 	</div>
@@ -65,7 +65,7 @@ Must be logged in to pimp this prose!
 
 	<!-- Print all the pimps here -->
 	<div ng-show="pimps.results">
-			<div class="pimpProseBox" ng-repeat="pimp in pimps.results | orderBy : currentOrderby.expression">
+			<div class="pimpProseBox" ng-repeat="pimp in pimps.results">
 				<h3><a href="{[{ profileURL + pimp.user_id }]}">{[{ pimp.username }]}</a></h3>
 
 				<h4 id="pimp_{[{ pimp.id }]}_score">{[{ pimp.upvotes - pimp.downvotes }]}</h4>
