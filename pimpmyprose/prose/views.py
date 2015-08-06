@@ -585,7 +585,11 @@ class PimpViewSet( viewsets.ModelViewSet ):
 		if user_id is not None:
 			queryset = queryset.filter( user__id = user_id )
 		elif prose_id is not None:
-			queryset = queryset.filter( prose__id = prose_id )
+			#queryset = queryset.filter( prose__id = prose_id )
+			# Test getting prose in order of newest
+			# don't use get_object_or_404?
+			prose = get_object_or_404( Prose, pk = prose_id )
+			queryset = prose.newPimps().all()
 		return queryset
 
 	permission_classes = ( permissions.IsAuthenticatedOrReadOnly,
