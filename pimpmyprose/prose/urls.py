@@ -13,7 +13,7 @@ urlpatterns = patterns( '',
 	# ex: /prose_angular/5/
 	url( r'^(?P<prose_id>\d+)/$', views.detail, name = 'detail' ),
 
-	# ex: /prose/pimp/upvote/
+	# ex: /prose/pimp/10/upvote/
 	url( r'^upvote/$', views.upvote, name = 'upvote' ),
 
 	# ex: /prose/pimp/10/downvote/

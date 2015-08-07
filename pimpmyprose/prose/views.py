@@ -1,4 +1,5 @@
 import datetime
+from itertools import chain
 
 from django.shortcuts import get_object_or_404, render, render_to_response
 
@@ -185,23 +186,9 @@ def following_pimps( request, user_id ):
 	user = get_object_or_404( User, pk = user_id )
 	userProfile = user.userProfile
 
-	# From this userProfile, get all users they are following
-	following = userProfile.follows.all()
-
-	# Get all pimps from the users being followed
-	# To speed this up, try and have more of the filtering done by SQL
-	# Need ability to sort based on URL
-	following_pimps = []
-	for followedUserProfile in following:
-		pimps = followedUserProfile.getPimps().all()
-		following_pimps.extend( pimps )
-
-	# Want to show a link to the parent prose of each pimp
-	show_parent_prose = True
-
 	return render_to_response(
 			'prose/follows_pimps.html',
-			{ 'userProfile' : userProfile, 'following_pimps' : following_pimps, 'show_parent_prose' : show_parent_prose },
+			{ 'userProfile' : userProfile },
 			context )
 
 # Pimps from all users another user is following
@@ -520,18 +507,41 @@ class PimpViewSet( viewsets.ModelViewSet ):
 		if user_id is not None:
 			queryset = queryset.filter( user__id = user_id )
 
+			# Check if there is a parameter for followed users, if so modify
+			followed = self.request.query_params.get( 'followed', None )
+			if followed == 'true':
+				# Get user profile to see who they are following
+				user = get_object_or_404( User, pk = user_id )
+				userProfile = user.userProfile
+
+				# Get all users being followed
+				following = userProfile.follows.all()
+
+				# Get all pimps whose user is in following
+				fullQuery = []
+				for followedUserProfile in following:
+					pimps = followedUserProfile.getPimps()
+					# User itertools chain to combine querysets, faster than converting
+					# lists and extending each other
+					fullQuery = chain( fullQuery, pimps )
+
+				queryset = list( fullQuery )
+			else:
+				# Not trying to get users that are followed, simply create list from queryset
+				queryset = list( queryset )
+
 			# If no orderBy specification, just order by top (default query set)
 			if orderBy is None or orderBy == 'top':
-				queryset = sorted( list( queryset.all() ), key = lambda x : x.score, reverse = True )
+				queryset = sorted( list( queryset ), key = lambda x : x.score, reverse = True )
 				return queryset
 			elif orderBy == 'new':
-				queryset = queryset.order_by('-pub_date')
+				queryset = sorted( list( queryset ), key = lambda x : x.pub_date, reverse = True )
 				return queryset
 			elif orderBy == 'worst':
-				queryset = sorted( list( queryset.all() ), key = lambda x : x.score, reverse = False )
+				queryset = sorted( list( queryset ), key = lambda x : x.score, reverse = False )
 				return queryset
 			elif orderBy == 'old':
-				queryset = queryset.order_by('pub_date')
+				queryset = sorted( list( queryset ), key = lambda x : x.pub_date, reverse = False )
 				return queryset
 
 			# If orderBy is invalid, simply return default set of pimps sorted by rank
