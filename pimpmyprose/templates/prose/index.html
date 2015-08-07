@@ -1,4 +1,5 @@
 {% extends "prose/base.html" %}
+{% load staticfiles %}
 {% block title %}pimpMyProse{% endblock %}
 
 {% block content %}
@@ -46,21 +47,18 @@ Must be logged in to prose!
 
 <br>
 
-<div class="dropdown">
-	<button class="btn btn-default dropdown-toggle" type="button" id="dropdownFilter" data-toggle="dropdown" aria-expanded="true">
-		sorted by: {{ filter }}
-		<span class="caret"></span>
-	</button>
-	<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownFilter">
-		<li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'prose:index' 'hot' %}">Hot</a></li>
-		<li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'prose:index' 'top' %}">Top</a></li>
-		<li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'prose:index' 'new' %}">New</a></li>
-		<li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'prose:index' 'worst' %}">Worst</a></li>
-		<li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'prose:index' 'old' %}">Old</a></li>
-	</ul>
-</div>
-
 <h2>All new proses</h2>
-{% include "prose/prose_list.html" %}
+{% include "prose/prose_list_angular.html" %}
 
+{% endblock %}
+
+{% block angularJS %}
+<!-- Load angularJS, mainApp, and default django URLs -->
+{% include "prose/angularJS.html" %}
+
+<!-- For the profile_pimp page, get the id of the current user -->
+<script>var proseQueryParameter = '';</script>
+
+<!-- Load the controller for the profile_pimps page -->
+<script src="{% static 'js/angular/proseController.js' %}"></script>
 {% endblock %}

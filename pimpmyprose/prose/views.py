@@ -105,7 +105,8 @@ def user_logout(request):
 
 	return HttpResponseRedirect( reverse( 'prose:index' ) )
 
-def index( request, filter = 'hot' ):
+# Main page, where new prose can be posted
+def index( request ):
 	context = RequestContext(request)
 
 	# Allow user to post Prose from index
@@ -132,33 +133,9 @@ def index( request, filter = 'hot' ):
 	else:
 		prose_form = ProseForm()
 
-	# Create empty set of prose for case of bad filter input
-	prose_list = []
-	# Sort by filter, default is hot
-	if filter == 'hot':
-		# Should not get all and then sort by hot, need to either store
-		# hot rating in database to speed up loading or stick to newest 200
-		# Replace this later by adding time to score for rank (lke reddit)
-		prose_list = Prose.objects.all()[:200]
-		prose_list = sorted( list( prose_list ), key = lambda x : getHotScore( x.pimpScoreSum, datetime.datetime.now() ) , reverse = True )
-	# Sort by filter, default is top
-	elif filter == 'top':
-		# Best of all time. Should have sub-filter for how long ago (like reddit)
-		prose_list = Prose.objects.all()
-		prose_list = sorted( list( prose_list ), key = lambda x : x.pimpScoreSum, reverse = True )
-	elif filter == 'new':
-		# Simply get the 50 latest posts
-		prose_list = Prose.objects.order_by('-pub_date')[:50]
-	elif filter == 'worst':
-		# Show worst posts
-		prose_list = Prose.objects.order_by('-pub_date')[:50]
-		prose_list = sorted( list( prose_list ), key = lambda x : x.pimpScoreSum )
-	elif filter == 'old':
-		prose_list = Prose.objects.order_by('pub_date')[:50]
-
 	return render_to_response(
 			'prose/index.html',
-			{ 'prose_form' : prose_form, 'prose_list' : prose_list, 'filter' : filter },
+			{ 'prose_form' : prose_form },
 			context )
 
 # View to show all users another user is following
@@ -481,31 +458,33 @@ class ProseViewSet( viewsets.ModelViewSet ):
 					# lists and extending each other
 					fullQuery = chain( fullQuery, proses )
 
+				# Create query set from users following user_id
 				queryset = list( fullQuery )
 			else:
-				# If not trying to get users that are followed, simply create list from queryset
+				# If not trying to get users that are followed, simply create list from queryset from user_id
 				queryset = list( queryset )
+		else:
+			# No user_id specified, convert queryset to a list
+			queryset = list( queryset )
 
-			# If no orderBy specification, just order by top (default query set)
-			if orderBy is None or orderBy == 'top':
-				queryset = sorted( list( queryset ), key = lambda x : x.pimpScoreSum, reverse = True )
-				print queryset
-				return queryset
-			elif orderBy == 'new':
-				queryset = sorted( list( queryset ), key = lambda x : x.pub_date, reverse = True );
-				return queryset
-			elif orderBy == 'worst':
-				queryset = sorted( list( queryset ), key = lambda x : x.pimpScoreSum, reverse = False )
-				return queryset
-			elif orderBy == 'old':
-				queryset = sorted( list( queryset ), key = lambda x : x.pub_date, reverse = False );
-				return queryset
+		# If no orderBy specification, just order by top (default query set)
+		if orderBy is None or orderBy == 'hot':
+			queryset = sorted( queryset, key = lambda x : getHotScore( x.pimpScoreSum, datetime.datetime.now() ) , reverse = True )
+		elif orderBy == 'top':
+			queryset = sorted( queryset, key = lambda x : x.pimpScoreSum, reverse = True )
+			return queryset
+		elif orderBy == 'new':
+			queryset = sorted( queryset, key = lambda x : x.pub_date, reverse = True );
+			return queryset
+		elif orderBy == 'worst':
+			queryset = sorted( queryset, key = lambda x : x.pimpScoreSum, reverse = False )
+			return queryset
+		elif orderBy == 'old':
+			queryset = sorted( queryset, key = lambda x : x.pub_date, reverse = False );
+			return queryset
 
-			# If orderBy is invalid, simply return default set of pimps sorted by rank
-			return sorted( list( queryset ), key = lambda x : x.pimpScoreSum, reverse = True )
-
-		# Return default queryset if no queries matched (all prose)
-		return queryset
+		# If orderBy is invalid, simply return default set of pimps sorted by rank
+		return sorted( queryset, key = lambda x : x.pimpScoreSum, reverse = True )
 
 	permission_classes = ( permissions.IsAuthenticatedOrReadOnly,
 							IsOwnerOrReadOnly, )
@@ -557,20 +536,20 @@ class PimpViewSet( viewsets.ModelViewSet ):
 
 			# If no orderBy specification, just order by top (default query set)
 			if orderBy is None or orderBy == 'top':
-				queryset = sorted( list( queryset ), key = lambda x : x.score, reverse = True )
+				queryset = sorted( queryset, key = lambda x : x.score, reverse = True )
 				return queryset
 			elif orderBy == 'new':
-				queryset = sorted( list( queryset ), key = lambda x : x.pub_date, reverse = True )
+				queryset = sorted( queryset, key = lambda x : x.pub_date, reverse = True )
 				return queryset
 			elif orderBy == 'worst':
-				queryset = sorted( list( queryset ), key = lambda x : x.score, reverse = False )
+				queryset = sorted( queryset, key = lambda x : x.score, reverse = False )
 				return queryset
 			elif orderBy == 'old':
-				queryset = sorted( list( queryset ), key = lambda x : x.pub_date, reverse = False )
+				queryset = sorted( queryset, key = lambda x : x.pub_date, reverse = False )
 				return queryset
 
 			# If orderBy is invalid, simply return default set of pimps sorted by rank
-			return sorted( list( queryset ), key = lambda x : x.score, reverse = True )
+			return sorted( queryset, key = lambda x : x.score, reverse = True )
 
 		# If a prose_id is specified (no user_id), check orderBy and return queryset
 		# primarily used by the detail view, where pimps for a specific prose are desired

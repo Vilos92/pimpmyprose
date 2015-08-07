@@ -6,8 +6,6 @@ from prose import views
 urlpatterns = patterns( '',
 	# ex: /prose/
 	url( r'^$', views.index, name = 'index' ),
-	# filtered ex: /prose/top/
-	url( r'^(?P<filter>hot|top|new|worst|old)/$', views.index, name = 'index' ),
 
 	# angularJS version of detail
 	# ex: /prose_angular/5/

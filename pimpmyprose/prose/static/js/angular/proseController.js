@@ -37,12 +37,21 @@ mainApp.controller( 'proseController', function( $scope, $http, queryFactory ) {
   $scope.setOrder = function( order ) {
     $scope.currentOrderBy = order;
 
+    // If no preceding query parameters, orderBy has ? instead of &
+    var orderByPrefix;
+    if ( proseQueryParameter === '' ) {
+      orderByPrefix = '?';
+    } else {
+      orderByPrefix = '&';
+    }
+
     // Query parameter requires order word to be lowercase
-    var orderedProseURL = proseURL + '&orderBy=' + order.toLowerCase();
+    var orderedProseURL = proseURL + orderByPrefix + 'orderBy=' + order.toLowerCase();
     setProse( orderedProseURL );
   }
 
   $scope.orderBy_set = [
+    'Hot',
     'Top',
     'New',
     'Worst',
