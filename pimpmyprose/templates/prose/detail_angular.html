@@ -48,7 +48,7 @@ Must be logged in to pimp this prose!
 	<!-- AngularJS orderby implementation -->
 	<div class="dropdown">
 		<button class="btn btn-default dropdown-toggle" type="button" id="dropdownFilter" data-toggle="dropdown" aria-expanded="true">
-			sorted by: {[{ currentOrderBy.title }]}
+			sorted by: {[{ currentOrderBy }]}
 			<span class="caret"></span>
 		</button>
 		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownFilter">
@@ -61,6 +61,7 @@ Must be logged in to pimp this prose!
 	<br>
 
 	<button ng-click="previousPage()" ng-disabled="!pimps.previous">previous</button>
+	{[{ currentPage }]} / {[{ numPages }]}
 	<button ng-click="nextPage()" ng-disabled="!pimps.next">next</button>
 
 	<!-- Print all the pimps here -->
