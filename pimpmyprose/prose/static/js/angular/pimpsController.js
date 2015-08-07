@@ -1,7 +1,13 @@
 // Assign a controller for getting the parent prose and all pimps in a detail
 mainApp.controller( 'pimpsController', function( $scope, $http, queryFactory ) {
-  // Assign global URL for profiles into scope
+  // Assign global URLs into scope
   $scope.profileURL = profileURL;
+  $scope.proseURL = proseURL;
+
+  // Check if page wants to hide link to parent proses on pimps (details page)
+  if ( typeof hideParentLink !== 'undefined' ) {
+    $scope.hideParentLink = hideParentLink;
+  }
 
   // Function which sets the Pimps
   var setPimps = function( pimpURL ) {

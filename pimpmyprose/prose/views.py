@@ -333,13 +333,6 @@ def profile( request, user_id ):
 	# Get 5 latest prose from user
 	latest_prose_list = userProfile.getProses()[:5]
 
-	# Get 5 latest pimps from user
-	latest_pimp_list = userProfile.getPimps()[:5]
-
-	# Pass pimp_list_profile as true to indicate that
-	# pimps should have links to their parent prose
-	show_parent_prose = True
-
 	# Only show follow status if logged in
 	followingUser = "Null"
 	if request.user.is_authenticated():
@@ -351,7 +344,6 @@ def profile( request, user_id ):
 	return render_to_response(
 			'prose/profile.html',
 			{	'userProfile' : userProfile, 'prose_list' : latest_prose_list,
-				'pimp_list' : latest_pimp_list, 'show_parent_prose' : show_parent_prose,
 				'followingUser' : followingUser },
 			context )
 
@@ -548,6 +540,7 @@ class PimpViewSet( viewsets.ModelViewSet ):
 			return sorted( list( queryset.all() ), key = lambda x : x.score, reverse = True )
 
 		# If a prose_id is specified (no user_id), check orderBy and return queryset
+		# primarily used by the detail view, where pimps for a specific prose are desired
 		prose_id = self.request.query_params.get( 'prose_id', None )
 		if prose_id is not None:
 			# Get prose associated with this id

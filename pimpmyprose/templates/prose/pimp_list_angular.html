@@ -15,9 +15,11 @@
 
   <br>
 
-  <button ng-click="previousPage()" ng-disabled="!pimps.previous">previous</button>
-  {[{ currentPage }]} / {[{ numPages }]}
-  <button ng-click="nextPage()" ng-disabled="!pimps.next">next</button>
+  <span ng-hide="numPages < 2">
+    <button ng-click="previousPage()" ng-disabled="!pimps.previous">previous</button>
+    {[{ currentPage }]} / {[{ numPages }]}
+    <button ng-click="nextPage()" ng-disabled="!pimps.next">next</button>
+  </span>
 
   <!-- Print all the pimps here -->
   <div ng-show="pimps.results">
@@ -33,11 +35,10 @@
         <h4>{[{ pimp.percentMatch }]}% match</h4>
 
         <p>{[{ pimp.pimp_text }]}</p>
-        <!--
-        <h5>
-          <a href="">view parent Prose</a>
+        <h5 ng-hide="hideParentLink">
+          <a href="{[{ proseURL + pimp.prose_id }]}">view parent Prose</a>
         </h5>
-      </div>-->
+      </div>
 
   </div>
   <p ng-hide="pimps.results">There are no Pimps.</p>

@@ -53,7 +53,10 @@ Must be logged in to pimp this prose!
 {% include "prose/angularJS.html" %}
 
 <!-- For the detail page, get the id of the current prose and load as query parameter -->
-<script>var pimpsQueryParameter = '?prose_id=' + {{ prose.id }};</script>
+<script>
+	var pimpsQueryParameter = '?prose_id=' + {{ prose.id }};
+	var hideParentLink = true;
+</script>
 
 <!-- Load the controller for the detail page -->
 <script src="{% static 'js/angular/pimpsController.js' %}"></script>
