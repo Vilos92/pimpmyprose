@@ -469,10 +469,60 @@ class ProseViewSet( viewsets.ModelViewSet ):
 		by filtering against a 'username' query parameter in the URL
 		"""
 		queryset = Prose.objects.all()
+
+		# Get orderBy parameter to be used on any page
+		orderBy = self.request.query_params.get( 'orderBy', None )
+
+		# If user_id specified, filter prose by user
 		user_id = self.request.query_params.get( 'user_id', None )
 		if user_id is not None:
 			queryset = queryset.filter( user__id = user_id )
+
+			# If no orderBy specification, just order by top (default query set)
+			if orderBy is None or orderBy == 'top':
+				queryset = sorted( list( queryset.all() ), key = lambda x : x.pimpScoreSum, reverse = True )
+				print queryset
+				return queryset
+			elif orderBy == 'new':
+				queryset = queryset.order_by('-pub_date');
+				return queryset
+			elif orderBy == 'worst':
+				queryset = sorted( list( queryset.all() ), key = lambda x : x.pimpScoreSum, reverse = False )
+				return queryset
+			elif orderBy == 'old':
+				queryset = queryset.order_by('pub_date')
+				return queryset
+
+		# Return default queryset if no queries matched (all prose)
 		return queryset
+
+
+
+		'''
+			# Create empty set of prose for case of bad filter input
+			prose_list = []
+			# Sort by filter, default is hot
+			if filter == 'hot':
+				# Should not get all and then sort by hot, need to either store
+				# hot rating in database to speed up loading or stick to newest 200
+				# Replace this later by adding time to score for rank (lke reddit)
+				prose_list = Prose.objects.all()[:200]
+				prose_list = sorted( list( prose_list ), key = lambda x : getHotScore( x.pimpScoreSum, datetime.datetime.now() ) , reverse = True )
+			# Sort by filter, default is top
+			elif filter == 'top':
+				# Best of all time. Should have sub-filter for how long ago (like reddit)
+				prose_list = Prose.objects.all()
+				prose_list = sorted( list( prose_list ), key = lambda x : x.pimpScoreSum, reverse = True )
+			elif filter == 'new':
+				# Simply get the 50 latest posts
+				prose_list = Prose.objects.order_by('-pub_date')[:50]
+			elif filter == 'worst':
+				# Show worst posts
+				prose_list = Prose.objects.order_by('-pub_date')[:50]
+				prose_list = sorted( list( prose_list ), key = lambda x : x.pimpScoreSum )
+			elif filter == 'old':
+				prose_list = Prose.objects.order_by('pub_date')[:50]
+				'''
 
 	permission_classes = ( permissions.IsAuthenticatedOrReadOnly,
 							IsOwnerOrReadOnly, )

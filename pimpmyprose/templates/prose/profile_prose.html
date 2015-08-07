@@ -1,9 +1,59 @@
 {% extends "prose/base.html" %}
+{% load staticfiles %}
 {% block title %}All Prose from {{ userProfile.user.username }}{% endblock %}
 
 {% block content %}
 
 <h2>All Prose from {{ userProfile.user.username }}</h2>
+<!--
 {% include "prose/prose_list.html" %}
+-->
 
+<div ng-app="mainApp" ng-controller="proseController">
+  <!-- AngularJS orderby implementation -->
+  <div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownFilter" data-toggle="dropdown" aria-expanded="true">
+      sorted by: {[{ currentOrderBy }]}
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownFilter">
+      <li role="presentation" ng-repeat="orderBy in orderBy_set">
+        <a role="menuitem" tabindex="-1" ng-click="setOrder( orderBy )">{[{ orderBy }]}</a>
+      </li>
+    </ul>
+  </div>
+
+  <br>
+
+  <span ng-hide="numPages < 2">
+    <button ng-click="previousPage()" ng-disabled="!prose.previous">previous</button>
+    {[{ currentPage }]} / {[{ numPages }]}
+    <button ng-click="nextPage()" ng-disabled="!prose.next">next</button>
+  </span>
+
+  <div class="pimpProseBox" ng-repeat="proseItem in prose.results">
+  	<h3><a href="">{[{ proseItem.username }]}</a></h3>
+  	<h4>{[{ proseItem.pimpScoreSum }]} total points</h4>
+  	<p>{[{ proseItem.prose_text }]}</p>
+  	<h5>{[{ proseItem.pimp_set.length }]} Pimps
+  		<a href=""><button type="button" class="btn btn-sm btn-primary">Pimp-it</button></a>
+  	</h5>
+
+  </div>
+
+  <p ng-hide="prose.results">There are no Prose.</p>
+
+</div>
+
+{% endblock %}
+
+{% block angularJS %}
+<!-- Load angularJS, mainApp, and default django URLs -->
+{% include "prose/angularJS.html" %}
+
+<!-- For the profile_pimp page, get the id of the current user -->
+<script>var proseQueryParameter = '?user_id=' + {{ userProfile.user.id }};</script>
+
+<!-- Load the controller for the profile_pimps page -->
+<script src="{% static 'js/angular/proseController.js' %}"></script>
 {% endblock %}
