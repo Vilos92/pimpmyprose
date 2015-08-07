@@ -199,20 +199,9 @@ def following_prose( request, user_id ):
 	user = get_object_or_404( User, pk = user_id )
 	userProfile = user.userProfile
 
-	# From this userProfile, get all users they are following
-	following = userProfile.follows.all()
-
-	# Get all prose from the users being followed
-	# To speed this up, try and have more of the filtering done by SQL
-	# Need ability to sort based on URL
-	following_prose = []
-	for followedUserProfile in following:
-		prose = followedUserProfile.getProses().all()
-		following_prose.extend( prose )
-
 	return render_to_response(
 			'prose/follows_prose.html',
-			{ 'userProfile' : userProfile, 'following_prose' : following_prose },
+			{ 'userProfile' : userProfile },
 			context )
 
 # View to show all users following a user
@@ -330,9 +319,6 @@ def profile( request, user_id ):
 	user = get_object_or_404( User, pk = user_id )
 	userProfile = user.userProfile
 
-	# Get 5 latest prose from user
-	latest_prose_list = userProfile.getProses()[:5]
-
 	# Only show follow status if logged in
 	followingUser = "Null"
 	if request.user.is_authenticated():
@@ -343,8 +329,7 @@ def profile( request, user_id ):
 
 	return render_to_response(
 			'prose/profile.html',
-			{	'userProfile' : userProfile, 'prose_list' : latest_prose_list,
-				'followingUser' : followingUser },
+			{	'userProfile' : userProfile, 'followingUser' : followingUser },
 			context )
 
 # View Prose of a user profile
@@ -478,51 +463,49 @@ class ProseViewSet( viewsets.ModelViewSet ):
 		if user_id is not None:
 			queryset = queryset.filter( user__id = user_id )
 
+			# Check if there is a parameter for followed users, if so modify
+			follows = self.request.query_params.get( 'follows', None )
+			if follows == 'true':
+				# Get user profile to see who they are following
+				user = get_object_or_404( User, pk = user_id )
+				userProfile = user.userProfile
+
+				# Get all users being followed
+				following = userProfile.follows.all()
+
+				# Get all prose whose user is in following
+				fullQuery = []
+				for followedUserProfile in following:
+					proses = followedUserProfile.getProses()
+					# User itertools chain to combine querysets, faster than converting
+					# lists and extending each other
+					fullQuery = chain( fullQuery, proses )
+
+				queryset = list( fullQuery )
+			else:
+				# If not trying to get users that are followed, simply create list from queryset
+				queryset = list( queryset )
+
 			# If no orderBy specification, just order by top (default query set)
 			if orderBy is None or orderBy == 'top':
-				queryset = sorted( list( queryset.all() ), key = lambda x : x.pimpScoreSum, reverse = True )
+				queryset = sorted( list( queryset ), key = lambda x : x.pimpScoreSum, reverse = True )
 				print queryset
 				return queryset
 			elif orderBy == 'new':
-				queryset = queryset.order_by('-pub_date');
+				queryset = sorted( list( queryset ), key = lambda x : x.pub_date, reverse = True );
 				return queryset
 			elif orderBy == 'worst':
-				queryset = sorted( list( queryset.all() ), key = lambda x : x.pimpScoreSum, reverse = False )
+				queryset = sorted( list( queryset ), key = lambda x : x.pimpScoreSum, reverse = False )
 				return queryset
 			elif orderBy == 'old':
-				queryset = queryset.order_by('pub_date')
+				queryset = sorted( list( queryset ), key = lambda x : x.pub_date, reverse = False );
 				return queryset
+
+			# If orderBy is invalid, simply return default set of pimps sorted by rank
+			return sorted( list( queryset ), key = lambda x : x.pimpScoreSum, reverse = True )
 
 		# Return default queryset if no queries matched (all prose)
 		return queryset
-
-
-
-		'''
-			# Create empty set of prose for case of bad filter input
-			prose_list = []
-			# Sort by filter, default is hot
-			if filter == 'hot':
-				# Should not get all and then sort by hot, need to either store
-				# hot rating in database to speed up loading or stick to newest 200
-				# Replace this later by adding time to score for rank (lke reddit)
-				prose_list = Prose.objects.all()[:200]
-				prose_list = sorted( list( prose_list ), key = lambda x : getHotScore( x.pimpScoreSum, datetime.datetime.now() ) , reverse = True )
-			# Sort by filter, default is top
-			elif filter == 'top':
-				# Best of all time. Should have sub-filter for how long ago (like reddit)
-				prose_list = Prose.objects.all()
-				prose_list = sorted( list( prose_list ), key = lambda x : x.pimpScoreSum, reverse = True )
-			elif filter == 'new':
-				# Simply get the 50 latest posts
-				prose_list = Prose.objects.order_by('-pub_date')[:50]
-			elif filter == 'worst':
-				# Show worst posts
-				prose_list = Prose.objects.order_by('-pub_date')[:50]
-				prose_list = sorted( list( prose_list ), key = lambda x : x.pimpScoreSum )
-			elif filter == 'old':
-				prose_list = Prose.objects.order_by('pub_date')[:50]
-				'''
 
 	permission_classes = ( permissions.IsAuthenticatedOrReadOnly,
 							IsOwnerOrReadOnly, )
@@ -550,8 +533,8 @@ class PimpViewSet( viewsets.ModelViewSet ):
 			queryset = queryset.filter( user__id = user_id )
 
 			# Check if there is a parameter for followed users, if so modify
-			followed = self.request.query_params.get( 'followed', None )
-			if followed == 'true':
+			follows = self.request.query_params.get( 'follows', None )
+			if follows == 'true':
 				# Get user profile to see who they are following
 				user = get_object_or_404( User, pk = user_id )
 				userProfile = user.userProfile
@@ -587,7 +570,7 @@ class PimpViewSet( viewsets.ModelViewSet ):
 				return queryset
 
 			# If orderBy is invalid, simply return default set of pimps sorted by rank
-			return sorted( list( queryset.all() ), key = lambda x : x.score, reverse = True )
+			return sorted( list( queryset ), key = lambda x : x.score, reverse = True )
 
 		# If a prose_id is specified (no user_id), check orderBy and return queryset
 		# primarily used by the detail view, where pimps for a specific prose are desired

@@ -1,17 +1,20 @@
 {% extends "prose/base.html" %}
+{% load staticfiles %}
 {% block title %}pimpMyProse - Prose of Users Followed by {{ userProfile.user.username }}{% endblock %}
 
 {% block content %}
-{% if following_prose %}
 <h2>Prose from users followed by <a href="{% url 'prose:profile' userProfile.user.id %}">{{ userProfile.user.username }}</a>:</h2>
-  {% for prose in following_prose %}
-    {% include "prose/prose_list_item.html" %}
+{% include "prose/prose_list_angular.html" %}
 
-  {% endfor %}
+{% endblock %}
 
-{% else %}
-No Prose from users that {{ userProfile.user.username }} is following.
+{% block angularJS %}
+<!-- Load angularJS, mainApp, and default django URLs -->
+{% include "prose/angularJS.html" %}
 
-{% endif %}
+<!-- For the profile_pimp page, get the id of the current user -->
+<script>var proseQueryParameter = '?user_id=' + {{ userProfile.user.id }} + '&follows=true';</script>
 
+<!-- Load the controller for the profile_pimps page -->
+<script src="{% static 'js/angular/proseController.js' %}"></script>
 {% endblock %}
