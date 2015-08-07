@@ -44,7 +44,7 @@ Must be logged in to pimp this prose!
 
 <br>
 
-<div ng-app="mainApp" ng-controller="detailController">{% include "prose/pimp_list_angular.html" %}</div>
+{% include "prose/pimp_list_angular.html" %}
 
 {% endblock %}
 
@@ -52,9 +52,9 @@ Must be logged in to pimp this prose!
 <!-- Load angularJS, mainApp, and default django URLs -->
 {% include "prose/angularJS.html" %}
 
-<!-- For the detail page, get the id of the current prose -->
-<script>var prose_id = {{ prose.id }};</script>
+<!-- For the detail page, get the id of the current prose and load as query parameter -->
+<script>var pimpsQueryParameter = '?prose_id=' + {{ prose.id }};</script>
 
 <!-- Load the controller for the detail page -->
-<script src="{% static 'js/angular/detailController.js' %}"></script>
+<script src="{% static 'js/angular/pimpsController.js' %}"></script>
 {% endblock %}

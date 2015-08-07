@@ -6,7 +6,7 @@
 
 <h2>All Pimps from {{ userProfile.user.username }}</h2>
 
-<div ng-app="mainApp" ng-controller="profilePimpsController">{% include "prose/pimp_list_angular.html" %}</div>
+{% include "prose/pimp_list_angular.html" %}
 
 {% endblock %}
 
@@ -15,8 +15,8 @@
 {% include "prose/angularJS.html" %}
 
 <!-- For the profile_pimp page, get the id of the current user -->
-<script>var user_id = {{ userProfile.user.id }};</script>
+<script>var pimpsQueryParameter = '?user_id=' + {{ userProfile.user.id }};</script>
 
 <!-- Load the controller for the detail page -->
-<script src="{% static 'js/angular/profilePimpsController.js' %}"></script>
+<script src="{% static 'js/angular/pimpsController.js' %}"></script>
 {% endblock %}

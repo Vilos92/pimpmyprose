@@ -1,5 +1,5 @@
 // Assign a controller for getting the parent prose and all pimps in a detail
-mainApp.controller( 'profilePimpsController', function( $scope, $http, queryFactory ) {
+mainApp.controller( 'pimpsController', function( $scope, $http, queryFactory ) {
   // Assign global URL for profiles into scope
   $scope.profileURL = profileURL;
 
@@ -7,7 +7,6 @@ mainApp.controller( 'profilePimpsController', function( $scope, $http, queryFact
   var setPimps = function( pimpURL ) {
     $http.get( pimpURL ).success( function( response ) {
       $scope.pimps = response;
-      console.log( response );
       $scope.numPages = Math.ceil( response.count / 10 );
 
       // Get all query parameters
@@ -25,7 +24,7 @@ mainApp.controller( 'profilePimpsController', function( $scope, $http, queryFact
 
   $scope.pimps = { results : [] };
   // Get page 1 of all pimps associated with this Prose, default ordering is top
-  var pimpURL = pimpAPI + '?user_id=' + user_id;
+  var pimpURL = pimpAPI + pimpsQueryParameter;
   setPimps( pimpURL );
 
   // Function which takes ordering parameter and reloads all pimps on page
@@ -34,7 +33,6 @@ mainApp.controller( 'profilePimpsController', function( $scope, $http, queryFact
 
     // Query parameter requires order word to be lowercase
     var orderedPimpURL = pimpURL + '&orderBy=' + order.toLowerCase();
-    console.log( orderedPimpURL );
     setPimps( orderedPimpURL );
   }
 
