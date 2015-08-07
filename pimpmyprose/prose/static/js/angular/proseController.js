@@ -30,8 +30,8 @@ mainApp.controller( 'proseController', function( $scope, $http, queryFactory ) {
 
   $scope.prose = { results : [] };
   // Get page 1 of all prose associated with this Prose, default ordering is top
-  var proseURL = proseAPI + proseQueryParameter;
-  setProse( proseURL );
+  var getProseURL = proseAPI + proseQueryParameter;
+  setProse( getProseURL );
 
   // Function which takes ordering parameter and reloads all prose on page
   $scope.setOrder = function( order ) {
@@ -46,7 +46,7 @@ mainApp.controller( 'proseController', function( $scope, $http, queryFactory ) {
     }
 
     // Query parameter requires order word to be lowercase
-    var orderedProseURL = proseURL + orderByPrefix + 'orderBy=' + order.toLowerCase();
+    var orderedProseURL = getProseURL + orderByPrefix + 'orderBy=' + order.toLowerCase();
     setProse( orderedProseURL );
   }
 

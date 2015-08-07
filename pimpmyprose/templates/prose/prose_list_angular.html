@@ -21,11 +21,11 @@
   </span>
 
   <div class="pimpProseBox" ng-repeat="proseItem in prose.results">
-  	<h3><a href="">{[{ proseItem.username }]}</a></h3>
+  	<h3><a href="{[{ profileURL + proseItem.user_id }]}">{[{ proseItem.username }]}</a></h3>
   	<h4>{[{ proseItem.pimpScoreSum }]} total points</h4>
   	<p>{[{ proseItem.prose_text }]}</p>
   	<h5>{[{ proseItem.pimp_set.length }]} Pimps
-  		<a href=""><button type="button" class="btn btn-sm btn-primary">Pimp-it</button></a>
+  		<a href="{[{ proseURL + proseItem.id }]}"><button type="button" class="btn btn-sm btn-primary">Pimp-it</button></a>
   	</h5>
 
   </div>

@@ -3,12 +3,14 @@ from models import Prose, Pimp
 
 class ProseSerializer( serializers.ModelSerializer ):
     username = serializers.ReadOnlyField( source = 'user.username' )
+    user_id = serializers.ReadOnlyField( source = 'user.id' )
+
     # Don't return pimp_set for now, could be too large anyways
-    #pimp_set = serializers.HyperlinkedRelatedField( many = True, view_name = 'pimp-detail', read_only = True )
+    pimp_set = serializers.HyperlinkedRelatedField( many = True, view_name = 'pimp-detail', read_only = True )
 
     class Meta:
         model = Prose
-        fields = ( 'id', 'username', 'prose_text', 'pub_date', 'pimpScoreSum' )
+        fields = ( 'id', 'username', 'user_id', 'prose_text', 'pub_date', 'pimpScoreSum', 'pimp_set' )
 
 class PimpSerializer( serializers.ModelSerializer ):
     username = serializers.ReadOnlyField( source = 'user.username' )
