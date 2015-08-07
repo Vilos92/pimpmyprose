@@ -1,9 +1,0 @@
-<div class="pimpProseBox">
-	<h3><a href="{% url 'prose:profile' prose.user.id %}">{{ prose.user.username }}</a></h3>
-	<h4>{{ prose.pimpScoreSum }} total points</h4>
-	<p>{{ prose.prose_text }}</p>
-	<h5>{{ prose.pimp_set.count }} Pimps
-		<a href="{% url 'prose:detail' prose.id %}"><button type="button" class="btn btn-sm btn-primary">Pimp-it</button></a>
-	</h5>
-
-</div>
