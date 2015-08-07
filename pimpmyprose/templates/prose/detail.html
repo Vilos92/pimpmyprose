@@ -44,63 +44,17 @@ Must be logged in to pimp this prose!
 
 <br>
 
-<div ng-app="mainApp" ng-controller="detailController">
-	<!-- AngularJS orderby implementation -->
-	<div class="dropdown">
-		<button class="btn btn-default dropdown-toggle" type="button" id="dropdownFilter" data-toggle="dropdown" aria-expanded="true">
-			sorted by: {[{ currentOrderBy }]}
-			<span class="caret"></span>
-		</button>
-		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownFilter">
-			<li role="presentation" ng-repeat="orderBy in orderBy_set">
-				<a role="menuitem" tabindex="-1" ng-click="setOrder( orderBy )">{[{ orderBy }]}</a>
-			</li>
-		</ul>
-	</div>
-
-	<br>
-
-	<button ng-click="previousPage()" ng-disabled="!pimps.previous">previous</button>
-	{[{ currentPage }]} / {[{ numPages }]}
-	<button ng-click="nextPage()" ng-disabled="!pimps.next">next</button>
-
-	<!-- Print all the pimps here -->
-	<div ng-show="pimps.results">
-			<div class="pimpProseBox" ng-repeat="pimp in pimps.results">
-				<h3><a href="{[{ profileURL + pimp.user_id }]}">{[{ pimp.username }]}</a></h3>
-
-				<h4 id="pimp_{[{ pimp.id }]}_score">{[{ pimp.upvotes - pimp.downvotes }]}</h4>
-				<h4>points</h4>
-				<h4>
-					<span data-pimp_id="{[{ pimp.id }]}" class="upvote voteArrow glyphicon glyphicon-triangle-top"></span>
-					<span data-pimp_id="{[{ pimp.id }]}" class="downvote voteArrow glyphicon glyphicon-triangle-bottom"></span>
-				</h4>
-				<h4>{[{ pimp.percentMatch }]}% match</h4>
-
-				<p>{[{ pimp.pimp_text }]}</p>
-				<!--
-				<h5>
-					<a href="">view parent Prose</a>
-				</h5>
-			</div>-->
-
-	</div>
-	<p ng-hide="pimps.results">There are no Pimps.</p>
-
-</div>
+<div ng-app="mainApp" ng-controller="detailController">{% include "prose/pimp_list_angular.html" %}</div>
 
 {% endblock %}
 
-{% block JavaScript %}
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+{% block angularJS %}
+<!-- Load angularJS, mainApp, and default django URLs -->
+{% include "prose/angularJS.html" %}
 
-<script>
-/* Set all URLs to be used by the detailController */
-var prose_id = {{ prose.id }};
-var pimpAPI = "{% url 'prose:index' %}" + "api/pimp/";
-var profileURL = "{% url 'prose:profile' 1 %}".replace( '1/', '' );
-</script>
+<!-- For the detail page, get the id of the current prose -->
+<script>var prose_id = {{ prose.id }};</script>
 
-<script src="{% static 'js/angular/mainApp.js' %}"></script>
+<!-- Load the controller for the detail page -->
 <script src="{% static 'js/angular/detailController.js' %}"></script>
 {% endblock %}

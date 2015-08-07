@@ -1,0 +1,12 @@
+{% load staticfiles %}
+<!-- Load angularJS -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+
+<!-- Load main app -->
+<script src="{% static 'js/angular/mainApp.js' %}"></script>
+
+<script>
+  /* Set all URLs to be used by the controllers */
+  var pimpAPI = "{% url 'prose:index' %}" + "api/pimp/";
+  var profileURL = "{% url 'prose:profile' 1 %}".replace( '1/', '' );
+</script>

@@ -390,16 +390,9 @@ def profile_pimps( request, user_id ):
 	user = get_object_or_404( User, pk = user_id )
 	userProfile = user.userProfile
 
-	# Get all pimps from user
-	pimp_list = userProfile.getPimps().all()
-
-	# Pass pimp_list_profile as true to indicate that
-	# pimps should have links to their parent prose
-	show_parent_prose = True
-
 	return render_to_response(
 			'prose/profile_pimps.html',
-			{ 'userProfile' : userProfile, 'pimp_list' : pimp_list },
+			{ 'userProfile' : userProfile },
 			context )
 
 # View current user's notifications
@@ -519,20 +512,36 @@ class PimpViewSet( viewsets.ModelViewSet ):
 		# Get default queryset (all pimps)
 		queryset = Pimp.objects.all()
 
+		# Get orderBy parameter to be used on any page
+		orderBy = self.request.query_params.get( 'orderBy', None )
+
 		# If a user_id is specified, filter query set by their user_id
 		user_id = self.request.query_params.get( 'user_id', None )
 		if user_id is not None:
 			queryset = queryset.filter( user__id = user_id )
-			return queryset
+
+			# If no orderBy specification, just order by top (default query set)
+			if orderBy is None or orderBy == 'top':
+				queryset = sorted( list( queryset.all() ), key = lambda x : x.score, reverse = True )
+				return queryset
+			elif orderBy == 'new':
+				queryset = queryset.order_by('-pub_date')
+				return queryset
+			elif orderBy == 'worst':
+				queryset = sorted( list( queryset.all() ), key = lambda x : x.score, reverse = False )
+				return queryset
+			elif orderBy == 'old':
+				queryset = queryset.order_by('pub_date')
+				return queryset
+
+			# If orderBy is invalid, simply return default set of pimps sorted by rank
+			return sorted( list( queryset.all() ), key = lambda x : x.score, reverse = True )
 
 		# If a prose_id is specified (no user_id), check orderBy and return queryset
 		prose_id = self.request.query_params.get( 'prose_id', None )
 		if prose_id is not None:
 			# Get prose associated with this id
 			prose = get_object_or_404( Prose, pk = prose_id )
-
-			# If a prose_id is specified, check the orderBy parameter
-			orderBy = self.request.query_params.get( 'orderBy', None )
 
 			# Get default query set for a specific prose
 			queryset = prose.rankedPimps()
