@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<h1>Manage Profile: Greg</h1>
+<h1>Manage Profile: {{ user.username }}</h1>
 
 {% if messages %}
 <ul class="messages">
@@ -15,9 +15,9 @@
 
 <form id="user_form" method="post" action="{% url 'prose:profile_manage' %}">
 	{% csrf_token %}
-	
+
 	{{ userManage_form.as_p }}
-	
+
 	<button type="submit" class="btn btn-primary" name="submit" />Edit Profile</button>
 </form>
 
