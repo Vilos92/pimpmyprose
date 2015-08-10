@@ -309,33 +309,6 @@ def profile( request, user_id ):
 			{	'userProfile' : userProfile, 'followingUser' : followingUser },
 			context )
 
-# View Prose of a user profile
-def profile_prose( request, user_id ):
-	context = RequestContext(request)
-
-	user = get_object_or_404( User, pk = user_id )
-	userProfile = user.userProfile
-
-	# Get all prose from user
-	prose_list = userProfile.getProses().all()
-
-	return render_to_response(
-			'prose/profile_prose.html',
-			{ 'userProfile' : userProfile, 'prose_list' : prose_list },
-			context )
-
-# View Pimps of a user profile
-def profile_pimps( request, user_id ):
-	context = RequestContext(request)
-
-	user = get_object_or_404( User, pk = user_id )
-	userProfile = user.userProfile
-
-	return render_to_response(
-			'prose/profile_pimps.html',
-			{ 'userProfile' : userProfile },
-			context )
-
 # View current user's notifications
 @login_required
 def notifications(request):

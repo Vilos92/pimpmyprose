@@ -1,4 +1,5 @@
 {% extends "prose/base.html" %}
+{% load staticfiles %}
 {% block title %}Profile for {{ userProfile.user.username }}{% endblock %}
 
 {% block content %}
@@ -10,8 +11,8 @@
 
 <table class="table-userStats">
 	<tr>
-		<th><a href="{% url 'prose:profile_prose' userProfile.user.id %}">PROSE</a></th>
-		<th><a href="{% url 'prose:profile_pimps' userProfile.user.id %}">PIMPS</a></th>
+		<th><a href="#/prose">PROSE</a></th>
+		<th><a href="#/pimps">PIMPS</a></th>
 		<th><a href="{% url 'prose:following' userProfile.user.id %}">FOLLOWING</a></th>
 		<th><a href="{% url 'prose:followers' userProfile.user.id %}">FOLLOWERS</a></th>
 	</tr>
@@ -28,5 +29,44 @@
 		<td>{{ userProfile.getPimpScore }} points</td>
 	</tr>
 </table>
+
+<br>
+<div ng-app="mainApp">
+	<div ng-view></div>
+
+	<script type="text/ng-template" id="prose.html">
+		<h2>All Prose from {{ userProfile.user.username }}</h2>
+		{% include "prose/prose_list_angular.html" %}
+	</script>
+
+	<script type="text/ng-template" id="pimps.html">
+		<h2>All Pimps from {{ userProfile.user.username }}</h2>
+		{% include "prose/pimp_list_angular.html" %}
+	</script>
+
+</div>
+
+{% endblock %}
+
+{% block angularJS %}
+<!-- Load angularJS, mainApp, and default django URLs -->
+{% include "prose/angularJS.html" %}
+
+<!-- Load module for angularJS routing -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-route.min.js"></script>
+
+<!-- Create queries for the profile page for prose and pimps -->
+<script>
+	var proseQueryParameter = '?user_id=' + {{ userProfile.user.id }};
+	var pimpsQueryParameter = '?user_id=' + {{ userProfile.user.id }};
+</script>
+
+
+<!-- Load the prose and pimp controller for the profile page -->
+<script src="{% static 'js/angular/proseController.js' %}"></script>
+<script src="{% static 'js/angular/pimpsController.js' %}"></script>
+
+<!-- Load the router for the profile page -->
+<script src="{% static 'js/angular/profileRouter.js' %}"></script>
 
 {% endblock %}

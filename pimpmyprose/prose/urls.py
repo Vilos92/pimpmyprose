@@ -29,14 +29,6 @@ urlpatterns = patterns( '',
 	# ex: /prose/profile/1/
 	url( r'^profile/(?P<user_id>\d+)/$', views.profile, name = 'profile' ),
 
-	# All prose from a user
-	# ex: /prose/profile/1/prose/
-	url( r'^profile/(?P<user_id>\d+)/prose/$', views.profile_prose, name = 'profile_prose' ),
-
-	# All pimps from a user
-	# ex: /prose/profile/1/pimps/
-	url( r'^profile/(?P<user_id>\d+)/pimps/$', views.profile_pimps, name = 'profile_pimps' ),
-
 	# ex: /prose/profile/manage/
 	url( r'^profile/manage/$', views.profile_manage, name = 'profile_manage' ),
 
