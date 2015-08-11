@@ -52,9 +52,6 @@
 <!-- Load angularJS, mainApp, and default django URLs -->
 {% include "prose/angularJS.html" %}
 
-<!-- Load module for angularJS routing -->
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-route.min.js"></script>
-
 <!-- Create queries for the profile page for prose and pimps -->
 <script>
 	var proseQueryParameter = '?user_id=' + {{ userProfile.user.id }};

@@ -114,7 +114,7 @@ CSS for index page
 
 /* Alternate background color of posts to distinguish them */
 .pimpProseBox:nth-child(odd) {
-	background-color: #fffff0;
+	background-color: #F0F0F0;
 }
 
 .pimpProseBox a {

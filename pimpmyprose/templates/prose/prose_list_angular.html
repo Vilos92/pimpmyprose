@@ -15,10 +15,11 @@
   <br>
 
   <span ng-hide="numPages < 2">
-    <button ng-click="previousPage()" ng-disabled="!prose.previous">previous</button>
+    <button ng-click="previousPage()" ng-disabled="!prose.previous" class="btn btn-sm btn-primary">previous</button>
     {[{ currentPage }]} / {[{ numPages }]}
-    <button ng-click="nextPage()" ng-disabled="!prose.next">next</button>
+    <button ng-click="nextPage()" ng-disabled="!prose.next" class="btn btn-sm btn-primary">next</button>
   </span>
+  <br><br>
 
   <div class="pimpProseBox" ng-repeat="proseItem in prose.results">
   	<h3><a href="{[{ profileURL + proseItem.user_id }]}">{[{ proseItem.username }]}</a></h3>

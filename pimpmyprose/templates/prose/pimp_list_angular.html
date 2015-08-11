@@ -16,10 +16,11 @@
   <br>
 
   <span ng-hide="numPages < 2">
-    <button ng-click="previousPage()" ng-disabled="!pimps.previous">previous</button>
+    <button ng-click="previousPage()" ng-disabled="!pimps.previous" class="btn btn-sm btn-primary">previous</button>
     {[{ currentPage }]} / {[{ numPages }]}
-    <button ng-click="nextPage()" ng-disabled="!pimps.next">next</button>
+    <button ng-click="nextPage()" ng-disabled="!pimps.next" class="btn btn-sm btn-primary">next</button>
   </span>
+  <br><br>
 
   <!-- Print all the pimps here -->
   <div ng-show="pimps.results">
