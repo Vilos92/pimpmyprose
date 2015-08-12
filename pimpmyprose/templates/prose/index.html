@@ -37,8 +37,8 @@
 
 <!-- Links for user to view Prose and Pimps from followed users -->
 <br>
-<a href="{% url 'prose:following_prose' user.id %}">View Prose</a> from users you are following.<br>
-<a href="{% url 'prose:following_pimps' user.id %}">View Pimps</a> from users you are following.<br>
+<a href="{% url 'prose:following_prose' user.id %}"><button class="btn btn-success"/>Followed Prose</button></a>
+<a href="{% url 'prose:following_pimps' user.id %}"><button class="btn btn-success"/>Followed Pimps</button></a>
 
 {% else %}
 Must be logged in to prose!
