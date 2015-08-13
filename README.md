@@ -10,28 +10,22 @@ Repository for pimpMyProse, a website for posting any form of prose that you wou
 ## High-Priority
 + Restyle site
 	+ Restyle pimpProseBox to have text-wrapping, and a non-fixed height
-	+ Notification list has a very strange color scheme - new messags use old CSS table instead of pimpProseBox
-	+ The list of Prose/Pimps should have alternating colors to distinguish them. The current layout of tables looks bland and uninviting
-	+ Have some kind of graphic on the index page to direct users towards posting a new Prose, looking at Pimps, or just registering
-	+ Items must be restyled in multiple places:
-		+ pimp_list_item
-		+ prose_list_item
-		+ pimp_notification_list
-		+ main.css
-			+ Remove old CSS for tables afterwords
 + Determine the additions to the django configuration necessary for the server, to make uploading new versions of pimpMyProse more simple
++ jQuery scripts for upvoting/downvoting have hardcoded URL, would be better if dynamic
+	+ Use the {{ STATIC_URL }} tag and pass it into the JavaScript functions using django templates
++ Do form validation for registration with jQuery/angularJS (frontend, backend is done)
++ Find way not to load main.js on every page
+	+ JavaScript block where scripts can be loaded at will
+	+ Proses longer than a certain length should be shortened on the index, with ellipse at end
+		+ Must click on "see full Prose" or something to this effect, which takes use to that Prose page
 
 ## Medium-Priority
-+ Filter to show posts from only people you are following
-+ Proses longer than a certain length should be shortened on the index, with ellipse at end
-	+ Must click on "see full Prose" or something to this effect, which takes use to that Prose page
 + A reddit share link exists, but maybe redesign (or make custom logo)
 	+ Need to customize templates and views for share links. Facebook plugin needs correct url
 + Finish search page - style haystack search bar with bootstrap
 + Automated testing
 	+ Reddit hot score algorithm seems to work, unit test it
 	+ Confidence algorithm? http://amix.dk/blog/post/19588
-+ Pagination on index, detail, profile, notifications, etc.
 + Email validation (already figured it out for EnvoyNow)
 + If user has already voted on a pimp, corresponding arrow should be highlighted already
 
@@ -39,19 +33,13 @@ Repository for pimpMyProse, a website for posting any form of prose that you wou
 ## Low-Priority
 + Ability to string a series of Prose together
 	+ Useful for users who want to separate a work into sections, all to be improved
-+ Use angularJS to count characters left in text box
-	+ Should also consider raising the text-input limit significantly
-+ jQuery scripts for upvoting/downvoting have hardcoded URL, would be better if dynamic
-	+ Use the {{ STATIC_URL }} tag and pass it into the JavaScript functions using django templates
++ Should consider raising the text-input limit significantly
 + Move ranking_functions.py to its own scripts folder?
 + Update admin page for your new models, customize to be more effective
 + Auto create userProfile if none exists for user (primarily for superusers/admins)
 + Following and unfollowing a user on their profile page should use ajax to retrieve new amount of followers
-+ Do form validation for registration with jQuery/angularJS (frontend, backend is done)
 + Ability to follow users from a Prose/Pimp page, not just profile
 	+ Users can follow each other, but need to expand follow_button to work for a list. Right now, takes in a context value of either "Followed" or "Not Followed" from the profile view. Sets it to a string that says "Null" if not logged in. The pimp_list would take a set.
-+ Find way not to load main.js on every page
-	+ In base.html, add a new block above all main content, where other pages can load their own JavaScript in that block
 
 ## Non-Priority
 + Make a pimp which is the origin of pimpMyProse. Let others upvote it
