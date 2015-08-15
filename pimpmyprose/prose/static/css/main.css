@@ -200,3 +200,8 @@ CSS for index page
 .form-control-custom {
 	width: 30%;
 }
+
+/* Pagination buttons for angularJS */
+.paginationButton {
+	width: 6.5em;
+}
